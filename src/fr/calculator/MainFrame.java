@@ -51,20 +51,20 @@ public class MainFrame extends JFrame {
 		c.gridwidth = 1;
 		panel.add(eraseButton, c);
 
-		JButton calculateButton = new JButton("Calculer/R�soudre");
+		JButton calculateButton = new JButton("Calculer/Résoudre");
 		c.insets = new Insets(5, 5, 5, 15);
 		c.gridx = 2;
 		c.gridwidth = 2;
 		panel.add(calculateButton, c);
 
-		JLabel resultInfos = new JLabel("R�sultat:");
+		JLabel resultInfos = new JLabel("Résultat:");
 		c.insets = new Insets(10, 15, 15, 5);
 		c.gridx = 0;
 		c.gridy = 3;
 		c.gridwidth = 1;
 		panel.add(resultInfos, c);
 
-		resultLabel = new JLabel("aucun r�sultat � afficher pour l'instant");
+		resultLabel = new JLabel("aucun résultat à afficher pour l'instant");
 		resultLabel.setFont(resultLabel.getFont().deriveFont(Font.ITALIC));
 		c.insets = new Insets(0, 0, 5, 15);
 		c.fill = GridBagConstraints.CENTER;
