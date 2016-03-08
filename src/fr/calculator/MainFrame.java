@@ -69,7 +69,6 @@ public class MainFrame extends JFrame {
 		c.insets = new Insets(0, 0, 5, 15);
 		c.fill = GridBagConstraints.CENTER;
 		c.gridx = 1;
-		c.gridy = 3;
 		c.gridwidth = 3;
 		panel.add(resultLabel, c);
 
