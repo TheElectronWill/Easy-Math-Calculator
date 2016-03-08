@@ -88,7 +88,7 @@ public class MainFrame extends JFrame {
 
 	private class EraseButtonListener implements ActionListener {
 		/**
-		 * Appelé quand on clique sur le bouton "Effacer".
+		 * Fonction appelée quand on clique sur le bouton "Effacer".
 		 */
 		@Override
 		public void actionPerformed(ActionEvent event) {
@@ -98,30 +98,27 @@ public class MainFrame extends JFrame {
 
 	private class CalculateButtonListener implements ActionListener {
 		/**
-		 * Appelé quand on clique sur le bouton "Calculer".
+		 * Fonction appelée quand on clique sur le bouton "Calculer".
 		 */
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			final JButton calculateButton = (JButton) event.getSource();
 			calculateButton.setText("Calcul en cours...");
 			calculateButton.setEnabled(false);
-			// TODO calcul/résolution de l'équation.
-			// Attention: le calcul doit s'effectuer dans un autre Thread, pour
-			// ne pas bloquer la mise à jour de l'affichage.
 
-			// Exemple de Thread qui attend 1 secondes et on réactive le bouton:
-			Thread t = new Thread() {
-				public void run() {
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					calculateButton.setText("Calculer/Résoudre");
-					calculateButton.setEnabled(true);
-				};
-			};
-			t.start();
+			// Le calcul doit s'effectuer dans un autre Thread, pour
+			// ne pas bloquer la mise à jour de l'affichage.
+			CalculatorThread calculator = new CalculatorThread();
+			calculator.start();// lance le calcul en parallèle
+
+			/*
+			 * Exemple de Thread qui attend 1 seconde et on réactive le bouton:
+			 * Thread t = new Thread() { public void run() { try {
+			 * Thread.sleep(1000); } catch (InterruptedException e) {
+			 * e.printStackTrace(); }
+			 * calculateButton.setText("Calculer/Résoudre");
+			 * calculateButton.setEnabled(true); }; }; t.start();
+			 */
 		}
 	}
 
