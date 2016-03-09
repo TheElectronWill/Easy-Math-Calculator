@@ -1,6 +1,5 @@
 package fr.calculator;
 
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
@@ -10,21 +9,19 @@ import javax.swing.SwingWorker;
  * <p>
  * Un nouveau <code>Calculator</code> est créé à chaque fois qu'on clique sur le bouton "Calculer".
  * </p>
+ * 
+ * @author Guillaume
  */
 public class Calculator extends SwingWorker<String, Void> {
 	
 	/**
-	 * Le calcul entré par l'utilisateur.
+	 * La fenêtre principale. Cette référence est nécessaire pour accéder aux composants graphiques qui sont affectés
+	 * par le calcul, comme le JLabel contenant le résultat.
 	 */
-	private final String userInput;
-	/**
-	 * Le label à modifier avec le résultat du calcul.
-	 */
-	private final JLabel uiLabel;
+	private final MainFrame mainFrame;
 	
-	public Calculator(String userInput, JLabel uiLabel) {
-		this.userInput = userInput;
-		this.uiLabel = uiLabel;
+	public Calculator(MainFrame mainFrame) {
+		this.mainFrame = mainFrame;
 	}
 	
 	/**
@@ -32,8 +29,10 @@ public class Calculator extends SwingWorker<String, Void> {
 	 */
 	@Override
 	protected String doInBackground() throws Exception {
+		final String userInput = mainFrame.inputField.getText();// le calcul entré par l'utilisateur
+		Thread.sleep(2000);
 		// TODO calculs ici
-		return null;
+		return "test";
 	}
 	
 	/**
@@ -42,8 +41,9 @@ public class Calculator extends SwingWorker<String, Void> {
 	@Override
 	protected void done() {
 		try {
-			String result = this.get();
-			uiLabel.setText(result);
+			mainFrame.result.setText(this.get());
+			mainFrame.calculateButton.setEnabled(true);
+			mainFrame.calculateButton.setText("Calculer/Résoudre");
 		} catch (Exception e) {
 			e.printStackTrace();// écrit les détails de l'erreur dans la console.
 			JOptionPane.showMessageDialog(null, e.toString(), "Erreur", JOptionPane.ERROR_MESSAGE);// affiche un message

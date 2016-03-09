@@ -47,11 +47,19 @@ public class MainFrame extends JFrame {
 	/**
 	 * Contient le texte entré par l'utilisateur.
 	 */
-	private final JTextField inputField;
+	final JTextField inputField;
 	/**
 	 * Contient le résultat calculé par le logiciel.
 	 */
-	private final JLabel result;
+	final JLabel result;
+	/**
+	 * Bouton "Calculer". Lance le calcul.
+	 */
+	final JButton calculateButton;
+	/**
+	 * Bouton "Effacer". Efface le contenu de {@link #inputField}.
+	 */
+	final JButton eraseButton;
 	
 	/**
 	 * Crée la fenêtre et place les composants graphiques.
@@ -80,14 +88,14 @@ public class MainFrame extends JFrame {
 		c.gridwidth = 4;
 		panel.add(inputField, c);
 		
-		JButton eraseButton = new JButton("Effacer");
+		eraseButton = new JButton("Effacer");
 		eraseButton.addActionListener(new EraseButtonListener());
 		c.insets = new Insets(5, 0, 5, 5);
 		c.gridy = 1;
 		c.gridwidth = 1;
 		panel.add(eraseButton, c);
 		
-		JButton calculateButton = new JButton("Calculer/Résoudre");
+		calculateButton = new JButton("Calculer/Résoudre");
 		calculateButton.addActionListener(new CalculateButtonListener());
 		c.insets = new Insets(5, 5, 5, 15);
 		c.gridx = 3;
@@ -104,7 +112,6 @@ public class MainFrame extends JFrame {
 		result = new JLabel("aucun résultat à afficher pour l'instant");
 		result.setFont(result.getFont().deriveFont(Font.ITALIC));
 		c.insets = new Insets(0, 0, 5, 15);
-		c.fill = GridBagConstraints.CENTER;
 		c.gridx = 1;
 		c.gridwidth = 3;
 		panel.add(result, c);
@@ -131,8 +138,11 @@ public class MainFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			final JButton calculateButton = (JButton) event.getSource();
-			calculateButton.setText("Calcul en cours...");
+			result.setText("Calcul en cours...");
 			calculateButton.setEnabled(false);
+			
+			Calculator calculator = new Calculator(MainFrame.this);
+			calculator.execute();
 		}
 	}
 	
