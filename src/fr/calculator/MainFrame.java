@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 /**
  * Fenêtre principale. Utilise la bibliothèque graphique swing.
@@ -27,6 +28,13 @@ public class MainFrame extends JFrame {
 	 * Point d'entrée du programme.
 	 */
 	public static void main(String[] args) {
+		// -- Utilisation de l'apparence graphique du système d'exploitation --
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		// -- Affichage l'interface graphique (dans l'Event Dispatch Thread) --
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
