@@ -98,6 +98,10 @@ public class Fraction implements Term {
 	public Term simplify() {
 		int gcd = gcd(numerator, denominator);
 		int simplifiedNum = numerator / gcd, simplifiedDen = denominator / gcd;
+		if (simplifiedNum > 0 && simplifiedDen < 0) {// Transformer a/-b en -a/b
+			simplifiedNum *= -1;
+			simplifiedDen *= -1;
+		}
 		return simplifiedDen == 1 ? new IntegerTerm(simplifiedNum) : new Fraction(simplifiedNum, simplifiedDen);
 	}
 	
