@@ -19,6 +19,7 @@ public class TestSimplifier {
 		long t0 = System.nanoTime();
 		List<Term> simplified = MathSimplifier.simplify(terms);
 		double time = (System.nanoTime() - t0) / (1000_000.0);
+		
 		String afterSimplification = Arrays.deepToString(simplified.toArray());
 		System.out.println("simplifié: " + afterSimplification);
 		System.out.println("Simplifié en " + time + " millisecondes");
