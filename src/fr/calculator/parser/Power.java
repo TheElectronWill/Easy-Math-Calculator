@@ -29,7 +29,9 @@ public class Power implements Term {
 			int b = ((IntegerTerm) power).value;
 			double result = Math.pow(a, b);
 			int integerResult = (int) result;
-			return result == integerResult ? new IntegerTerm(integerResult) : this;
+			return result == integerResult ? new IntegerTerm(integerResult) : this;// on ne renvoie integerResult que si
+																					// c'est correct (p.ex. si c'est pas
+																					// trop grand)
 		}
 		return this;
 	}
@@ -37,6 +39,15 @@ public class Power implements Term {
 	@Override
 	public String toString() {
 		return "Power: " + n + "^" + power;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Power) {
+			Power p = (Power) obj;
+			return n.equals(p.n) && power.equals(p.power);
+		}
+		return false;
 	}
 	
 }

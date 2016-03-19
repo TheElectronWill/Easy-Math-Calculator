@@ -70,4 +70,9 @@ public class Parenthesis implements Term {
 		return "Parenthesis: " + terms.toString();
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		return (obj instanceof Parenthesis) && terms.equals(((Parenthesis) obj).terms);
+	}
+	
 }

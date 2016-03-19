@@ -17,9 +17,9 @@ public class Division implements Term {
 	
 	@Override
 	public Term reverse() {
-		Term c = a;
+		Term temp = a;
 		a = b;
-		b = c;
+		b = temp;
 		return this;
 	}
 	
@@ -54,6 +54,15 @@ public class Division implements Term {
 	@Override
 	public String toString() {
 		return "Division: (" + a + ")/(" + b + ")";
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Division) {
+			Division div = (Division) obj;
+			return a.equals(div.a) && b.equals(div.b);
+		}
+		return false;
 	}
 	
 }

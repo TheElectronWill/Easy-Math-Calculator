@@ -114,4 +114,13 @@ public class Multiplication implements Term {
 		return "Multiplication: (" + a + ")*(" + b + ")";
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Multiplication) {
+			Multiplication m = (Multiplication) obj;
+			return a.equals(m.a) && b.equals(m.b);
+		}
+		return false;
+	}
+	
 }

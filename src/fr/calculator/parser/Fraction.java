@@ -6,7 +6,7 @@ public class Fraction implements Term {
 		return b == 0 ? a : gcd(b, a % b);
 	}
 	
-	public final int numerator, denominator;
+	public int numerator, denominator;
 	
 	public Fraction(int numerator, int denominator) {
 		this.numerator = numerator;
@@ -15,12 +15,16 @@ public class Fraction implements Term {
 	
 	@Override
 	public Term negate() {
-		return new Fraction(-numerator, denominator);
+		numerator = -numerator;
+		return this;
 	}
 	
 	@Override
 	public Term reverse() {
-		return new Fraction(denominator, numerator);
+		int temp = numerator;
+		this.numerator = denominator;
+		this.denominator = temp;
+		return this;
 	}
 	
 	@Override
@@ -33,6 +37,15 @@ public class Fraction implements Term {
 	@Override
 	public String toString() {
 		return "Fraction: " + numerator + "/" + denominator;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Fraction) {
+			Fraction frac = (Fraction) obj;
+			return numerator == frac.numerator && denominator == frac.denominator;
+		}
+		return false;
 	}
 	
 }

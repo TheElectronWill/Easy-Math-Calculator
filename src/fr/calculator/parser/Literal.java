@@ -28,4 +28,9 @@ public class Literal implements Term {
 		return "Literal: " + name;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		return (obj instanceof Literal) && name == ((Literal) obj).name;
+	}
+	
 }

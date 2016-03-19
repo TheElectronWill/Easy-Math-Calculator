@@ -29,4 +29,9 @@ public class IntegerTerm implements Term {
 		return "IntegerTerm: " + value;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		return (obj instanceof IntegerTerm) && value == ((IntegerTerm) obj).value;
+	}
+	
 }
