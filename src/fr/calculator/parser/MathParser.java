@@ -10,7 +10,7 @@ import java.util.List;
  * {@code List<Term>}. Par exemple, le calcul <code>"2 + 45 - 6"</code> donne la liste suivante:
  * <code>[+2,+45,-6]</code>
  *
- * @author TheElectronWill
+ * @author Guillaume
  * 		
  */
 public class MathParser {

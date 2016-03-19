@@ -4,7 +4,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main {
+/**
+ * Teste le fonctionnement du {@link MathParser}.
+ * 
+ * @author Guillaume
+ * 		
+ */
+public class TestParser {
 	
 	public static void main(String[] args) throws InterruptedException {
 		System.out.println("Entrez une expression mathématique");
