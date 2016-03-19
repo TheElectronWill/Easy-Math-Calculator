@@ -2,6 +2,7 @@ package fr.calculator.solver;
 
 import java.util.Arrays;
 import java.util.List;
+import fr.calculator.parser.Division;
 import fr.calculator.parser.Fraction;
 import fr.calculator.parser.IntegerTerm;
 import fr.calculator.parser.Literal;
@@ -13,7 +14,7 @@ public class TestSimplifier {
 	public static void main(String[] args) {
 		IntegerTerm i1 = new IntegerTerm(10), i2 = new IntegerTerm(5);
 		Literal x = new Literal("x");
-		Multiplication m = new Multiplication(x, new Multiplication(i2, new Multiplication(i1, new Fraction(i2.value, i1.value))));
+		Multiplication m = new Multiplication(x, new Multiplication(i2, new Division(i1, new Fraction(i2.value, i1.value))));
 		
 		List<Term> terms = Arrays.asList(m);
 		String beforeSimplification = Arrays.deepToString(terms.toArray());
