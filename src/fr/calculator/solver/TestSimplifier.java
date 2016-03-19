@@ -2,12 +2,7 @@ package fr.calculator.solver;
 
 import java.util.Arrays;
 import java.util.List;
-import fr.calculator.parser.Division;
-import fr.calculator.parser.Fraction;
-import fr.calculator.parser.IntegerTerm;
-import fr.calculator.parser.Literal;
-import fr.calculator.parser.Multiplication;
-import fr.calculator.parser.Term;
+import fr.calculator.parser.*;
 
 public class TestSimplifier {
 	
@@ -16,7 +11,8 @@ public class TestSimplifier {
 		Literal x = new Literal("x");
 		Multiplication m = new Multiplication(x, new Multiplication(i2, new Division(i1, new Fraction(i2.value, i1.value))));
 		
-		List<Term> terms = Arrays.asList(m);
+		List<Term> terms = Arrays.asList(new IntegerTerm(99), new Parenthesis(m),
+				new Parenthesis(new IntegerTerm(123), new Fraction(12, 10)));
 		String beforeSimplification = Arrays.deepToString(terms.toArray());
 		System.out.println("tel quel : " + beforeSimplification);
 		
