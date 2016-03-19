@@ -150,7 +150,7 @@ public class MathParser {
 	
 	private Fraction decimalToFraction(String numberString) {
 		int numerator = Integer.parseInt(numberString.replace(".", ""));
-		int denominator = (int) Math.pow(10, numberString.length() - numberString.indexOf('.'));
+		int denominator = (int) Math.pow(10, numberString.length() - numberString.indexOf('.') - 1);
 		return new Fraction(numerator, denominator);
 	}
 	
