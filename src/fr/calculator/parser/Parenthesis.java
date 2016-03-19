@@ -36,15 +36,19 @@ public class Parenthesis implements Term {
 		for (int i = 0; i < terms.length; i++) {
 			Term simplified = terms[i].simplify();
 			terms[i] = simplified;
-			if (!(simplified instanceof IntegerTerm))
+			if (!(simplified instanceof IntegerTerm || simplified instanceof DecimalTerm)) {
 				mayCalculate = false;
+			}
 		}
 		if (mayCalculate) {
-			int result = 0;
+			double result = 0;
 			for (Term t : terms) {
-				result += ((IntegerTerm) t).value;
+				if (t instanceof IntegerTerm)
+					result += ((IntegerTerm) t).value;
+				else
+					result += ((DecimalTerm) t).value;
 			}
-			return new IntegerTerm(result);
+			return new DecimalTerm(result);
 		}
 		return this;
 	}
