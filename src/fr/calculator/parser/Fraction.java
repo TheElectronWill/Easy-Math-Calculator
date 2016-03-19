@@ -13,14 +13,81 @@ public class Fraction implements Term {
 		this.denominator = denominator;
 	}
 	
+	/**
+	 * Ajoute une autre fraction à celle-là.
+	 * 
+	 * @return cette fraction
+	 */
+	public Fraction add(Fraction f) {
+		if (f.denominator == denominator) {
+			numerator += f.numerator;
+		} else {
+			numerator = (numerator * f.denominator + f.numerator * denominator);
+			denominator *= f.denominator;
+		}
+		return this;
+	}
+	
+	/**
+	 * Ajoute un nombre entier à cette fraction.
+	 * 
+	 * @return cette fraction
+	 */
+	public Fraction add(IntegerTerm i) {
+		numerator += i.value * denominator;
+		return this;
+	}
+	
+	/**
+	 * Multiplie cette fraction par une autre fraction.
+	 * 
+	 * @return cette fraction
+	 */
+	public Fraction multiply(Fraction f) {
+		numerator *= f.numerator;
+		denominator *= f.denominator;
+		return this;
+	}
+	
+	/**
+	 * Multiplie cette fraction par une nombre entier.
+	 * 
+	 * @return cette fraction
+	 */
+	public Fraction multiply(IntegerTerm i) {
+		numerator *= i.value;
+		return this;
+	}
+	
+	/**
+	 * Divise cette fraction par une autre fraction.
+	 * 
+	 * @return cette fraction
+	 */
+	public Fraction divide(Fraction f) {
+		numerator *= f.denominator;
+		denominator *= f.numerator;
+		return this;
+	}
+	
+	/**
+	 * Multiplie cette fraction par un nombre entier.
+	 * 
+	 * @return cette fraction
+	 */
+	public Fraction divide(IntegerTerm i) {
+		denominator *= i.value;
+		return this;
+	}
+	
 	@Override
-	public Term negate() {
+	public Fraction negate() {
 		numerator = -numerator;
 		return this;
 	}
 	
 	@Override
-	public Term reverse() {
+	public Fraction reverse() {
 		int temp = numerator;
 		this.numerator = denominator;
 		this.denominator = temp;
