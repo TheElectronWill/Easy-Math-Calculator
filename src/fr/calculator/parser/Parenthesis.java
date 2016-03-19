@@ -2,25 +2,28 @@ package fr.calculator.parser;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.ListIterator;
+import fr.calculator.solver.MathSimplifier;
 
 public class Parenthesis implements Term {
 	
-	public final Term[] terms;
+	public List<Term> terms;
 	
 	public Parenthesis(List<Term> terms) {
-		Term[] array = new Term[terms.size()];
-		this.terms = terms.toArray(array);
+		this.terms = terms;
 	}
 	
 	public Parenthesis(Term... terms) {
-		this.terms = terms;
+		this.terms = Arrays.asList(terms);
 	}
 	
 	@Override
 	public Term negate() {
 		// Multiplie chaque terme par -1
-		for (int i = 0; i < terms.length; i++) {
-			terms[i] = terms[i].negate();
+		ListIterator<Term> it = terms.listIterator();
+		while (it.hasNext()) {
+			Term t = it.next();
+			it.set(t.negate());
 		}
 		return this;
 	}
@@ -32,30 +35,39 @@ public class Parenthesis implements Term {
 	
 	@Override
 	public Term simplify() {
-		boolean mayCalculate = true;
-		for (int i = 0; i < terms.length; i++) {
-			Term simplified = terms[i].simplify();
-			terms[i] = simplified;
-			if (!(simplified instanceof IntegerTerm || simplified instanceof DecimalTerm)) {
-				mayCalculate = false;
+		if (terms.isEmpty())
+			return new IntegerTerm(0);
+		if (terms.size() == 1)
+			return terms.get(0).simplify();
+			
+		terms = MathSimplifier.simplify(terms);
+		boolean canCalculate = true;
+		for (Term t : terms) {
+			if (!(t instanceof IntegerTerm || t instanceof Fraction)) {
+				canCalculate = false;
+				break;
 			}
 		}
-		if (mayCalculate) {
-			double result = 0;
+		if (canCalculate) {
+			int numerator = 0, denominator = 1;
 			for (Term t : terms) {
-				if (t instanceof IntegerTerm)
-					result += ((IntegerTerm) t).value;
-				else
-					result += ((DecimalTerm) t).value;
+				if (t instanceof IntegerTerm) {
+					numerator += ((IntegerTerm) t).value * denominator;
+				} else if (t instanceof Fraction) {
+					Fraction f = (Fraction) t;
+					numerator = (numerator * f.denominator) + (f.numerator * denominator);
+					denominator *= f.denominator;
+				}
 			}
-			return new DecimalTerm(result);
+			return denominator == 1 ? new IntegerTerm(numerator) : new Fraction(numerator, denominator);
 		}
 		return this;
 	}
 	
 	@Override
 	public String toString() {
-		return "Parenthesis: " + Arrays.toString(terms);
+		String.valueOf(terms);
+		return "Parenthesis: " + terms.toString();
 	}
 	
 }
