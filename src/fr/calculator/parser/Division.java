@@ -33,19 +33,19 @@ public class Division implements Term {
 				IntegerTerm n2 = (IntegerTerm) b;
 				return new Fraction(n.value, n2.value).simplify();
 			}
-			if (b instanceof Fraction) {// n/(n2/n3) = (n*n3)/n2
+			if (b instanceof Fraction) {// n/(num/den) = (n*den)/num
 				Fraction fraction = (Fraction) b;
 				return new Fraction(n.value * fraction.denominator, fraction.numerator).simplify();
 			}
 		} else if (a instanceof Fraction) {
 			Fraction fraction = (Fraction) b;
-			if (b instanceof IntegerTerm) {// (num/denom)/n
+			if (b instanceof IntegerTerm) {// (num/den)/n
 				IntegerTerm n = (IntegerTerm) b;
-				return new Fraction(fraction.numerator * n.value, fraction.denominator).simplify();
+				return fraction.divide(n).simplify();
 			}
-			if (b instanceof Fraction) {// (num/denom)/(num2/denom2) = (num*denom2)/(denom*num2)
+			if (b instanceof Fraction) {// (num/den)/(num2/den2) = (num*den2)/(den*num2)
 				Fraction fraction2 = (Fraction) b;
-				return new Fraction(fraction.numerator * fraction2.denominator, fraction.denominator * fraction2.numerator).simplify();
+				return fraction.divide(fraction2).simplify();
 			}
 		}
 		return this;
