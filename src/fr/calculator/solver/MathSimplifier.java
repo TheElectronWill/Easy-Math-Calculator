@@ -14,6 +14,14 @@ public class MathSimplifier {
 	
 	private MathSimplifier() {}
 	
+	public static List<Term> simplify(Term[] expression) {
+		List<Term> simplifiedExpression = new ArrayList<>();
+		for (Term t : expression) {
+			simplifiedExpression.add(t.simplify());
+		}
+		return simplifiedExpression;
+	}
+	
 	public static List<Term> simplify(List<Term> expression) {
 		List<Term> simplifiedExpression = new ArrayList<>();
 		for (Term t : expression) {
