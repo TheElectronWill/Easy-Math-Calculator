@@ -15,7 +15,7 @@ public class Power implements Term {
 	}
 	
 	@Override
-	public Term negate() {
+	public Power negate() {
 		n = n.negate();
 		return this;
 	}

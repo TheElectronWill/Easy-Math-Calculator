@@ -9,18 +9,18 @@ public class IntegerTerm implements Term {
 	}
 	
 	@Override
-	public Term negate() {
+	public IntegerTerm negate() {
 		value = -value;
 		return this;
 	}
 	
 	@Override
-	public Term reverse() {
+	public Fraction reverse() {
 		return new Fraction(1, value);
 	}
 	
 	@Override
-	public Term simplify() {
+	public IntegerTerm simplify() {
 		return this;
 	}
 	

@@ -18,7 +18,7 @@ public class Parenthesis implements Term {
 	}
 	
 	@Override
-	public Term negate() {
+	public Parenthesis negate() {
 		// Multiplie chaque terme par -1
 		ListIterator<Term> it = terms.listIterator();
 		while (it.hasNext()) {

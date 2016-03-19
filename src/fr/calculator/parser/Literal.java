@@ -19,7 +19,7 @@ public class Literal implements Term {
 	}
 	
 	@Override
-	public Term simplify() {
+	public Literal simplify() {
 		return this;
 	}
 	
