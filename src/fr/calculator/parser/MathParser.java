@@ -144,12 +144,14 @@ public class MathParser {
 	}
 	
 	private Term parseNumber(String numberString, boolean negate) {
-		if (negate) {
-			return numberString.contains(".") ? new DecimalTerm(-Double.parseDouble(numberString))
-					: new IntegerTerm(-Integer.parseInt(numberString));
-		}
-		return numberString.contains(".") ? new DecimalTerm(Double.parseDouble(numberString))
-				: new IntegerTerm(Integer.parseInt(numberString));
+		Term t = numberString.contains(".") ? decimalToFraction(numberString) : new IntegerTerm(Integer.parseInt(numberString));
+		return negate ? t.negate() : t;
+	}
+	
+	private Fraction decimalToFraction(String numberString) {
+		int numerator = Integer.parseInt(numberString.replace(".", ""));
+		int denominator = (int) Math.pow(10, numberString.length() - numberString.indexOf('.'));
+		return new Fraction(numerator, denominator);
 	}
 	
 	/**
