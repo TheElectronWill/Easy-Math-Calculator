@@ -46,7 +46,7 @@ public class Multiplication implements Term {
 			}
 			if (b instanceof Fraction) {// n*fraction
 				Fraction frac = (Fraction) b;
-				return new Fraction(frac.numerator * n.value, frac.denominator);
+				return new Fraction(frac.numerator * n.value, frac.denominator).simplify();
 			}
 			if (b instanceof Multiplication) {// n(a*b)
 				Multiplication m = (Multiplication) b;
@@ -60,42 +60,48 @@ public class Multiplication implements Term {
 				}
 				if (m.a instanceof Fraction) {// n(fraction*b)
 					Fraction fraction = (Fraction) m.a;
-					return new Multiplication(new Fraction(n.value * fraction.numerator, fraction.denominator), m.b);
+					Fraction multipliedFraction = new Fraction(n.value * fraction.numerator, fraction.denominator);
+					return new Multiplication(multipliedFraction.simplify(), m.b);
 				}
 				if (m.b instanceof Fraction) {// n(a*fraction)
 					Fraction fraction = (Fraction) m.b;
-					return new Multiplication(new Fraction(n.value * fraction.numerator, fraction.denominator), m.a);
+					Fraction multipliedFraction = new Fraction(n.value * fraction.numerator, fraction.denominator);
+					return new Multiplication(multipliedFraction.simplify(), m.a);
 				}
 			}
 		} else if (a instanceof Fraction) {
 			Fraction fraction = (Fraction) a;
 			if (b instanceof IntegerTerm) {// fraction*n
 				IntegerTerm n = (IntegerTerm) b;
-				return new Fraction(fraction.numerator * n.value, fraction.denominator);
+				return new Fraction(fraction.numerator * n.value, fraction.denominator).simplify();
 			}
 			if (b instanceof Fraction) {// fraction*fraction
 				Fraction fraction2 = (Fraction) b;
-				return new Fraction(fraction.numerator * fraction2.numerator, fraction.denominator * fraction2.denominator);
+				return new Fraction(fraction.numerator * fraction2.numerator, fraction.denominator * fraction2.denominator).simplify();
 			}
 			if (b instanceof Multiplication) {// fraction(a*b)
 				Multiplication m = (Multiplication) b;
 				if (m.a instanceof IntegerTerm) {// fraction(n*b)
 					IntegerTerm n = (IntegerTerm) m.a;
-					return new Multiplication(new Fraction(fraction.numerator * n.value, fraction.denominator), m.b);
+					Fraction multipliedFraction = new Fraction(fraction.numerator * n.value, fraction.denominator);
+					return new Multiplication(multipliedFraction.simplify(), m.b);
 				}
 				if (m.b instanceof IntegerTerm) {// fraction(a*n)
 					IntegerTerm n = (IntegerTerm) m.b;
-					return new Multiplication(new Fraction(fraction.numerator * n.value, fraction.denominator), m.a);
+					Fraction multipliedFraction = new Fraction(fraction.numerator * n.value, fraction.denominator);
+					return new Multiplication(multipliedFraction.simplify(), m.a);
 				}
 				if (m.a instanceof Fraction) {// fraction(fraction2*b)
 					Fraction fraction2 = (Fraction) m.a;
-					return new Multiplication(
-							new Fraction(fraction.numerator * fraction2.numerator, fraction.numerator * fraction2.denominator), m.b);
+					Fraction mulipliedFraction = new Fraction(fraction.numerator * fraction2.numerator,
+							fraction.numerator * fraction2.denominator);
+					return new Multiplication(mulipliedFraction.simplify(), m.b);
 				}
 				if (m.b instanceof Fraction) {// fraction(a*fraction2)
 					Fraction fraction2 = (Fraction) m.b;
-					return new Multiplication(
-							new Fraction(fraction.numerator * fraction2.numerator, fraction.numerator * fraction2.denominator), m.a);
+					Fraction multipliedFraction = new Fraction(fraction.numerator * fraction2.numerator,
+							fraction.numerator * fraction2.denominator);
+					return new Multiplication(multipliedFraction.simplify(), m.a);
 				}
 			}
 		}
