@@ -1,6 +1,6 @@
 package fr.calculator.parser;
 
-public class Fraction implements Term {
+public class Fraction implements Term, Cloneable {
 	
 	static int gcd(int a, int b) {
 		return b == 0 ? a : gcd(b, a % b);
@@ -23,6 +23,31 @@ public class Fraction implements Term {
 			numerator += f.numerator;
 		} else {
 			numerator = (numerator * f.denominator + f.numerator * denominator);
+			denominator *= f.denominator;
+		}
+		return this;
+	}
+	
+	/**
+	 * Soustrait un nombre entier à cette fraction.
+	 * 
+	 * @return cette fraction
+	 */
+	public Fraction substract(IntegerTerm i) {
+		numerator -= i.value * denominator;
+		return this;
+	}
+	
+	/**
+	 * Soustrait une autre fraction à celle-là.
+	 * 
+	 * @return cette fraction
+	 */
+	public Fraction substract(Fraction f) {
+		if (f.denominator == denominator) {
+			numerator -= f.numerator;
+		} else {
+			numerator = (numerator * f.denominator - f.numerator * denominator);
 			denominator *= f.denominator;
 		}
 		return this;
@@ -117,6 +142,11 @@ public class Fraction implements Term {
 			return numerator == frac.numerator && denominator == frac.denominator;
 		}
 		return false;
+	}
+	
+	@Override
+	public Fraction clone() {
+		return new Fraction(numerator, denominator);
 	}
 	
 }
