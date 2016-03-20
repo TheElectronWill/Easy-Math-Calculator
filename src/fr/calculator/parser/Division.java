@@ -47,6 +47,14 @@ public class Division implements Term {
 				Fraction fraction2 = (Fraction) b;
 				return fraction.divide(fraction2).simplify();
 			}
+		} else if (a instanceof Power) {
+			Power pow = (Power) a;
+			return pow.divide(b).simplify();
+		}
+		if (b instanceof Power) {
+			Power powB = (Power) b;
+			Power powA = new Power(a, new IntegerTerm(1));
+			return powA.divide(powB).simplify();
 		}
 		return this;
 	}
