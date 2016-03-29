@@ -46,8 +46,8 @@ public class MathSimplifier {
 				simplifiedTerms.add(t);
 			}
 		}
-		simplifiedTerms.add(constant.simplify());
+		simplifiedTerms.add(constant);
 		return simplifiedTerms;
 	}
-	
+
 }
