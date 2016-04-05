@@ -1,4 +1,4 @@
-package fr.calculator.parser;
+package fr.calculator.analyse;
 
 public class Division implements Term {
 	

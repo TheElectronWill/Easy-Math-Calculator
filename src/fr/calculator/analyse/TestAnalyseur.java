@@ -1,4 +1,4 @@
-package fr.calculator.parser;
+package fr.calculator.analyse;
 
 import java.util.Arrays;
 import java.util.List;

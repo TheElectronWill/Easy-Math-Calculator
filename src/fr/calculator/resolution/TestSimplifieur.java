@@ -1,8 +1,9 @@
-package fr.calculator.solver;
+package fr.calculator.resolution;
 
 import java.util.Arrays;
 import java.util.List;
-import fr.calculator.parser.*;
+
+import fr.calculator.analyse.*;
 
 public class TestSimplifieur {
 	

@@ -1,11 +1,11 @@
-package fr.calculator.solver;
+package fr.calculator.resolution;
 
 import java.util.List;
 
-import fr.calculator.parser.Fraction;
-import fr.calculator.parser.Multiplication;
-import fr.calculator.parser.NombreEntier;
-import fr.calculator.parser.Term;
+import fr.calculator.analyse.Fraction;
+import fr.calculator.analyse.Multiplication;
+import fr.calculator.analyse.NombreEntier;
+import fr.calculator.analyse.Term;
 
 public class MathSolveur {
 	public static String resoudre(List<Term> gauche, List<Term> droit) {

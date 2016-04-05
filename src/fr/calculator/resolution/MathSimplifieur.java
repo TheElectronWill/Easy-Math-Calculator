@@ -1,12 +1,13 @@
-package fr.calculator.solver;
+package fr.calculator.resolution;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import fr.calculator.parser.Fraction;
-import fr.calculator.parser.NombreEntier;
-import fr.calculator.parser.Parenthese;
-import fr.calculator.parser.Term;
+
+import fr.calculator.analyse.Fraction;
+import fr.calculator.analyse.NombreEntier;
+import fr.calculator.analyse.Parenthese;
+import fr.calculator.analyse.Term;
 
 /**
  * Utilitaire pour simplifier les expressions mathématiques.

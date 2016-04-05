@@ -6,10 +6,10 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
-import fr.calculator.parser.MathAnalyseur;
-import fr.calculator.parser.Term;
-import fr.calculator.solver.MathSimplifieur;
-import fr.calculator.solver.MathSolveur;
+import fr.calculator.analyse.MathAnalyseur;
+import fr.calculator.analyse.Term;
+import fr.calculator.resolution.MathSimplifieur;
+import fr.calculator.resolution.MathSolveur;
 
 /**
  * Un <code>SwingWorker</code> qui effectue les calculs dans un autre Thread que l'EDT (Event Dispatch Thread, le thread dans lequel doit

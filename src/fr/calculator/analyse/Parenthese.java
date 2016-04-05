@@ -1,10 +1,10 @@
-package fr.calculator.parser;
+package fr.calculator.analyse;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
-import fr.calculator.solver.MathSimplifieur;
+import fr.calculator.resolution.MathSimplifieur;
 
 public class Parenthese implements Term {
 

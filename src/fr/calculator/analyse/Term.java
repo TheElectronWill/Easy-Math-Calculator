@@ -1,4 +1,4 @@
-package fr.calculator.parser;
+package fr.calculator.analyse;
 
 /**
  * Un terme d'une équation. En fait c'est juste un truc qui peut est ajouté d'un coté de l'équation (ie un terme
