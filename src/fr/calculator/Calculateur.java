@@ -18,10 +18,10 @@ public class Calculateur extends SwingWorker<String, Void> {
 	 * La fenêtre principale. Cette référence est nécessaire pour accéder aux composants graphiques qui sont affectés par le calcul, comme
 	 * le JLabel contenant le résultat.
 	 */
-	private final Fenetre mainFrame;
+	private final Fenetre fenetre;
 
-	public Calculateur(Fenetre mainFrame) {
-		this.mainFrame = mainFrame;
+	public Calculateur(Fenetre fenetre) {
+		this.fenetre = fenetre;
 	}
 
 	/**
@@ -29,7 +29,7 @@ public class Calculateur extends SwingWorker<String, Void> {
 	 */
 	@Override
 	protected String doInBackground() throws Exception {
-		final String userInput = mainFrame.inputField.getText();// le calcul entré par l'utilisateur
+		final String userInput = fenetre.calcul.getText();// le calcul entré par l'utilisateur
 		Thread.sleep(2000);
 		// TODO calculs ici
 		return "test";
@@ -41,9 +41,9 @@ public class Calculateur extends SwingWorker<String, Void> {
 	@Override
 	protected void done() {
 		try {
-			mainFrame.result.setText(this.get());
-			mainFrame.calculateButton.setEnabled(true);
-			mainFrame.calculateButton.setText("Calculer/Résoudre");
+			fenetre.resultat.setText(this.get());
+			fenetre.boutonCalculer.setEnabled(true);
+			fenetre.boutonCalculer.setText("Calculer/Résoudre");
 		} catch (Exception e) {
 			e.printStackTrace();// écrit les détails de l'erreur dans la console.
 			JOptionPane.showMessageDialog(null, e.toString(), "Erreur", JOptionPane.ERROR_MESSAGE);// affiche un message
