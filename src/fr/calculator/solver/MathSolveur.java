@@ -3,12 +3,12 @@ package fr.calculator.solver;
 import java.util.List;
 
 import fr.calculator.parser.Fraction;
-import fr.calculator.parser.NombreEntier;
 import fr.calculator.parser.Multiplication;
+import fr.calculator.parser.NombreEntier;
 import fr.calculator.parser.Term;
 
 public class MathSolveur {
-	public static String solve(List<Term> gauche, List<Term> droit) {
+	public static String resoudre(List<Term> gauche, List<Term> droit) {
 		int fact = 0, fact1 = 0, cons1 = 0, fact2 = 0, cons2 = 0, valeur = 0, compt = 0, num1 = 0, denom1 = 0;
 		double solution = 0;
 		if (gauche == droit) {
