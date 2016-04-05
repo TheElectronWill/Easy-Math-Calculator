@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Teste le fonctionnement du {@link MathParser}.
+ * Teste le fonctionnement du {@link MathAnalyseur}.
  * 
  * @author Guillaume
  * 		
  */
-public class TestParser {
+public class TestAnalyseur {
 	
 	public static void main(String[] args) throws InterruptedException {
 		System.out.println("Entrez une expression mathématique");
@@ -19,7 +19,7 @@ public class TestParser {
 		sc.close();
 		
 		long t0 = System.nanoTime();
-		List<Term> terms = new MathParser(expression).parse();
+		List<Term> terms = new MathAnalyseur(expression).analyser();
 		long nanos = System.nanoTime() - t0;
 		double millis = nanos / Math.pow(10, 6);
 		double seconds = millis / 1000.0;

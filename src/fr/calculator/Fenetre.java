@@ -20,7 +20,7 @@ import javax.swing.UIManager;
  * 
  * @author Guillaume
  */
-public class MainFrame extends JFrame {
+public class Fenetre extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -38,7 +38,7 @@ public class MainFrame extends JFrame {
 		// -- Affichage l'interface graphique (dans l'Event Dispatch Thread) --
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				MainFrame frame = new MainFrame();
+				Fenetre frame = new Fenetre();
 				frame.setVisible(true);
 			}
 		});
@@ -64,7 +64,7 @@ public class MainFrame extends JFrame {
 	/**
 	 * Crée la fenêtre et place les composants graphiques.
 	 */
-	public MainFrame() {
+	public Fenetre() {
 		super("Easy Math Calculator");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// termine le programme quand on ferme la fenêtre
 		this.setLocationRelativeTo(null);// centre la fenêtre
@@ -141,7 +141,7 @@ public class MainFrame extends JFrame {
 			result.setText("Calcul en cours...");
 			calculateButton.setEnabled(false);
 			
-			Calculator calculator = new Calculator(MainFrame.this);
+			Calculateur calculator = new Calculateur(Fenetre.this);
 			calculator.execute();
 		}
 	}

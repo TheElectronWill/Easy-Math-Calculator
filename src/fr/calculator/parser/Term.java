@@ -14,21 +14,21 @@ public interface Term {
 	 * 
 	 * @return ce même terme inversé, ou un nouvel objet équivalent à ce terme inversé.
 	 */
-	Term reverse();
+	Term inverser();
 	
 	/**
 	 * Multiplie ce terme par -1.
 	 * 
 	 * @return ce même terme multiplié par -1, ou un nouvel objet équivalent à ce terme multiplié par -1.
 	 */
-	Term negate();
+	Term negatif();
 	
 	/**
 	 * Simplifie ce terme.
 	 * 
 	 * @return ce même terme simplifié, ou un nouvel objet équivalent à ce terme simplifié.
 	 */
-	Term simplify();
+	Term simplifier();
 	
 	/**
 	 * Teste si ce terme est le même ou contient la même chose qu'un autre terme. Si obj n'implémente pas {@link Term},

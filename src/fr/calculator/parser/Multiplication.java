@@ -10,21 +10,21 @@ public class Multiplication implements Term {
 	}
 	
 	@Override
-	public Term negate() {
-		a = a.negate();
+	public Term negatif() {
+		a = a.negatif();
 		return this;
 	}
 	
 	@Override
-	public Term reverse() {
-		return new Division(new IntegerTerm(1), this);
+	public Term inverser() {
+		return new Division(new NombreEntier(1), this);
 	}
 	
 	@Override
-	public Term simplify() {
-		a = a.simplify();
-		b = b.simplify();
-		return simplify(a, b, true);
+	public Term simplifier() {
+		a = a.simplifier();
+		b = b.simplifier();
+		return simplifier(a, b, true);
 	}
 	
 	/**
@@ -37,67 +37,67 @@ public class Multiplication implements Term {
 	 * @param mayChangeOrder true si l'ordre de a et b peut être changé.
 	 * @return une simplification de cette multiplication, ou cette multiplication si elle ne peut pas être simplifiée.
 	 */
-	private Term simplify(final Term a, final Term b, final boolean mayChangeOrder) {
-		if (a instanceof IntegerTerm) {
-			IntegerTerm n = (IntegerTerm) a;
-			if (b instanceof IntegerTerm) {// n*n2
-				IntegerTerm n2 = (IntegerTerm) b;
-				return new IntegerTerm(n.value * n2.value);
+	private Term simplifier(final Term a, final Term b, final boolean mayChangeOrder) {
+		if (a instanceof NombreEntier) {
+			NombreEntier n = (NombreEntier) a;
+			if (b instanceof NombreEntier) {// n*n2
+				NombreEntier n2 = (NombreEntier) b;
+				return new NombreEntier(n.valeur * n2.valeur);
 			}
 			if (b instanceof Fraction) {// n*fraction
 				Fraction fraction = (Fraction) b;
-				return fraction.multiply(n).simplify();
+				return fraction.multiplier(n).simplifier();
 			}
 			if (b instanceof Multiplication) {// n(a*b)
 				Multiplication m = (Multiplication) b;
-				if (m.a instanceof IntegerTerm) {// n(n2*b)
-					IntegerTerm n2 = (IntegerTerm) m.a;
-					return new Multiplication(new IntegerTerm(n.value * n2.value), m.b);
+				if (m.a instanceof NombreEntier) {// n(n2*b)
+					NombreEntier n2 = (NombreEntier) m.a;
+					return new Multiplication(new NombreEntier(n.valeur * n2.valeur), m.b);
 				}
-				if (m.b instanceof IntegerTerm) {// n(a*n2)
-					IntegerTerm n2 = (IntegerTerm) m.b;
-					return new Multiplication(new IntegerTerm(n.value * n2.value), m.a);
+				if (m.b instanceof NombreEntier) {// n(a*n2)
+					NombreEntier n2 = (NombreEntier) m.b;
+					return new Multiplication(new NombreEntier(n.valeur * n2.valeur), m.a);
 				}
 				if (m.a instanceof Fraction) {// n(fraction*b)
 					Fraction fraction = (Fraction) m.a;
-					return new Multiplication(fraction.multiply(n).simplify(), m.b);
+					return new Multiplication(fraction.multiplier(n).simplifier(), m.b);
 				}
 				if (m.b instanceof Fraction) {// n(a*fraction)
 					Fraction fraction = (Fraction) m.b;
-					return new Multiplication(fraction.multiply(n).simplify(), m.a);
+					return new Multiplication(fraction.multiplier(n).simplifier(), m.a);
 				}
 			}
 		} else if (a instanceof Fraction) {
 			Fraction fraction = (Fraction) a;
-			if (b instanceof IntegerTerm) {// fraction*n
-				IntegerTerm n = (IntegerTerm) b;
-				return fraction.multiply(n).simplify();
+			if (b instanceof NombreEntier) {// fraction*n
+				NombreEntier n = (NombreEntier) b;
+				return fraction.multiplier(n).simplifier();
 			}
 			if (b instanceof Fraction) {// fraction*fraction
 				Fraction fraction2 = (Fraction) b;
-				return fraction.multiply(fraction2).simplify();
+				return fraction.multiplier(fraction2).simplifier();
 			}
 			if (b instanceof Multiplication) {// fraction(a*b)
 				Multiplication m = (Multiplication) b;
-				if (m.a instanceof IntegerTerm) {// fraction(n*b)
-					IntegerTerm n = (IntegerTerm) m.a;
-					return new Multiplication(fraction.multiply(n).simplify(), m.b);
+				if (m.a instanceof NombreEntier) {// fraction(n*b)
+					NombreEntier n = (NombreEntier) m.a;
+					return new Multiplication(fraction.multiplier(n).simplifier(), m.b);
 				}
-				if (m.b instanceof IntegerTerm) {// fraction(a*n)
-					IntegerTerm n = (IntegerTerm) m.b;
-					return new Multiplication(fraction.multiply(n).simplify(), m.a);
+				if (m.b instanceof NombreEntier) {// fraction(a*n)
+					NombreEntier n = (NombreEntier) m.b;
+					return new Multiplication(fraction.multiplier(n).simplifier(), m.a);
 				}
 				if (m.a instanceof Fraction) {// fraction(fraction2*b)
 					Fraction fraction2 = (Fraction) m.a;
-					return new Multiplication(fraction.multiply(fraction2).simplify(), m.b);
+					return new Multiplication(fraction.multiplier(fraction2).simplifier(), m.b);
 				}
 				if (m.b instanceof Fraction) {// fraction(a*fraction2)
 					Fraction fraction2 = (Fraction) m.b;
-					return new Multiplication(fraction.multiply(fraction2).simplify(), m.a);
+					return new Multiplication(fraction.multiplier(fraction2).simplifier(), m.a);
 				}
 			}
 		}
-		return mayChangeOrder ? simplify(b, a, false) : this;// Si ça n'a pas déjà été fait, on essaie en inversant a et
+		return mayChangeOrder ? simplifier(b, a, false) : this;// Si ça n'a pas déjà été fait, on essaie en inversant a et
 																// b. Sinon on renvoie "this".
 	}
 	

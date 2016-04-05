@@ -4,26 +4,26 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
 /**
- * Un <code>SwingWorker</code> qui effectue les calculs dans un autre Thread que l'EDT (Event Dispatch Thread, le thread
- * dans lequel doit s'effectuer toute modification de composant graphique).
+ * Un <code>SwingWorker</code> qui effectue les calculs dans un autre Thread que l'EDT (Event Dispatch Thread, le thread dans lequel doit
+ * s'effectuer toute modification de composant graphique).
  * <p>
  * Un nouveau <code>Calculator</code> est créé à chaque fois qu'on clique sur le bouton "Calculer".
  * </p>
  * 
  * @author Guillaume
  */
-public class Calculator extends SwingWorker<String, Void> {
-	
+public class Calculateur extends SwingWorker<String, Void> {
+
 	/**
-	 * La fenêtre principale. Cette référence est nécessaire pour accéder aux composants graphiques qui sont affectés
-	 * par le calcul, comme le JLabel contenant le résultat.
+	 * La fenêtre principale. Cette référence est nécessaire pour accéder aux composants graphiques qui sont affectés par le calcul, comme
+	 * le JLabel contenant le résultat.
 	 */
-	private final MainFrame mainFrame;
-	
-	public Calculator(MainFrame mainFrame) {
+	private final Fenetre mainFrame;
+
+	public Calculateur(Fenetre mainFrame) {
 		this.mainFrame = mainFrame;
 	}
-	
+
 	/**
 	 * Effectue les calculs et donne le résultat sous forme de chaîne de caractères.
 	 */
@@ -34,7 +34,7 @@ public class Calculator extends SwingWorker<String, Void> {
 		// TODO calculs ici
 		return "test";
 	}
-	
+
 	/**
 	 * Affiche le résultat calculé. Cette méthode est appelée dans l'EDT.
 	 */
@@ -50,7 +50,7 @@ public class Calculator extends SwingWorker<String, Void> {
 																									// d'erreur dans une
 																									// nouvelle fenêtre.
 		}
-		
+
 	}
-	
+
 }

@@ -10,13 +10,13 @@ public class Division implements Term {
 	}
 	
 	@Override
-	public Term negate() {
-		a = a.negate();
+	public Term negatif() {
+		a = a.negatif();
 		return this;
 	}
 	
 	@Override
-	public Term reverse() {
+	public Term inverser() {
 		Term temp = a;
 		a = b;
 		b = temp;
@@ -24,37 +24,37 @@ public class Division implements Term {
 	}
 	
 	@Override
-	public Term simplify() {
-		a = a.simplify();
-		b = b.simplify();
-		if (a instanceof IntegerTerm) {
-			IntegerTerm n = (IntegerTerm) a;
-			if (b instanceof IntegerTerm) {// n/n2
-				IntegerTerm n2 = (IntegerTerm) b;
-				return new Fraction(n.value, n2.value).simplify();
+	public Term simplifier() {
+		a = a.simplifier();
+		b = b.simplifier();
+		if (a instanceof NombreEntier) {
+			NombreEntier n = (NombreEntier) a;
+			if (b instanceof NombreEntier) {// n/n2
+				NombreEntier n2 = (NombreEntier) b;
+				return new Fraction(n.valeur, n2.valeur).simplifier();
 			}
 			if (b instanceof Fraction) {// n/(num/den) = (n*den)/num
 				Fraction fraction = (Fraction) b;
-				return new Fraction(n.value * fraction.denominator, fraction.numerator).simplify();
+				return new Fraction(n.valeur * fraction.denom, fraction.num).simplifier();
 			}
 		} else if (a instanceof Fraction) {
 			Fraction fraction = (Fraction) b;
-			if (b instanceof IntegerTerm) {// (num/den)/n
-				IntegerTerm n = (IntegerTerm) b;
-				return fraction.divide(n).simplify();
+			if (b instanceof NombreEntier) {// (num/den)/n
+				NombreEntier n = (NombreEntier) b;
+				return fraction.diviser(n).simplifier();
 			}
 			if (b instanceof Fraction) {// (num/den)/(num2/den2) = (num*den2)/(den*num2)
 				Fraction fraction2 = (Fraction) b;
-				return fraction.divide(fraction2).simplify();
+				return fraction.diviser(fraction2).simplifier();
 			}
-		} else if (a instanceof Power) {
-			Power pow = (Power) a;
-			return pow.divide(b).simplify();
+		} else if (a instanceof Puissance) {
+			Puissance pow = (Puissance) a;
+			return pow.diviser(b).simplifier();
 		}
-		if (b instanceof Power) {
-			Power powB = (Power) b;
-			Power powA = new Power(a, new IntegerTerm(1));
-			return powA.divide(powB).simplify();
+		if (b instanceof Puissance) {
+			Puissance powB = (Puissance) b;
+			Puissance powA = new Puissance(a, new NombreEntier(1));
+			return powA.diviser(powB).simplifier();
 		}
 		return this;
 	}
