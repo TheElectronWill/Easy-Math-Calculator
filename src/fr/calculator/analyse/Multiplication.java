@@ -1,42 +1,39 @@
 package fr.calculator.analyse;
 
 public class Multiplication implements Term {
-	
+
 	public Term a, b;
-	
+
 	public Multiplication(Term a, Term b) {
 		this.a = a;
 		this.b = b;
 	}
-	
+
 	@Override
 	public Term negatif() {
 		a = a.negatif();
 		return this;
 	}
-	
+
 	@Override
 	public Term inverser() {
 		return new Division(new NombreEntier(1), this);
 	}
-	
+
 	@Override
 	public Term simplifier() {
 		a = a.simplifier();
 		b = b.simplifier();
 		return simplifier(a, b, true);
 	}
-	
-	/**
-	 * Simplifie cette multiplication. Les paramètres a et b sont présents uniquement pour pouvoir en changer l'ordre,
-	 * c'est-à-dire pour pouvoir mettre b en premier et a en deuxième. Ils ne sont ni modifiés ni remplacés par d'autres
-	 * termes.
+
+	/** Simplifie cette multiplication. Les paramètres a et b sont présents uniquement pour pouvoir en changer l'ordre, c'est-à-dire pour
+	 * pouvoir mettre b en premier et a en deuxième. Ils ne sont ni modifiés ni remplacés par d'autres termes.
 	 * 
 	 * @param a le premier terme
 	 * @param b le deuxième terme
 	 * @param mayChangeOrder true si l'ordre de a et b peut être changé.
-	 * @return une simplification de cette multiplication, ou cette multiplication si elle ne peut pas être simplifiée.
-	 */
+	 * @return une simplification de cette multiplication, ou cette multiplication si elle ne peut pas être simplifiée. */
 	private Term simplifier(final Term a, final Term b, final boolean mayChangeOrder) {
 		if (a instanceof NombreEntier) {
 			NombreEntier n = (NombreEntier) a;
@@ -100,12 +97,14 @@ public class Multiplication implements Term {
 		return mayChangeOrder ? simplifier(b, a, false) : this;// Si ça n'a pas déjà été fait, on essaie en inversant a et
 																// b. Sinon on renvoie "this".
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Multiplication: (" + a + ")*(" + b + ")";
+		if (a instanceof NombreEntier && b instanceof NombreEntier)
+			return a + "*" + b;
+		return "(" + a + ")*(" + b + ")";
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Multiplication) {
@@ -114,5 +113,5 @@ public class Multiplication implements Term {
 		}
 		return false;
 	}
-	
+
 }

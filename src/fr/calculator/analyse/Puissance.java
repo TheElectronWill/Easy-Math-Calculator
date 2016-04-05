@@ -1,19 +1,19 @@
 package fr.calculator.analyse;
 
 public class Puissance implements Term {
-	
+
 	public Term n, exposant;
-	
+
 	public Puissance(Term n, Term exposant) {
 		this.n = n;
 		this.exposant = exposant;
 	}
-	
+
 	@Override
 	public Term inverser() {
 		return new Division(new NombreEntier(1), this);
 	}
-	
+
 	public Term diviser(Term t) {
 		if (n.equals(t)) {// n^p / n = n^(p-1)
 			if (exposant instanceof NombreEntier)
@@ -48,13 +48,13 @@ public class Puissance implements Term {
 		}
 		return new Division(this, t);
 	}
-	
+
 	@Override
 	public Puissance negatif() {
 		n = n.negatif();
 		return this;
 	}
-	
+
 	@Override
 	public Term simplifier() {
 		n = n.simplifier();
@@ -83,12 +83,17 @@ public class Puissance implements Term {
 		}
 		return this;
 	}
-	
+
 	@Override
 	public String toString() {
+		if (n instanceof NombreEntier) {
+			if (exposant instanceof NombreEntier)
+				return n + "^" + exposant;
+			return n + "^(" + exposant + ")";
+		}
 		return "Power: " + n + "^" + exposant;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Puissance) {
@@ -97,5 +102,5 @@ public class Puissance implements Term {
 		}
 		return false;
 	}
-	
+
 }

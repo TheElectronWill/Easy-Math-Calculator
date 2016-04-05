@@ -25,7 +25,7 @@ public class Variable implements Term {
 
 	@Override
 	public String toString() {
-		return "Literal: " + nom;
+		return nom;
 	}
 
 	@Override

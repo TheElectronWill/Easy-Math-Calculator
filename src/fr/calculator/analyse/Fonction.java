@@ -26,4 +26,9 @@ public class Fonction implements Term {
 		return this;
 	}
 
+	@Override
+	public String toString() {
+		return nom + "(" + t + ")";
+	}
+
 }

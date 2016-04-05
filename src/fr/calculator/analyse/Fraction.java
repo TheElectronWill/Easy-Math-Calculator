@@ -1,18 +1,18 @@
 package fr.calculator.analyse;
 
 public class Fraction implements Term, Cloneable {
-	
+
 	static int pgcd(int a, int b) {
 		return b == 0 ? a : pgcd(b, a % b);
 	}
-	
+
 	public int num, denom;
-	
+
 	public Fraction(int num, int denom) {
 		this.num = num;
 		this.denom = denom;
 	}
-	
+
 	/**
 	 * Ajoute une autre fraction à celle-là.
 	 * 
@@ -27,7 +27,7 @@ public class Fraction implements Term, Cloneable {
 		}
 		return this;
 	}
-	
+
 	/**
 	 * Soustrait un nombre entier à cette fraction.
 	 * 
@@ -37,7 +37,7 @@ public class Fraction implements Term, Cloneable {
 		num -= i.valeur * denom;
 		return this;
 	}
-	
+
 	/**
 	 * Soustrait une autre fraction à celle-là.
 	 * 
@@ -52,7 +52,7 @@ public class Fraction implements Term, Cloneable {
 		}
 		return this;
 	}
-	
+
 	/**
 	 * Ajoute un nombre entier à cette fraction.
 	 * 
@@ -62,7 +62,7 @@ public class Fraction implements Term, Cloneable {
 		num += i.valeur * denom;
 		return this;
 	}
-	
+
 	/**
 	 * Multiplie cette fraction par une autre fraction.
 	 * 
@@ -73,7 +73,7 @@ public class Fraction implements Term, Cloneable {
 		denom *= f.denom;
 		return this;
 	}
-	
+
 	/**
 	 * Multiplie cette fraction par une nombre entier.
 	 * 
@@ -83,7 +83,7 @@ public class Fraction implements Term, Cloneable {
 		num *= i.valeur;
 		return this;
 	}
-	
+
 	/**
 	 * Divise cette fraction par une autre fraction.
 	 * 
@@ -94,7 +94,7 @@ public class Fraction implements Term, Cloneable {
 		denom *= f.num;
 		return this;
 	}
-	
+
 	/**
 	 * Multiplie cette fraction par un nombre entier.
 	 * 
@@ -104,13 +104,13 @@ public class Fraction implements Term, Cloneable {
 		denom *= i.valeur;
 		return this;
 	}
-	
+
 	@Override
 	public Fraction negatif() {
 		num = -num;
 		return this;
 	}
-	
+
 	@Override
 	public Fraction inverser() {
 		int temp = num;
@@ -118,7 +118,7 @@ public class Fraction implements Term, Cloneable {
 		this.denom = temp;
 		return this;
 	}
-	
+
 	@Override
 	public Term simplifier() {
 		int gcd = pgcd(num, denom);
@@ -129,12 +129,12 @@ public class Fraction implements Term, Cloneable {
 		}
 		return simplifiedDen == 1 ? new NombreEntier(simplifiedNum) : new Fraction(simplifiedNum, simplifiedDen);
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Fraction: " + num + "/" + denom;
+		return num + "/" + denom;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Fraction) {
@@ -143,10 +143,10 @@ public class Fraction implements Term, Cloneable {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public Fraction clone() {
 		return new Fraction(num, denom);
 	}
-	
+
 }

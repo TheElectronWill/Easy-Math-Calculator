@@ -67,8 +67,7 @@ public class Parenthese implements Term {
 
 	@Override
 	public String toString() {
-		String.valueOf(termes);
-		return "Parenthesis: " + termes.toString();
+		return termes.toString();
 	}
 
 	@Override

@@ -1,20 +1,20 @@
 package fr.calculator.analyse;
 
 public class Division implements Term {
-	
+
 	public Term a, b;
-	
+
 	public Division(Term a, Term b) {
 		this.a = a;
 		this.b = b;
 	}
-	
+
 	@Override
 	public Term negatif() {
 		a = a.negatif();
 		return this;
 	}
-	
+
 	@Override
 	public Term inverser() {
 		Term temp = a;
@@ -22,7 +22,7 @@ public class Division implements Term {
 		b = temp;
 		return this;
 	}
-	
+
 	@Override
 	public Term simplifier() {
 		a = a.simplifier();
@@ -58,12 +58,12 @@ public class Division implements Term {
 		}
 		return this;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Division: (" + a + ")/(" + b + ")";
+		return "(" + a + ")/(" + b + ")";
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Division) {
@@ -72,5 +72,5 @@ public class Division implements Term {
 		}
 		return false;
 	}
-	
+
 }
