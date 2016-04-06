@@ -1,6 +1,5 @@
 package fr.calculator.solver;
 import java.util.List;
-
 import fr.calculator.Exponentielle;
 import fr.calculator.parser.Fraction;
 import fr.calculator.parser.IntegerTerm;
