@@ -18,7 +18,7 @@ public class TestSimplifieur {
 		System.out.println("tel quel  : " + beforeSimplification);
 		
 		long t0 = System.nanoTime();
-		List<Term> simplified = MathSimplifieur.simplify(terms);
+		List<Term> simplified = MathSimplifieur.simplifier(terms);
 		double time = (System.nanoTime() - t0) / (1000_000.0);
 		
 		String afterSimplification = Arrays.deepToString(simplified.toArray());
