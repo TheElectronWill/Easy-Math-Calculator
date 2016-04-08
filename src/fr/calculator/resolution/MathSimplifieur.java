@@ -19,36 +19,36 @@ public class MathSimplifieur {
 	
 	private MathSimplifieur() {}
 	
-	public static List<Term> simplify(Term... terms) {
-		return simplify(Arrays.asList(terms));
+	public static List<Term> simplifier(Term... termes) {
+		return simplifier(Arrays.asList(termes));
 	}
 	
-	public static List<Term> simplify(List<Term> terms) {
-		Fraction constant = new Fraction(0, 1);// somme de toutes les constantes
-		List<Term> simplifiedTerms = new ArrayList<>();
-		for (Term t : terms) {
+	public static List<Term> simplifier(List<Term> termes) {
+		Fraction constante = new Fraction(0, 1);// somme de toutes les constantes
+		List<Term> simplifiés = new ArrayList<>();
+		for (Term t : termes) {
 			t = t.simplifier();
 			if (t instanceof Parenthese) {// parenthèse seule -> on développe
 				for (Term pt : ((Parenthese) t).termes) {
 					pt = pt.simplifier();
 					if (pt instanceof NombreEntier) {
-						constant.ajouter((NombreEntier) t);
+						constante.ajouter((NombreEntier) t);
 					} else if (pt instanceof Fraction) {
-						constant.ajouter((Fraction) t);
+						constante.ajouter((Fraction) t);
 					} else {
-						simplifiedTerms.add(pt);
+						simplifiés.add(pt);
 					}
 				}
 			} else if (t instanceof NombreEntier) {
-				constant.ajouter((NombreEntier) t);
+				constante.ajouter((NombreEntier) t);
 			} else if (t instanceof Fraction) {
-				constant.ajouter((Fraction) t);
+				constante.ajouter((Fraction) t);
 			} else {
-				simplifiedTerms.add(t);
+				simplifiés.add(t);
 			}
 		}
-		simplifiedTerms.add(constant.simplifier());
-		return simplifiedTerms;
+		simplifiés.add(constante);
+		return simplifiés;
 	}
 	
 }
