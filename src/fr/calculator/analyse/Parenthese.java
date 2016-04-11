@@ -41,7 +41,7 @@ public class Parenthese implements Term {
 		if (termes.size() == 1)
 			return termes.get(0).simplifier();
 
-		termes = MathSimplifieur.simplify(termes);
+		termes = MathSimplifieur.simplifier(termes);
 		boolean canCalculate = true;
 		for (Term t : termes) {
 			if (!(t instanceof NombreEntier || t instanceof Fraction)) {

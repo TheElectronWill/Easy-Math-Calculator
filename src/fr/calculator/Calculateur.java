@@ -46,7 +46,7 @@ public class Calculateur extends SwingWorker<String, Void> {
 		final List<List<Term>> termesParties = new ArrayList<>(parties.length);// termes simplifiés
 		for (String partie : parties) {
 			MathAnalyseur analyseur = new MathAnalyseur(partie);
-			List<Term> termes = MathSimplifieur.simplify(analyseur.analyser());
+			List<Term> termes = MathSimplifieur.simplifier(analyseur.analyser());
 			termesParties.add(termes);
 		}
 
