@@ -11,6 +11,11 @@ public class Fonction implements Term {
 	 */
 	public Term t;
 	
+	public Fonction(NomFonction nom, Term t) {
+		this.nom = nom;
+		this.t = t;
+	}
+	
 	@Override
 	public Term inverser() {
 		return new Division(new NombreEntier(1), this);
