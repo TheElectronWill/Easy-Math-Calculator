@@ -38,6 +38,25 @@ public class Fonction implements Term {
 	
 	public enum NomFonction {
 		EXPONENTIELLE, LOGARITHME_NEPERIEN, COSINUS, SINUS;
+		
+		static NomFonction get(String nom) {
+			switch (nom) {
+				case "exp":
+				case "e":
+				case "e^":
+					return EXPONENTIELLE;
+				case "ln":
+					return LOGARITHME_NEPERIEN;
+				case "cos":
+				case "cosinus":
+					return COSINUS;
+				case "sin":
+				case "sinus":
+					return SINUS;
+				default:
+					throw new RuntimeException("Fonction inconnue: " + nom);
+			}
+		}
 	}
 	
 }
