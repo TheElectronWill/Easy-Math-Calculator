@@ -1,6 +1,5 @@
 package fr.calculator.resolution;
 import java.util.List;
-
 import fr.calculator.analyse.Fonction;
 import fr.calculator.analyse.Fonction.NomFonction;
 import fr.calculator.analyse.Fraction;
@@ -15,7 +14,7 @@ public class MathSolveur {
 			int valeur = 0, compt = 0, u = 0, v = 0, w = 0, num1 = 0, denom1 = 0, num2 = 0, denom2 = 0, delta = 0; 
 			double solution1 = 0, solution2 = 0, im1 = 0, im2 = 0;
 			Fraction frac1 = new Fraction(0, 0), frac2 = new Fraction(0, 0), re1 = new Fraction(0, 0), re2 = new Fraction(0, 0);
-			Number decimal = 0, decimal2 = 0;
+			Number decimal = 0, decimal1 = 0;
 			if (gauche == droit) {
 				System.out.print("L'égalité est toujours vraie.");
 			}
@@ -42,123 +41,124 @@ public class MathSolveur {
 								System.out.print("Vous devez utiliser la variable x.");
 							}
 							else {
-								decimal = (Math.exp(a.doublevaleur()));
+								decimal = Math.exp(a.doubleValue());
 							}
 						}
 						else {
 							Term a = (Term) fonction.t;
 							if (X2 instanceof Number) {
-								decimal2 = (Math.log(((Number)X2).doublevaleur()));
+								decimal = //
+								decimal1 = Math.log(((Number)X2).doubleValue());
 							}
 							else {
 								System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 							}
 						}
 					}
-					else if (X2.nom == exponentielle) {
-						Term b = ((Exponentielle)X2).a;
-						if (X instanceof Number) {
+					else if (fonction1.nom == NomFonction.EXPONENTIELLE) {
+						if (fonction1.t instanceof Number) {
+							Number b = (Number) fonction.t;
 							if (b instanceof Number) {
 								System.out.print("Vous devez utiliser la variable x.");
 							}
 							else {
-								X = Number(Math.exp(((Number)X).valeur));
+								decimal = Math.exp(((Number)X).doubleValue());
 							}
 						}
 						else {
 							if (X2 instanceof Number) {
-								X = a;
-								X2 = Number(Math.log(((Number)X2).valeur));
+								decimal = // 
+								decimal1 = Math.log(((Number)X2).doubleValue());
 							}
 							else {
 								System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 							}				
 						}
 					}
-					if (X.nom == logarithme && X2.nom == logarithme) {
-						Term a = ((Logarithme)X).a, b = ((Logarithme)X2).a;
+					if (fonction.nom == NomFonction.LOGARITHME_NEPERIEN && fonction1.nom == NomFonction.LOGARITHME_NEPERIEN) {
+						Term a = fonction.t, b = fonction1.t;
 						X = a;
 						X2 = b;
 					}
-					else if (X.nom == logarithme) {
-						Term a = ((Logarithme)X).a;
+					else if (fonction.nom == NomFonction.LOGARITHME_NEPERIEN) {
+						Number a = (Number) fonction.t;
 						if (a instanceof Number) {
 							if (X2 instanceof Number) {
 								System.out.print("Vous devez utiliser la variable x.");
 							}
 							else {
-								X = Number(Math.log(((Number)a).valeur));
+								decimal = Math.log(a.doubleValue());
 							}
 						}
 						else {
 							if (X2 instanceof Number) {
-								X = a;
-								X2 = Number(Math.exp(((Number)X2).valeur));
+								decimal = //
+								decimal1 = Math.exp(((Number)X2).doubleValue());
 							}
 							else {
 								System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 							}
 						}
 					}
-					else if (X2.nom == logarithme) {
-						Term b = ((Logarithme)X2).a;
+					else if (fonction1.nom == NomFonction.LOGARITHME_NEPERIEN) {
+						Term b = fonction.t;
 						if (X instanceof Number) {
 							if (b instanceof Number) {
 								System.out.print("Vous devez utiliser la variable x.");
 							}
 							else {
-								X = Number(Math.log(((Number)X).valeur));
+								decimal = Math.log(((Number)X).doubleValue());
 							}
 						}
 						else {
 							if (X2 instanceof Number) {
-								X = a;
-								X2 = Number(Math.exp(((Number)X2).valeur));
+								decimal = //
+								decimal1 = Math.exp(((Number)X2).doubleValue());
 							}
 							else {
 								System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 							}				
 						}
 					}
-					if (X.nom == cosinus && X2.nom == cosinus) {
-						Term a = ((Cosinus)X).a, b = ((Cosinus)X2).a;
+					if (fonction.nom == NomFonction.COSINUS && fonction1.nom == NomFonction.COSINUS) {
+						Term a = fonction.t, b = fonction.t;
 						X = a;
 						X2 = b;
 					}
-					else if (X.nom == cosinus) {
-						Term a = ((Cosinus)X).a;
+					else if (fonction.nom == NomFonction.COSINUS) {
+						Number a = (Number) fonction.t;
 						if (a instanceof Number) {
 							if (X2 instanceof Number) {
 								System.out.print("Vous devez utiliser la variable x.");
 							}
 							else {
-								X = Number(Math.cos(((Number)a).valeur));
+								decimal = Math.cos(a.doubleValue());
 							}
 						}
 						else {
 							if (X2 instanceof Number) {
-								X = a;
-								X2 = Number(Math.acos(((Number)X2).valeur));
+								decimal = //
+								decimal1 = Math.acos(((Number)X2).doubleValue());
 							}
 							else {
 								System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 							}
 						}
 					}
-					else if (X2.nom == cosinus) {
-						Term b = ((Cosinus)X2).a;
+					else if (fonction1.nom == NomFonction.COSINUS) {
+						Number b = (Number) fonction.t;
 						if (X instanceof Number) {
 							if (b instanceof Number) {
 								System.out.print("Vous devez utiliser la variable x.");
 							}
 							else {
-								X = Number(Math.cos(((Number)X).valeur));
+								decimal = Math.cos(((Number)X).doubleValue());
 							}
 						}
 						else {
 							if (X2 instanceof Number) {
-								X = a;
-								X2 = Number(Math.acos(((Number)X2).valeur));
+								decimal = //
+								decimal1 = Number(Math.acos(((Number)X2).valeur));
 							}
 							else {
 								System.out.print("La résolution de cette équation par ce logiciel est impossible.");
