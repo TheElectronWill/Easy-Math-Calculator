@@ -1,23 +1,22 @@
 package fr.calculator.resolution;
 import java.util.List;
-import fr.calculator.Exponentielle;
-import fr.calculator.parser.Fraction;
-import fr.calculator.parser.IntegerTerm;
-import fr.calculator.parser.Multiplication;
-import fr.calculator.parser.Term;
-import fr.calculator.Exponentielle;
-import fr.calculator.parser.Fraction;
-import fr.calculator.parser.IntegerTerm;
-import fr.calculator.parser.Multiplication;
-import fr.calculator.parser.Term;
+import fr.calculator.analyse.Fonction;
+import fr.calculator.analyse.Fonction.NomFonction;
+import fr.calculator.analyse.Fraction;
+import fr.calculator.analyse.Multiplication;
+import fr.calculator.analyse.Term;
+import fr.calculator.analyse.Fraction;
+import fr.calculator.analyse.Multiplication;
+import fr.calculator.analyse.Term;
 public class MathSolveur {
 	public static String solver (List<Term> gauche, List<Term> droit) {
 			int fact1 = 0, fact11 = 0, fact111 = 0, fact2 = 0, fact22 = 0, fact222 = 0;
 			int cons1 = 0, cons11 = 0, cons111 = 0, cons2 = 0, cons22 = 0, cons222 = 0;
 			int surfact1 = 0, surfact11 = 0, surfact111 = 0, surfact2 = 0, surfact22 = 0, surfact222 = 0;
-			int valeur = 0, compt = 0, a = 0, b = 0, c = 0, num1 = 0, denom1 = 0, num2 = 0, denom2 = 0, delta = 0, 
+			int valeur = 0, compt = 0, u = 0, v = 0, w = 0, num1 = 0, denom1 = 0, num2 = 0, denom2 = 0, delta = 0; 
 			double solution1 = 0, solution2 = 0, im1 = 0, im2 = 0;
-			Fraction frac1 = new Fraction(0, 0), frac2 = new Fraction(0, 0), re1 = new Fraction(0, 0) re2 = new Fraction(0, 0);
+			Fraction frac1 = new Fraction(0, 0), frac2 = new Fraction(0, 0), re1 = new Fraction(0, 0), re2 = new Fraction(0, 0);
+			Number decimal = 0, decimal2 = 0;
 			if (gauche == droit) {
 				System.out.print("L'égalité est toujours vraie.");
 			}
@@ -27,185 +26,185 @@ public class MathSolveur {
 			Term Y2 = droit.get(1);
 			Term Z = gauche.get(2);
 			Term Z2 = droit.get(2);
-			if (X instanceof Fonction || X2 instanceof Fonction) {
-				if (Y.equals("") && Y2.equals("") && Z.equals("") && Z2.equals("")) {
-					if ((X instanceof IntegerTerm || X instanceof Fraction) && (X2 instanceof IntegerTerm || X2 instanceof Fraction)) {
-						System.out.print("Vous devez utiliser la variable x.");
-					}			
-					if (X instanceof Exponentielle && X2 instanceof Exponentielle) {
-						Term a = ((Exponentielle)X).a, b = ((Exponentielle)X2).a;
+			if (Y.equals("") && Y2.equals("") && Z.equals("") && Z2.equals("") && X instanceof Number || X instanceof Fraction && (X2 instanceof Number || X2 instanceof Fraction)) {
+				System.out.print("Vous devez utiliser la variable x.");
+			}		
+			if (X instanceof Fonction || X2 instanceof Fonction) {		
+					Fonction fonction = (Fonction) X, fonction1 = (Fonction) X2;
+					if (fonction.nom == NomFonction.EXPONENTIELLE && fonction1.nom == NomFonction.LOGARITHME_NEPERIEN) {
+						Term a = fonction.t, b = fonction.t;
 						X = a;
 						X2 = b;
 					}
-					else if (X instanceof Exponentielle) {
-						Term a = ((Exponentielle)X).a;
-						if (a instanceof IntegerTerm) {
-							if (X2 instanceof IntegerTerm) {
+					else if (fonction.nom == NomFonction.EXPONENTIELLE) {
+						if (fonction.t instanceof Number) {
+							Number a = (Number) fonction.t; 
+							if (X instanceof Number) {
 								System.out.print("Vous devez utiliser la variable x.");
 							}
 							else {
-								X = IntegerTerm(Math.exp(((IntegerTerm)a).value));
+								decimal = (Math.exp(a.doubleValue()));
 							}
 						}
 						else {
-							if (X2 instanceof IntegerTerm) {
-								X = a;
-								X2 = IntegerTerm(Math.log(((IntegerTerm)X2).value));
+							Term a = (Term) fonction.t;
+							if (X2 instanceof Number) {
+								decimal2 = (Math.log(((Number)X2).doubleValue()));
 							}
 							else {
 								System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 							}
 						}
 					}
-					else if (X2 instanceof Exponentielle) {
+					else if (X2.nom == exponentielle) {
 						Term b = ((Exponentielle)X2).a;
-						if (X instanceof IntegerTerm) {
-							if (b instanceof IntegerTerm) {
+						if (X instanceof Number) {
+							if (b instanceof Number) {
 								System.out.print("Vous devez utiliser la variable x.");
 							}
 							else {
-								X = IntegerTerm(Math.exp(((IntegerTerm)X).value));
+								X = Number(Math.exp(((Number)X).value));
 							}
 						}
 						else {
-							if (X2 instanceof IntegerTerm) {
+							if (X2 instanceof Number) {
 								X = a;
-								X2 = IntegerTerm(Math.log(((IntegerTerm)X2).value));
+								X2 = Number(Math.log(((Number)X2).value));
 							}
 							else {
 								System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 							}				
 						}
 					}
-					if (X instanceof Logarithme && X2 instanceof Logarithme) {
+					if (X.nom == logarithme && X2.nom == logarithme) {
 						Term a = ((Logarithme)X).a, b = ((Logarithme)X2).a;
 						X = a;
 						X2 = b;
 					}
-					else if (X instanceof Logarithme) {
+					else if (X.nom == logarithme) {
 						Term a = ((Logarithme)X).a;
-						if (a instanceof IntegerTerm) {
-							if (X2 instanceof IntegerTerm) {
+						if (a instanceof Number) {
+							if (X2 instanceof Number) {
 								System.out.print("Vous devez utiliser la variable x.");
 							}
 							else {
-								X = IntegerTerm(Math.log(((IntegerTerm)a).value));
+								X = Number(Math.log(((Number)a).value));
 							}
 						}
 						else {
-							if (X2 instanceof IntegerTerm) {
+							if (X2 instanceof Number) {
 								X = a;
-								X2 = IntegerTerm(Math.exp(((IntegerTerm)X2).value));
+								X2 = Number(Math.exp(((Number)X2).value));
 							}
 							else {
 								System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 							}
 						}
 					}
-					else if (X2 instanceof Logarithme) {
+					else if (X2.nom == logarithme) {
 						Term b = ((Logarithme)X2).a;
-						if (X instanceof IntegerTerm) {
-							if (b instanceof IntegerTerm) {
+						if (X instanceof Number) {
+							if (b instanceof Number) {
 								System.out.print("Vous devez utiliser la variable x.");
 							}
 							else {
-								X = IntegerTerm(Math.log(((IntegerTerm)X).value));
+								X = Number(Math.log(((Number)X).value));
 							}
 						}
 						else {
-							if (X2 instanceof IntegerTerm) {
+							if (X2 instanceof Number) {
 								X = a;
-								X2 = IntegerTerm(Math.exp(((IntegerTerm)X2).value));
+								X2 = Number(Math.exp(((Number)X2).value));
 							}
 							else {
 								System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 							}				
 						}
 					}
-					if (X instanceof Cosinus && X2 instanceof Cosinus) {
+					if (X.nom == cosinus && X2.nom == cosinus) {
 						Term a = ((Cosinus)X).a, b = ((Cosinus)X2).a;
 						X = a;
 						X2 = b;
 					}
-					else if (X instanceof Cosinus) {
+					else if (X.nom == cosinus) {
 						Term a = ((Cosinus)X).a;
-						if (a instanceof IntegerTerm) {
-							if (X2 instanceof IntegerTerm) {
+						if (a instanceof Number) {
+							if (X2 instanceof Number) {
 								System.out.print("Vous devez utiliser la variable x.");
 							}
 							else {
-								X = IntegerTerm(Math.cos(((IntegerTerm)a).value));
+								X = Number(Math.cos(((Number)a).value));
 							}
 						}
 						else {
-							if (X2 instanceof IntegerTerm) {
+							if (X2 instanceof Number) {
 								X = a;
-								X2 = IntegerTerm(Math.acos(((IntegerTerm)X2).value));
+								X2 = Number(Math.acos(((Number)X2).value));
 							}
 							else {
 								System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 							}
 						}
 					}
-					else if (X2 instanceof Cosinus) {
+					else if (X2.nom == cosinus) {
 						Term b = ((Cosinus)X2).a;
-						if (X instanceof IntegerTerm) {
-							if (b instanceof IntegerTerm) {
+						if (X instanceof Number) {
+							if (b instanceof Number) {
 								System.out.print("Vous devez utiliser la variable x.");
 							}
 							else {
-								X = IntegerTerm(Math.cos(((IntegerTerm)X).value));
+								X = Number(Math.cos(((Number)X).value));
 							}
 						}
 						else {
-							if (X2 instanceof IntegerTerm) {
+							if (X2 instanceof Number) {
 								X = a;
-								X2 = IntegerTerm(Math.acos(((IntegerTerm)X2).value));
+								X2 = Number(Math.acos(((Number)X2).value));
 							}
 							else {
 								System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 							}				
 						}
 					}
-					if (X instanceof Sinus && X2 instanceof Sinus) {
+					if (X.nom == sinus && X2.nom == sinus) {
 						Term a = ((Sinus)X).a, b = ((Sinus)X2).a;
 						X = a;
 						X2 = b;
 					}
-					else if (X instanceof Sinus) {
+					else if (X.nom == sinus) {
 						Term a = (Sinus)X).a;
-						if (a instanceof IntegerTerm) {
-							if (X2 instanceof IntegerTerm) {
+						if (a instanceof Number) {
+							if (X2 instanceof Number) {
 								System.out.print("Vous devez utiliser la variable x.");
 							}
 							else {
-								X = IntegerTerm(Math.sin(((IntegerTerm)a).value));
+								X = Number(Math.sin(((Number)a).value));
 							}
 						}
 						else {
-							if (X2 instanceof IntegerTerm) {
+							if (X2 instanceof Number) {
 								X = a;
-								X2 = IntegerTerm(Math.asin(((IntegerTerm)X2).value));
+								X2 = Number(Math.asin(((Number)X2).value));
 							}
 							else {
 								System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 							}
 						}
 					}
-					else if (X2 instanceof Sinus) {
+					else if (X2.nom == sinus) {
 						Term b = ((Sinus)X2).a;
-						if (X instanceof IntegerTerm) {
-							if (b instanceof IntegerTerm) {
+						if (X instanceof Number) {
+							if (b instanceof Number) {
 								System.out.print("Vous devez utiliser la variable x.");
 							}
 							else {
-								X = IntegerTerm(Math.sin(((IntegerTerm)X).value));
+								X = Number(Math.sin(((Number)X).value));
 							}
 						}
 						else {
-							if (X2 instanceof IntegerTerm) {
+							if (X2 instanceof Number) {
 								X = a;
-								X2 = IntegerTerm(Math.asin(((IntegerTerm)X2).value));
+								X2 = Number(Math.asin(((Number)X2).value));
 							}
 							else {
 								System.out.print("La résolution de cette équation par ce logiciel est impossible.");
@@ -216,13 +215,12 @@ public class MathSolveur {
 				else {
 					System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 				}
-			}
-				
+			Multiplication multi = (Multiplication) X, multi2 = (Multiplication) X2;
 			if (X instanceof Multiplication) {
 				Term a = ((Multiplication)X).a, b = ((Multiplication)X).b;
 				if (a instanceof Power) {
 					Term a = ((Power)a).a, b = ((Power)a).b;
-					if (((IntegerTerm)a).value != 2 || b instanceof Multiplication) {
+					if (((Number)a).value != 2 || b instanceof Multiplication) {
 						Sytem.out.print("La résolution de cette équation par ce logiciel est impossible.");
 					}
 					else if (b instanceof Fraction){
@@ -230,18 +228,18 @@ public class MathSolveur {
 						surfact111 = ((Fraction)b).denominator;
 					}
 					else {
-						surfact1 = ((IntegerTerm)b).value;
+						surfact1 = ((Number)b).value;
 					}
 				else if (a instanceof Fraction) {
 					fact11 = ((Fraction)a).numerator;
 					fact111 = ((Fraction)a).denominator;					
 				}
 				else {
-					fact1 = ((IntegerTerm)a).value;									
+					fact1 = ((Number)a).value;									
 				}
 				if (b instanceof Power) {
 					Term a = ((Power)b).a, b = ((Power)b).b;
-					if (((IntegerTerm)a).value != 2 || b instanceof Multiplication) {
+					if (((Number)a).value != 2 || b instanceof Multiplication) {
 						Sytem.out.print("La résolution de cette équation par ce logiciel est impossible.");
 					}
 					else if (b instanceof Fraction){
@@ -249,7 +247,7 @@ public class MathSolveur {
 						surfact111 = ((Fraction)b).denominator;
 					}
 					else {
-						surfact1 = ((IntegerTerm)b).value;
+						surfact1 = ((Number)b).value;
 					}
 				}
 				else if (b instanceof Fraction) {
@@ -257,17 +255,17 @@ public class MathSolveur {
 					fact111 = ((Fraction)b).denominator;
 				}
 				else {
-						fact1 = ((IntegerTerm)b).value;									
+						fact1 = ((Number)b).value;									
 				}
 			}
 			else {
-				cons1 = ((IntegerTerm)X).value;
+				cons1 = ((Number)X).value;
 			}
 			if (X2 instanceof Multiplication) {
 				Term a = ((Multiplication)X2).a, b = ((Multiplication)X2).b;
 				if (a instanceof Power) {
 					Term a = ((Power)a).a, b = ((Power)a).b;
-					if (((IntegerTerm)a).value != 2 || b instanceof Multiplication) {
+					if (((Number)a).value != 2 || b instanceof Multiplication) {
 						Sytem.out.print("La résolution de cette équation par ce logiciel est impossible.");
 					}
 					else if (b instanceof Fraction){
@@ -275,7 +273,7 @@ public class MathSolveur {
 						surfact222 = ((Fraction)b).denominator;
 					}
 					else {
-						surfact2 = ((IntegerTerm)b).value;
+						surfact2 = ((Number)b).value;
 					}
 				}	
 				else if (a instanceof Fraction ){
@@ -283,11 +281,11 @@ public class MathSolveur {
 					fact222 = ((Fraction)a).denominator;
 				}
 				else {
-					fact2 = ((IntegerTerm)a).value;				
+					fact2 = ((Number)a).value;				
 				}
 				if (b instanceof Power) {
 					Term a = ((Power)b).a, b = ((Power)b).b;
-					if (((IntegerTerm)a).value != 2 || b instanceof Multiplication) {
+					if (((Number)a).value != 2 || b instanceof Multiplication) {
 						Sytem.out.print("La résolution de cette équation par ce logiciel est impossible.");
 					}
 					else if (b instanceof Fraction){
@@ -295,7 +293,7 @@ public class MathSolveur {
 						surfact222 = ((Fraction)b).denominator;
 					}
 					else {
-						surfact2 = ((IntegerTerm)b).value;
+						surfact2 = ((Number)b).value;
 					}
 				}
 				
@@ -304,18 +302,18 @@ public class MathSolveur {
 					fact222 = ((Fraction)b).denominator;
 				}
 				else {
-					fact2 = ((IntegerTerm)b).value;				
+					fact2 = ((Number)b).value;				
 				}
 			}
 			else {
-				cons2 = ((IntegerTerm)X).value;
+				cons2 = ((Number)X).value;
 			}
 			
 			if (Y instanceof Multiplication) {
 				Term a = ((Miultiplication)Y).a, b = ((Multiplication)Y).b;
 				if (a instanceof Power) {
 					Term a = ((Power)a).a, b = ((Power)a).b;
-					if (((IntegerTerm)a).value != 2 || b instanceof Multiplication) {
+					if (((Number)a).value != 2 || b instanceof Multiplication) {
 						Sytem.out.print("La résolution de cette équation par ce logiciel est impossible.");
 					}
 					else if (b instanceof Fraction){
@@ -323,7 +321,7 @@ public class MathSolveur {
 						surfact111 = ((Fraction)b).denominator;
 					}
 					else {
-						surfact1 = ((IntegerTerm)b).value;
+						surfact1 = ((Number)b).value;
 					}
 				}
 				else if (a instanceof Fraction ){
@@ -331,11 +329,11 @@ public class MathSolveur {
 					fact111 = ((Fraction)a).denominator;
 				}
 				else {
-					fact1 = ((IntegerTerm)a).value;				
+					fact1 = ((Number)a).value;				
 				}
 				if (b instanceof Power) {
 					Term a = ((Power)b).a, b = ((Power)b).b;
-					if (((IntegerTerm)a).value != 2 || b instanceof Multiplication) {
+					if (((Number)a).value != 2 || b instanceof Multiplication) {
 						Sytem.out.print("La résolution de cette équation par ce logiciel est impossible.");
 					}
 					else if (b instanceof Fraction){
@@ -343,7 +341,7 @@ public class MathSolveur {
 						surfact111 = ((Fraction)b).denominator;
 					}
 					else {
-						surfact1 = ((IntegerTerm)b).value;
+						surfact1 = ((Number)b).value;
 					}
 				}
 				else if (b instanceof Fraction ){
@@ -351,11 +349,11 @@ public class MathSolveur {
 					fact111 = ((Fraction)b).denominator;
 				}
 				else {
-					fact1 = ((IntegerTerm)b).value;				
+					fact1 = ((Number)b).value;				
 				}
 			}
-			else if (Y instanceof IntegerTerm){
-				cons1 = ((IntegerTerm)X).value;
+			else if (Y instanceof Number){
+				cons1 = ((Number)X).value;
 			}
 			else {
 				cons1 = 0;				
@@ -363,7 +361,7 @@ public class MathSolveur {
 				Term a = ((Multiplication)Y2).a, b = ((Multiplication)Y2).b;
 				if (a instanceof Power) {
 					Term a = ((Power)a).a, b = ((Power)a).b;
-					if (((IntegerTerm)a).value != 2 || b instanceof Multiplication) {
+					if (((Number)a).value != 2 || b instanceof Multiplication) {
 						Sytem.out.print("La résolution de cette équation par ce logiciel est impossible.");
 					}
 					else if (b instanceof Fraction){
@@ -371,7 +369,7 @@ public class MathSolveur {
 						surfact111 = ((Fraction)b).denominator;
 					}
 					else {
-						surfact1 = ((IntegerTerm)b).value;
+						surfact1 = ((Number)b).value;
 					}
 				}
 				else if (a instanceof Fraction ){
@@ -379,11 +377,11 @@ public class MathSolveur {
 					fact222 = ((Fraction)a).denominator;
 				}
 				else {
-					fact2 = ((IntegerTerm)a).value;				
+					fact2 = ((Number)a).value;				
 				}
 				if (b instanceof Power) {
 					Term a = ((Power)b).a, b = ((Power)b).b;
-					if (((IntegerTerm)a).value != 2 || b instanceof Multiplication) {
+					if (((Number)a).value != 2 || b instanceof Multiplication) {
 						Sytem.out.print("La résolution de cette équation par ce logiciel est impossible.");
 					}
 					else if (b instanceof Fraction){
@@ -391,7 +389,7 @@ public class MathSolveur {
 						surfact111 = ((Fraction)b).denominator;
 					}
 					else {
-						surfact1 = ((IntegerTerm)b).value;
+						surfact1 = ((Number)b).value;
 					}
 				}
 				else if (b instanceof Fraction ){
@@ -399,11 +397,11 @@ public class MathSolveur {
 					fact222 = ((Fraction)b).denominator;
 				}
 				else {
-					fact2 = ((IntegerTerm)b).value;				
+					fact2 = ((Number)b).value;				
 				}
 			}
-			else if (Y2 instanceof IntegerTerm){
-				cons2 = ((IntegerTerm)X).value;
+			else if (Y2 instanceof Number){
+				cons2 = ((Number)X).value;
 			}
 			else {
 				cons2 = 0;
@@ -412,7 +410,7 @@ public class MathSolveur {
 				Term a = ((Multiplication)Z).a, b = ((Multiplication)Z).b;
 				if (a instanceof Power) {
 					Term a = ((Power)a).a, b = ((Power)a).b;
-					if (((IntegerTerm)a).value != 2 || b instanceof Multiplication) {
+					if (((Number)a).value != 2 || b instanceof Multiplication) {
 						Sytem.out.print("La résolution de cette équation par ce logiciel est impossible.");
 					}
 					else if (b instanceof Fraction){
@@ -420,7 +418,7 @@ public class MathSolveur {
 						surfact111 = ((Fraction)b).denominator;
 					}
 					else {
-						surfact1 = ((IntegerTerm)b).value;
+						surfact1 = ((Number)b).value;
 					}
 				}
 				else if (a instanceof Fraction ){
@@ -428,11 +426,11 @@ public class MathSolveur {
 					fact111 = ((Fraction)a).denominator;
 				}
 				else {
-					fact1 = ((IntegerTerm)a).value;				
+					fact1 = ((Number)a).value;				
 				}
 				if (b instanceof Power) {
 					Term a = ((Power)b).a, b = ((Power)b).b;
-					if (((IntegerTerm)a).value != 2 || b instanceof Multiplication) {
+					if (((Number)a).value != 2 || b instanceof Multiplication) {
 						Sytem.out.print("La résolution de cette équation par ce logiciel est impossible.");
 					}
 					else if (b instanceof Fraction){
@@ -440,7 +438,7 @@ public class MathSolveur {
 						surfact111 = ((Fraction)b).denominator;
 					}
 					else {
-						surfact1 = ((IntegerTerm)b).value;
+						surfact1 = ((Number)b).value;
 					}
 				}
 				else if (b instanceof Fraction ){
@@ -448,11 +446,11 @@ public class MathSolveur {
 					fact111 = ((Fraction)b).denominator;
 				}
 				else {
-					fact1 = ((IntegerTerm)b).value;				
+					fact1 = ((Number)b).value;				
 				}
 			}
-			else if (Y instanceof IntegerTerm){
-				cons1 = ((IntegerTerm)X).value;
+			else if (Y instanceof Number){
+				cons1 = ((Number)X).value;
 			}
 			else {
 				cons1 = 0;				
@@ -460,7 +458,7 @@ public class MathSolveur {
 				Term a = ((Multiplication)Z2).a, b = ((Multiplication)Z2).b;
 				if (a instanceof Power) {
 					Term a = ((Power)a).a, b = ((Power)a).b;
-					if (((IntegerTerm)a).value != 2 || b instanceof Multiplication) {
+					if (((Number)a).value != 2 || b instanceof Multiplication) {
 						Sytem.out.print("La résolution de cette équation par ce logiciel est impossible.");
 					}
 					else if (b instanceof Fraction){
@@ -468,7 +466,7 @@ public class MathSolveur {
 						surfact111 = ((Fraction)b).denominator;
 					}
 					else {
-						surfact1 = ((IntegerTerm)b).value;
+						surfact1 = ((Number)b).value;
 					}
 				}
 				else if (a instanceof Fraction ){
@@ -476,11 +474,11 @@ public class MathSolveur {
 					fact222 = ((Fraction)a).denominator;
 				}
 				else {
-					fact2 = ((IntegerTerm)a).value;				
+					fact2 = ((Number)a).value;				
 				}
 				if (b instanceof Power) {
 					Term a = ((Power)b).a, b = ((Power)b).b;
-					if (((IntegerTerm)a).value != 2 || b instanceof Multiplication) {
+					if (((Number)a).value != 2 || b instanceof Multiplication) {
 						Sytem.out.print("La résolution de cette équation par ce logiciel est impossible.");
 					}
 					else if (b instanceof Fraction){
@@ -488,7 +486,7 @@ public class MathSolveur {
 						surfact111 = ((Fraction)b).denominator;
 					}
 					else {
-						surfact1 = ((IntegerTerm)b).value;
+						surfact1 = ((Number)b).value;
 					}
 				}
 				else if (b instanceof Fraction ){
@@ -496,11 +494,11 @@ public class MathSolveur {
 					fact222 = ((Fraction)b).denominator;
 				}
 				else {
-					fact2 = ((IntegerTerm)b).value;				
+					fact2 = ((Number)b).value;				
 				}
 			}
-			else if (Y2 instanceof IntegerTerm){
-				cons2 = ((IntegerTerm)X).value;
+			else if (Y2 instanceof Number){
+				cons2 = ((Number)X).value;
 			}
 			else {
 				cons2 = 0;
@@ -511,40 +509,40 @@ public class MathSolveur {
 			
 				
 				if (surfact1 != 0 && surfact2 != 0) {
-					a = surfact1 - surfact2;
+					u = surfact1 - surfact2;
 				}
 				else if (surfact1 != 0){
-					a = surfact1*surfact222 - surfact22;
+					u = surfact1*surfact222 - surfact22;
 				}
 				else if (surfact2 != 0) {
-					a =  surfact11 - surfact2*surfact111;
+					u =  surfact11 - surfact2*surfact111;
 				}
 				else {
-					a = (surfact11*surfact222 - surfact22*surfact111) / (surfact111*surfact222);
+					u = (surfact11*surfact222 - surfact22*surfact111) / (surfact111*surfact222);
 				}
 				if (fact1 != 0 && fact2 != 0) {
-					b = fact1 - fact2;
+					v = fact1 - fact2;
 				}
 				else if (fact1 != 0){
-					b = fact1*fact222 - fact22;
+					v = fact1*fact222 - fact22;
 				}
 				else if (fact2 != 0){
-					b = fact11 - fact2*fact111;
+					v = fact11 - fact2*fact111;
 				}
 				else {
-					a = (fact11*fact222 - fact22*fact111) / (fact111*fact222);
+					v = (fact11*fact222 - fact22*fact111) / (fact111*fact222);
 				}
 				if (cons1 != 0 && cons2 != 0) {
-					c = cons1 - cons2;
+					w = cons1 - cons2;
 				}
 				else if (cons1 != 0){
-					c = cons1*cons222 - cons22;
+					w = cons1*cons222 - cons22;
 				}
 				else {
-					c = cons11 - cons2*cons111;
+					w = cons11 - cons2*cons111;
 				}
 				else {
-					a = (cons11*cons222 - cons22*cons111) / (cons111*cons222);
+					w = (cons11*cons222 - cons22*cons111) / (cons111*cons222);
 				}
 				if (a = 0) {
 					frac1.set(c, b);
@@ -581,8 +579,8 @@ public class MathSolveur {
 			else if (frac1.a != 0 && frac1.b != 0 && frac2.a == 0 && frac2.b == 0) {
 				System.out.print("La solution à cette équation est: ");
 				Term simplifié = frac1.simplify();
-				if (simplifié instanceof IntegerTerm) {
-					solution1 = (((IntegerTerm)simplifié).value);
+				if (simplifié instanceof Number) {
+					solution1 = (((Number)simplifié).value);
 					System.out.print(solution1);
 					System.out.print(".");
 				}
@@ -593,8 +591,8 @@ public class MathSolveur {
 			else if (frac1.a != 0 && frac1.b != 0) {
 				System.out.print("Les solutions à cette équation sont: ");
 				Term simplifié = frac1.simplify();
-				if (simplifié instanceof IntegerTerm) {
-					solution1 = (((IntegerTerm)simplifié).value);
+				if (simplifié instanceof Number) {
+					solution1 = (((Number)simplifié).value);
 					System.out.print(solution1);
 				}
 				else {
@@ -606,8 +604,8 @@ public class MathSolveur {
 				}
 				System.out.print(" et ");
 				Term simplifié = frac2.simplify();
-				if (simplifié instanceof IntegerTerm) {
-					solution1 = (((IntegerTerm)simplifié).value);
+				if (simplifié instanceof Number) {
+					solution1 = (((Number)simplifié).value);
 					System.out.print(solution2);
 				}
 				else {
@@ -631,4 +629,6 @@ public class MathSolveur {
 				System.out.print(").");
 			}
 		}
+		}
+	}
 }
