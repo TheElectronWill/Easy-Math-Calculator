@@ -22,8 +22,8 @@ public class TestAnalyseur {
 		List<Term> terms = new MathAnalyseur(expression).analyser();
 		long nanos = System.nanoTime() - t0;
 		double millis = nanos / Math.pow(10, 6);
-		double seconds = millis / 1000.0;
-		System.out.println("Analysé en " + seconds + " secondes  (" + nanos + " ns = " + millis + " ms )");
+		double secondes = millis / 1000.0;
+		System.out.println("Analysé en " + secondes + " secondes  (" + nanos + " ns = " + millis + " ms )");
 		System.out.println(Arrays.deepToString(terms.toArray()));
 	}
 	

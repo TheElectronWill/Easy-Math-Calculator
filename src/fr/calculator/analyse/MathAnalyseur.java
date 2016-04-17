@@ -6,10 +6,8 @@ import fr.calculator.analyse.Fonction.NomFonction;
 
 /**
  * Parseur d'expressions mathématiques.
- * <h1>Représentation interne des données</h1> Une "expression mathématique" est définie comme une suite de termes qui
- * s'additionnent pour donner un résultat. Ces termes sont stockés sous la forme d'une liste, plus précisément
- * {@code List<Term>}. Par exemple, le calcul <code>"2 + 45 - 6"</code> donne la liste suivante:
- * <code>[+2,+45,-6]</code>
+ * <h1>Représentation interne des données</h1> Une "expression mathématique" est définie comme une suite de termes qui s'additionnent pour donner un résultat. Ces termes sont stockés sous la forme
+ * d'une liste, plus précisément {@code List<Term>}. Par exemple, le calcul <code>"2 + 45 - 6"</code> donne la liste suivante: <code>[+2,+45,-6]</code>
  *
  * @author Guillaume
  */
@@ -202,11 +200,10 @@ public class MathAnalyseur {
 	}
 	
 	/**
-	 * Donne la position de l'un des caractères donnés, ou de la prochaine lettre (a-z, A-Z). La recherche commence à la
-	 * position <code>pos</code>.
+	 * Donne la position de l'un des caractères donnés, ou de la prochaine lettre (a-z, A-Z). La recherche commence à la position <code>pos</code>.
 	 *
-	 * @return la position de l'un des caractères donnés, ou de la prochaine lettre, ou <code>-</code> si aucun de ces
-	 *         caractères n'existe entre la position <code>pos</code> et la fin de l'expression à évaluer.
+	 * @return la position de l'un des caractères donnés, ou de la prochaine lettre, ou <code>-</code> si aucun de ces caractères n'existe entre la position <code>pos</code> et la fin de l'expression
+	 *         à évaluer.
 	 */
 	private int prochainIndexOuLettre(char... cs) {
 		for (int i = pos; i < expression.length(); i++) {
@@ -229,8 +226,7 @@ public class MathAnalyseur {
 	/**
 	 * Donne la position de l'un des caractères donnés. La recherche commence à la position <code>pos</code>.
 	 *
-	 * @return la position de l'un des caractères donnés, ou <code>-</code> si aucun de ces caractères n'existe entre la
-	 *         position <code>pos</code> et la fin de l'expression à évaluer.
+	 * @return la position de l'un des caractères donnés, ou <code>-</code> si aucun de ces caractères n'existe entre la position <code>pos</code> et la fin de l'expression à évaluer.
 	 */
 	private int prochainIndex(char... cs) {
 		for (int i = pos; i < expression.length(); i++) {
