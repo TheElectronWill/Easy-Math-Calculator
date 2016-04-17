@@ -81,7 +81,15 @@ public class MathAnalyseur {
 				case '/':
 					dernierIndex = terms.size() - 1;
 					termePrecedent = terms.remove(dernierIndex);
-					return new Division(termePrecedent, termeSuivant(terms));
+					Term next = termeSuivant(terms);
+					if (next instanceof Multiplication) {// pour respecter l'ordre afin que 1/2*5 = (1/2)*5 et pas 1/(2*5)
+						Multiplication m = (Multiplication) next;
+						return new Multiplication(new Division(termePrecedent, m.a), m.b);
+					} else if (next instanceof Division) {// pour que 1/2/3 = (1/2)/3 et pas 1/(2/3)
+						Division d = (Division) next;
+						return new Division(new Division(termePrecedent, d.a), d.b);
+					}
+					return new Division(termePrecedent, next);
 				case '^':
 					dernierIndex = terms.size() - 1;
 					termePrecedent = terms.remove(dernierIndex);
