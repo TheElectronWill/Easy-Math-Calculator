@@ -35,35 +35,15 @@ public class Parenthese implements Terme {
 
 	@Override
 	public Terme simplifier() {
-		if (termes.isEmpty()) {
-			return new NombreEntier(0);
+		switch (termes.size()) {
+			case 0:
+				return new NombreEntier(0);
+			case 1:
+				return termes.get(0).simplifier();
+			default:
+				termes = MathSimplifieur.simplifierTermes(termes);
+				return termes.size() == 1 ? termes.get(0) : this;
 		}
-		if (termes.size() == 1) {
-			return termes.get(0).simplifier();
-		}
-
-		termes = MathSimplifieur.simplifierTermes(termes);
-		boolean canCalculate = true;
-		for (Terme t : termes) {
-			if (!(t instanceof NombreEntier || t instanceof Fraction)) {
-				canCalculate = false;
-				break;
-			}
-		}
-		if (canCalculate) {
-			int numerator = 0, denominator = 1;
-			for (Terme t : termes) {
-				if (t instanceof NombreEntier) {
-					numerator += ((NombreEntier) t).valeur * denominator;
-				} else if (t instanceof Fraction) {
-					Fraction f = (Fraction) t;
-					numerator = (numerator * f.denom) + (f.num * denominator);
-					denominator *= f.denom;
-				}
-			}
-			return denominator == 1 ? new NombreEntier(numerator) : new Fraction(numerator, denominator);
-		}
-		return this;
 	}
 
 	@Override
