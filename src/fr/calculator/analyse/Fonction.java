@@ -29,6 +29,7 @@ public class Fonction implements Terme {
 
 	@Override
 	public Terme simplifier() {
+		param = param.simplifier();
 		return this;
 	}
 
