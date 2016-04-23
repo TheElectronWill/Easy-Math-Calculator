@@ -59,6 +59,12 @@ public class Fonction implements Terme {
 					throw new RuntimeException("Fonction inconnue: " + nom);
 			}
 		}
+
+		@Override
+		public String toString() {
+			return name().toLowerCase();
+		}
+
 	}
 
 }
