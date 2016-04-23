@@ -108,6 +108,10 @@ public class MathAnalyseur {
 					}
 					return new Puissance(termePrecedent, termeSuivant(terms));
 				case 'x':
+					if (negatif) {
+						negatif = false;
+						return new Multiplication(new NombreEntier(-1), new Variable("x"));
+					}
 					return new Variable("x");
 				default:
 					if (estUneLettre(operateur)) {
@@ -166,7 +170,7 @@ public class MathAnalyseur {
 			case '^':
 				return new Puissance(terme, termeSuivant(terms));
 			case 'x':
-				return new Variable("x");
+				return new Multiplication(terme, new Variable("x"));
 			default:
 				if (estUneLettre(operateur)) {
 					int indexParenthese = prochainIndex('+', '-', '/', '*', '(', ')', '^');
