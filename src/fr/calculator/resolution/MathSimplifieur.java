@@ -2,7 +2,6 @@ package fr.calculator.resolution;
 
 import fr.calculator.analyse.Division;
 import fr.calculator.analyse.Fonction;
-import fr.calculator.analyse.Fonction.NomFonction;
 import fr.calculator.analyse.Fraction;
 import fr.calculator.analyse.Multiplication;
 import fr.calculator.analyse.NombreEntier;
@@ -10,10 +9,8 @@ import fr.calculator.analyse.Parenthese;
 import fr.calculator.analyse.Puissance;
 import fr.calculator.analyse.Terme;
 import fr.calculator.analyse.Variable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Utilitaire pour simplifier les expressions mathématiques.
@@ -31,26 +28,7 @@ public class MathSimplifieur {
 	}
 
 	public static List<Terme> simplifierTermes(List<Terme> termes) {
-		ExpressionSimple expression = simplifierExpression(termes);
-		List<Terme> termesSimples = new ArrayList<>();
-		if (expression.constante.num != 0) {
-			termesSimples.add(expression.constante.simplifier());
-		}
-		if (expression.facteurX.num != 0) {
-			termesSimples.add(new Multiplication(expression.facteurX, new Variable("x")).simplifier());
-		}
-		if (expression.facteurX2.num != 0) {
-			termesSimples.add(new Multiplication(expression.facteurX2, new Puissance(new Variable("x"), new NombreEntier(2))).simplifier());
-		}
-		for (Map.Entry<NomFonction, Fraction> e : expression.facteurFonctions.entrySet()) {
-			NomFonction nom = e.getKey();
-			Fraction facteur = e.getValue();
-			Terme param = expression.paramFonctions.get(nom);
-			if (facteur.num != 0) {
-				termesSimples.add(new Multiplication(facteur, new Fonction(nom, param)).simplifier());
-			}
-		}
-		return termesSimples;
+		return simplifierExpression(termes).getTermes();
 	}
 
 	public static ExpressionSimple simplifierExpression(Terme... termes) {
@@ -60,7 +38,6 @@ public class MathSimplifieur {
 	public static ExpressionSimple simplifierExpression(List<Terme> termes) {
 		ExpressionSimple expression = new ExpressionSimple();
 		for (Terme t : termes) {
-			System.out.println("terme: " + t + " [" + t.getClass() + "]");
 			t = t.simplifier();
 			if (t instanceof Parenthese) {// parenthèse seule -> on développe
 				for (Terme pt : ((Parenthese) t).termes) {
@@ -70,7 +47,7 @@ public class MathSimplifieur {
 				ajouterTerme(expression, t.simplifier());
 			}
 		}
-		return expression;
+		return expression.simplifier();
 	}
 
 	private static void ajouterTerme(ExpressionSimple expression, Terme t) {
@@ -127,9 +104,11 @@ public class MathSimplifieur {
 		if (param == null) {//on n'avait pas encore rencontré cette fonction
 			expression.paramFonctions.put(fonction.nom, fonction.param);
 		} else//on a déjà rencontré la même fonction dans cette expression, il faut alors s'assurer que le même paramètre est donné à la fonction à chaque fois
-		 if (!param.equals(fonction.param)) {//les paramètres ne sont pas identiques, donc on ne peut pas regrouper les deux occurrence de la fonction
+		{
+			if (!param.equals(fonction.param)) {//les paramètres ne sont pas identiques, donc on ne peut pas regrouper les deux occurrence de la fonction
 				throw new RuntimeException("Impossible de gérer plusieurs occurrences de la même fonction si les paramètres ne sont pas à chaque fois identiques");
 			}
+		}
 		expression.facteurFonctions.get(fonction.nom).ajouter(facteur);
 	}
 
