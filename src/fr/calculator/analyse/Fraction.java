@@ -29,18 +29,46 @@ public class Fraction implements Terme, Cloneable {
 	}
 
 	/**
+	 * Ajoute un nombre entier à cette fraction.
+	 *
+	 * @return cette fraction
+	 */
+	public Fraction ajouter(NombreEntier i) {
+		return ajouter(i.valeur);
+	}
+
+	/**
+	 * Ajoute un nombre entier à cette fraction.
+	 *
+	 * @return cette fraction
+	 */
+	public Fraction ajouter(int i) {
+		num += i * denom;
+		return this;
+	}
+
+	/**
 	 * Soustrait un nombre entier à cette fraction.
-	 * 
+	 *
 	 * @return cette fraction
 	 */
 	public Fraction soustraire(NombreEntier i) {
-		num -= i.valeur * denom;
+		return soustraire(i.valeur);
+	}
+
+	/**
+	 * Soustrait un nombre entier à cette fraction.
+	 *
+	 * @return cette fraction
+	 */
+	public Fraction soustraire(int i) {
+		num -= i * denom;
 		return this;
 	}
 
 	/**
 	 * Soustrait une autre fraction à celle-là.
-	 * 
+	 *
 	 * @return cette fraction
 	 */
 	public Fraction soustraire(Fraction f) {
@@ -54,18 +82,8 @@ public class Fraction implements Terme, Cloneable {
 	}
 
 	/**
-	 * Ajoute un nombre entier à cette fraction.
-	 * 
-	 * @return cette fraction
-	 */
-	public Fraction ajouter(NombreEntier i) {
-		num += i.valeur * denom;
-		return this;
-	}
-
-	/**
 	 * Multiplie cette fraction par une autre fraction.
-	 * 
+	 *
 	 * @return cette fraction
 	 */
 	public Fraction multiplier(Fraction f) {
@@ -76,17 +94,26 @@ public class Fraction implements Terme, Cloneable {
 
 	/**
 	 * Multiplie cette fraction par une nombre entier.
-	 * 
+	 *
 	 * @return cette fraction
 	 */
 	public Fraction multiplier(NombreEntier i) {
-		num *= i.valeur;
+		return multiplier(i.valeur);
+	}
+
+	/**
+	 * Multiplie cette fraction par une nombre entier.
+	 *
+	 * @return cette fraction
+	 */
+	public Fraction multiplier(int i) {
+		num *= i;
 		return this;
 	}
 
 	/**
 	 * Divise cette fraction par une autre fraction.
-	 * 
+	 *
 	 * @return cette fraction
 	 */
 	public Fraction diviser(Fraction f) {
@@ -97,11 +124,20 @@ public class Fraction implements Terme, Cloneable {
 
 	/**
 	 * Multiplie cette fraction par un nombre entier.
-	 * 
+	 *
 	 * @return cette fraction
 	 */
 	public Fraction diviser(NombreEntier i) {
-		denom *= i.valeur;
+		return diviser(i.valeur);
+	}
+
+	/**
+	 * Multiplie cette fraction par un nombre entier.
+	 *
+	 * @return cette fraction
+	 */
+	public Fraction diviser(int i) {
+		denom *= i;
 		return this;
 	}
 
