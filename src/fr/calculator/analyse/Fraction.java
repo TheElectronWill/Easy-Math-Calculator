@@ -152,15 +152,34 @@ public class Fraction implements Terme, Cloneable {
 		return this;
 	}
 
+	/**
+	 * Simplifie cette fraction, en la gardant sous forme de fraction dans tous les cas (même si le
+	 * dénominateur vaut 1).
+	 *
+	 * @return cette fraction
+	 */
+	public Fraction simplifierFraction() {
+		int gcd = pgcd(num, denom);
+		int numSimple = num / gcd, denomSimple = denom / gcd;
+		if (numSimple > 0 && denomSimple < 0) {// Transformer a/-b en -a/b
+			numSimple *= -1;
+			denomSimple *= -1;
+		}
+		num = numSimple;
+		denom = denomSimple;
+		return this;
+	}
+
+	/**
+	 * Simplifie cette fraction. Si le dénominateur vaut 1 à l'issue de la simplification, un NombreEntier
+	 * dont la valeur est celle du dénominateur est retourné. Sinon, cette même fraction est retournée.
+	 *
+	 * @return cette fraction, ou un nouvel objet NombreEntier
+	 */
 	@Override
 	public Terme simplifier() {
-		int gcd = pgcd(num, denom);
-		int simplifiedNum = num / gcd, simplifiedDen = denom / gcd;
-		if (simplifiedNum > 0 && simplifiedDen < 0) {// Transformer a/-b en -a/b
-			simplifiedNum *= -1;
-			simplifiedDen *= -1;
-		}
-		return simplifiedDen == 1 ? new NombreEntier(simplifiedNum) : new Fraction(simplifiedNum, simplifiedDen);
+		simplifierFraction();
+		return denom == 1 ? new NombreEntier(num) : this;
 	}
 
 	@Override
