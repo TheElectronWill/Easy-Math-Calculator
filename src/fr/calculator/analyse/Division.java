@@ -38,7 +38,7 @@ public class Division implements Terme {
 				return new Fraction(n.valeur * fraction.denom, fraction.num).simplifier();
 			}
 		} else if (a instanceof Fraction) {
-			Fraction fraction = (Fraction) b;
+			Fraction fraction = (Fraction) a;
 			if (b instanceof NombreEntier) {// (num/den)/n
 				NombreEntier n = (NombreEntier) b;
 				return fraction.diviser(n.valeur).simplifier();
