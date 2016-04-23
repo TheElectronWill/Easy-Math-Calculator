@@ -1,6 +1,6 @@
 package fr.calculator.analyse;
 
-public class Fraction implements Term, Cloneable {
+public class Fraction implements Terme, Cloneable {
 
 	static int pgcd(int a, int b) {
 		return b == 0 ? a : pgcd(b, a % b);
@@ -15,7 +15,7 @@ public class Fraction implements Term, Cloneable {
 
 	/**
 	 * Ajoute une autre fraction à celle-là.
-	 * 
+	 *
 	 * @return cette fraction
 	 */
 	public Fraction ajouter(Fraction f) {
@@ -120,7 +120,7 @@ public class Fraction implements Term, Cloneable {
 	}
 
 	@Override
-	public Term simplifier() {
+	public Terme simplifier() {
 		int gcd = pgcd(num, denom);
 		int simplifiedNum = num / gcd, simplifiedDen = denom / gcd;
 		if (simplifiedNum > 0 && simplifiedDen < 0) {// Transformer a/-b en -a/b

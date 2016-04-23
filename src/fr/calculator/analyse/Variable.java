@@ -1,6 +1,6 @@
 package fr.calculator.analyse;
 
-public class Variable implements Term {
+public class Variable implements Terme {
 
 	public final String nom;
 
@@ -9,12 +9,12 @@ public class Variable implements Term {
 	}
 
 	@Override
-	public Term inverser() {
+	public Terme inverser() {
 		return new Division(new NombreEntier(1), this);
 	}
 
 	@Override
-	public Term negatif() {
+	public Terme negatif() {
 		return new Multiplication(new NombreEntier(-1), this);
 	}
 

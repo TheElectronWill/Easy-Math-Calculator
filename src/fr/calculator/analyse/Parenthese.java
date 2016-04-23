@@ -6,36 +6,36 @@ import java.util.ListIterator;
 
 import fr.calculator.resolution.MathSimplifieur;
 
-public class Parenthese implements Term {
+public class Parenthese implements Terme {
 
-	public List<Term> termes;
+	public List<Terme> termes;
 
-	public Parenthese(List<Term> termes) {
+	public Parenthese(List<Terme> termes) {
 		this.termes = termes;
 	}
 
-	public Parenthese(Term... termes) {
+	public Parenthese(Terme... termes) {
 		this.termes = Arrays.asList(termes);
 	}
 
 	@Override
 	public Parenthese negatif() {
 		// Multiplie chaque terme par -1
-		ListIterator<Term> it = termes.listIterator();
+		ListIterator<Terme> it = termes.listIterator();
 		while (it.hasNext()) {
-			Term t = it.next();
+			Terme t = it.next();
 			it.set(t.negatif());
 		}
 		return this;
 	}
 
 	@Override
-	public Term inverser() {
+	public Terme inverser() {
 		return new Division(new NombreEntier(1), this);
 	}
 
 	@Override
-	public Term simplifier() {
+	public Terme simplifier() {
 		if (termes.isEmpty())
 			return new NombreEntier(0);
 		if (termes.size() == 1)
@@ -43,7 +43,7 @@ public class Parenthese implements Term {
 
 		termes = MathSimplifieur.simplifier(termes);
 		boolean canCalculate = true;
-		for (Term t : termes) {
+		for (Terme t : termes) {
 			if (!(t instanceof NombreEntier || t instanceof Fraction)) {
 				canCalculate = false;
 				break;
@@ -51,7 +51,7 @@ public class Parenthese implements Term {
 		}
 		if (canCalculate) {
 			int numerator = 0, denominator = 1;
-			for (Term t : termes) {
+			for (Terme t : termes) {
 				if (t instanceof NombreEntier) {
 					numerator += ((NombreEntier) t).valeur * denominator;
 				} else if (t instanceof Fraction) {

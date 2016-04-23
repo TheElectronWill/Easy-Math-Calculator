@@ -7,31 +7,31 @@ package fr.calculator.analyse;
  * @author TheElectronWill
  * 		
  */
-public interface Term {
+public interface Terme {
 	
 	/**
 	 * Inverse ce terme.
 	 * 
 	 * @return ce même terme inversé, ou un nouvel objet équivalent à ce terme inversé.
 	 */
-	Term inverser();
+	Terme inverser();
 	
 	/**
 	 * Multiplie ce terme par -1.
 	 * 
 	 * @return ce même terme multiplié par -1, ou un nouvel objet équivalent à ce terme multiplié par -1.
 	 */
-	Term negatif();
+	Terme negatif();
 	
 	/**
 	 * Simplifie ce terme.
 	 * 
 	 * @return ce même terme simplifié, ou un nouvel objet équivalent à ce terme simplifié.
 	 */
-	Term simplifier();
+	Terme simplifier();
 	
 	/**
-	 * Teste si ce terme est le même ou contient la même chose qu'un autre terme. Si obj n'implémente pas {@link Term},
+	 * Teste si ce terme est le même ou contient la même chose qu'un autre terme. Si obj n'implémente pas {@link Terme},
 	 * renvoie false.
 	 * <p>
 	 * ATTENTION: cette méthode ne teste <i>pas</i> l'égalité mathématique, mais uniquement si les 2 objets sont

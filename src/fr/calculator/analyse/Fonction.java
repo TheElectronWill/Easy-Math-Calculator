@@ -1,6 +1,6 @@
 package fr.calculator.analyse;
 
-public class Fonction implements Term {
+public class Fonction implements Terme {
 	
 	/**
 	 * Le nom de la fonction, par exemple COSINUS.
@@ -9,25 +9,25 @@ public class Fonction implements Term {
 	/**
 	 * Ce qui est passé en paramètre de la fonction. Par exemple, dans "cosinus(2x+3)", t vaut Parenthese(2*x, 3).
 	 */
-	public Term t;
+	public Terme t;
 	
-	public Fonction(NomFonction nom, Term t) {
+	public Fonction(NomFonction nom, Terme t) {
 		this.nom = nom;
 		this.t = t;
 	}
 	
 	@Override
-	public Term inverser() {
+	public Terme inverser() {
 		return new Division(new NombreEntier(1), this);
 	}
 	
 	@Override
-	public Term negatif() {
+	public Terme negatif() {
 		return new Multiplication(new NombreEntier(-1), this);
 	}
 	
 	@Override
-	public Term simplifier() {
+	public Terme simplifier() {
 		return this;
 	}
 	

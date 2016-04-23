@@ -5,9 +5,9 @@ import fr.calculator.analyse.Fonction.NomFonction;
 import fr.calculator.analyse.Fraction;
 import fr.calculator.analyse.Multiplication;
 import fr.calculator.analyse.Puissance;
-import fr.calculator.analyse.Term;
+import fr.calculator.analyse.Terme;
 public class MathSolveur {
-	public static String resoudre(List<Term> gauche, List<Term> droit) {
+	public static String resoudre(List<Terme> gauche, List<Terme> droit) {
 		int fact1 = 0, fact11 = 0, fact111 = 0, fact2 = 0, fact22 = 0, fact222 = 0; // Déclaration  et initialisation des variables générales.
 		int cons1 = 0, cons11 = 0, cons111 = 0, cons2 = 0, cons22 = 0, cons222 = 0;
 		int surfact1 = 0, surfact11 = 0, surfact111 = 0, surfact2 = 0, surfact22 = 0, surfact222 = 0;
@@ -18,12 +18,12 @@ public class MathSolveur {
 		if (gauche == droit) { // Les deux parties de l'équation sont identiques.
 			System.out.print("L'égalité est toujours vraie.");
 		}
-		Term X = ""; // Déclaration des termes de l'équation.
-		Term X2 = "";
-		Term Y = "";
-		Term Y2 = "";
-		Term Z = "";
-		Term Z2 = "";
+		Terme X = ""; // Déclaration des termes de l'équation.
+		Terme X2 = "";
+		Terme Y = "";
+		Terme Y2 = "";
+		Terme Z = "";
+		Terme Z2 = "";
 		if (gauche.size() != 0) { // Initialisation des termes de l'équation. 
 			X = gauche.get(0);
 		}
@@ -59,17 +59,17 @@ public class MathSolveur {
 						Fonction fonction1 = (Fonction) X2;
 					}
 					if ((fonction.nom == NomFonction.EXPONENTIELLE && fonction1.nom == NomFonction.EXPONENTIELLE) || (fonction.nom == NomFonction.LOGARITHME_NEPERIEN && fonction1.nom == NomFonction.LOGARITHME_NEPERIEN) || (fonction.nom == NomFonction.COSINUS && fonction1.nom == NomFonction.COSINUS) || (fonction.nom == NomFonction.SINUS && fonction1.nom == NomFonction.SINUS)) { // fonction et fonction2 sont deux fonctions du même genre (deux logarithmes, deux exponentielles...)				
-						gauche = (List<Term>) fonction.t;
-						droit = (List<Term>) fonction.t;
+						gauche = (List<Terme>) fonction.t;
+						droit = (List<Terme>) fonction.t;
 						if (gauche == droit) { // 
 							System.out.print("L'égalité est toujours vraie.");
 						}
-						Term X = "";
-						Term X2 = "";
-						Term Y = "";
-						Term Y2 = "";
-						Term Z = "";
-						Term Z2 = "";
+						Terme X = "";
+						Terme X2 = "";
+						Terme Y = "";
+						Terme Y2 = "";
+						Terme Z = "";
+						Terme Z2 = "";
 						if (gauche.size() != 0) {
 							X = gauche.get(0);
 						}

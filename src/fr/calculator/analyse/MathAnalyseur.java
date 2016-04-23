@@ -24,18 +24,18 @@ public class MathAnalyseur {
 																			// ) et ( sont ignorés
 	}
 	
-	public List<Term> analyser() {
-		List<Term> terms = new ArrayList<>();
+	public List<Terme> analyser() {
+		List<Terme> terms = new ArrayList<>();
 		while (pos < expression.length()) {
 			sauterEspaces();
-			Term next = termeSuivant(terms);
+			Terme next = termeSuivant(terms);
 			if (next != null)
 				terms.add(next);
 		}
 		return terms;
 	}
 	
-	private Term termeSuivant(List<Term> terms) {
+	private Terme termeSuivant(List<Terme> terms) {
 		int prochainIndex = prochainIndexOuLettre('+', '-', '/', '*', '(', ')', '^');
 		if (prochainIndex == -1) {
 			String nombreStr = expression.substring(pos).trim();
@@ -48,7 +48,7 @@ public class MathAnalyseur {
 		
 		char operateur = expression.charAt(pos++);
 		if (operateur == '(') {// on s'est arrêté à une parenthèse
-			Term term = null;
+			Terme term = null;
 			if (!nombreStr.isEmpty()) {// Il y'a un facteur devant la parenthèse
 				if (negatif) {
 					negatif = false;
@@ -64,7 +64,7 @@ public class MathAnalyseur {
 		}
 		
 		if (nombreStr.isEmpty()) {// on n'a lu que l'opérateur
-			Term termePrecedent;
+			Terme termePrecedent;
 			int dernierIndex;
 			switch (operateur) {
 				case '-':
@@ -79,7 +79,7 @@ public class MathAnalyseur {
 				case '/':
 					dernierIndex = terms.size() - 1;
 					termePrecedent = terms.remove(dernierIndex);
-					Term next = termeSuivant(terms);
+					Terme next = termeSuivant(terms);
 					if (next instanceof Multiplication) {// pour respecter l'ordre afin que 1/2*5 = (1/2)*5 et pas 1/(2*5)
 						Multiplication m = (Multiplication) next;
 						return new Multiplication(new Division(termePrecedent, m.a), m.b);
@@ -110,7 +110,7 @@ public class MathAnalyseur {
 			return null;
 		}
 		
-		Term terme;
+		Terme terme;
 		if (negatif) {
 			negatif = false;
 			terme = lireNombre(nombreStr, true);// nombre*(-1)
@@ -126,7 +126,7 @@ public class MathAnalyseur {
 			case '*':
 				return new Multiplication(terme, termeSuivant(terms));
 			case '/':
-				Term next = termeSuivant(terms);
+				Terme next = termeSuivant(terms);
 				if (next instanceof Multiplication) {// pour respecter l'ordre afin que 1/2*5 = (1/2)*5 et pas 1/(2*5)
 					Multiplication m = (Multiplication) next;
 					return new Multiplication(new Division(terme, m.a), m.b);
@@ -161,7 +161,7 @@ public class MathAnalyseur {
 	}
 	
 	private Parenthese lireParentheses() {
-		List<Term> terms = new ArrayList<>();// Liste des termes dans la
+		List<Terme> terms = new ArrayList<>();// Liste des termes dans la
 												// parenthèse
 		while (true) {
 			sauterEspaces();
@@ -175,14 +175,14 @@ public class MathAnalyseur {
 				return new Parenthese(terms);
 			}
 			
-			Term term = termeSuivant(terms);
+			Terme term = termeSuivant(terms);
 			if (term != null)
 				terms.add(term);
 		}
 	}
 	
-	private Term lireNombre(String nombreStr, boolean negatif) {
-		Term t = nombreStr.contains(".") ? decimalVersFraction(nombreStr) : new NombreEntier(Integer.parseInt(nombreStr));
+	private Terme lireNombre(String nombreStr, boolean negatif) {
+		Terme t = nombreStr.contains(".") ? decimalVersFraction(nombreStr) : new NombreEntier(Integer.parseInt(nombreStr));
 		return negatif ? t.negatif() : t;
 	}
 	

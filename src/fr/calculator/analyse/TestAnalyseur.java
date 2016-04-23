@@ -19,7 +19,7 @@ public class TestAnalyseur {
 		sc.close();
 		
 		long t0 = System.nanoTime();
-		List<Term> terms = new MathAnalyseur(expression).analyser();
+		List<Terme> terms = new MathAnalyseur(expression).analyser();
 		long nanos = System.nanoTime() - t0;
 		double millis = nanos / Math.pow(10, 6);
 		double secondes = millis / 1000.0;

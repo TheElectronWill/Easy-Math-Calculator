@@ -5,9 +5,9 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import fr.calculator.analyse.MathAnalyseur;
-import fr.calculator.analyse.Term;
 import fr.calculator.resolution.MathSimplifieur;
 import fr.calculator.resolution.MathSolveur;
+import fr.calculator.analyse.Terme;
 
 /**
  * Un <code>SwingWorker</code> qui effectue les calculs dans un autre Thread que l'EDT (Event Dispatch Thread, le thread
@@ -42,10 +42,10 @@ public class Calculateur extends SwingWorker<String, Void> {
 			if (parties.length > 2)
 				throw new IllegalArgumentException("Equation invalide: vous ne devez pas entrer plus d'un signe égal");
 				
-			final List<List<Term>> termesParties = new ArrayList<>(parties.length);// termes simplifiés
+			final List<List<Terme>> termesParties = new ArrayList<>(parties.length);// termes simplifiés
 			for (String partie : parties) {
 				MathAnalyseur analyseur = new MathAnalyseur(partie);
-				List<Term> termes = MathSimplifieur.simplifier(analyseur.analyser());
+				List<Terme> termes = MathSimplifieur.simplifier(analyseur.analyser());
 				termesParties.add(termes);
 			}
 			

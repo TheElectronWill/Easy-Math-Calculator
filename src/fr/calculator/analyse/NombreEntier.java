@@ -1,6 +1,6 @@
 package fr.calculator.analyse;
 
-public class NombreEntier implements Term {
+public class NombreEntier implements Terme {
 
 	public int valeur;
 

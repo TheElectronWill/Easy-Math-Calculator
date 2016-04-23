@@ -1,30 +1,30 @@
 package fr.calculator.analyse;
 
-public class Division implements Term {
+public class Division implements Terme {
 
-	public Term a, b;
+	public Terme a, b;
 
-	public Division(Term a, Term b) {
+	public Division(Terme a, Terme b) {
 		this.a = a;
 		this.b = b;
 	}
 
 	@Override
-	public Term negatif() {
+	public Terme negatif() {
 		a = a.negatif();
 		return this;
 	}
 
 	@Override
-	public Term inverser() {
-		Term temp = a;
+	public Terme inverser() {
+		Terme temp = a;
 		a = b;
 		b = temp;
 		return this;
 	}
 
 	@Override
-	public Term simplifier() {
+	public Terme simplifier() {
 		a = a.simplifier();
 		b = b.simplifier();
 		if (a instanceof NombreEntier) {

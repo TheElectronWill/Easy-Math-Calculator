@@ -1,27 +1,27 @@
 package fr.calculator.analyse;
 
-public class Multiplication implements Term {
+public class Multiplication implements Terme {
 
-	public Term a, b;
+	public Terme a, b;
 
-	public Multiplication(Term a, Term b) {
+	public Multiplication(Terme a, Terme b) {
 		this.a = a;
 		this.b = b;
 	}
 
 	@Override
-	public Term negatif() {
+	public Terme negatif() {
 		a = a.negatif();
 		return this;
 	}
 
 	@Override
-	public Term inverser() {
+	public Terme inverser() {
 		return new Division(new NombreEntier(1), this);
 	}
 
 	@Override
-	public Term simplifier() {
+	public Terme simplifier() {
 		a = a.simplifier();
 		b = b.simplifier();
 		return simplifier(a, b, true);
@@ -34,7 +34,7 @@ public class Multiplication implements Term {
 	 * @param b le deuxième terme
 	 * @param mayChangeOrder true si l'ordre de a et b peut être changé.
 	 * @return une simplification de cette multiplication, ou cette multiplication si elle ne peut pas être simplifiée. */
-	private Term simplifier(final Term a, final Term b, final boolean mayChangeOrder) {
+	private Terme simplifier(final Terme a, final Terme b, final boolean mayChangeOrder) {
 		if (a instanceof NombreEntier) {
 			NombreEntier n = (NombreEntier) a;
 			if (b instanceof NombreEntier) {// n*n2

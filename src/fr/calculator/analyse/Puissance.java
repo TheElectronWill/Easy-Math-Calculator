@@ -1,20 +1,20 @@
 package fr.calculator.analyse;
 
-public class Puissance implements Term {
+public class Puissance implements Terme {
 
-	public Term n, exposant;
+	public Terme n, exposant;
 
-	public Puissance(Term n, Term exposant) {
+	public Puissance(Terme n, Terme exposant) {
 		this.n = n;
 		this.exposant = exposant;
 	}
 
 	@Override
-	public Term inverser() {
+	public Terme inverser() {
 		return new Division(new NombreEntier(1), this);
 	}
 
-	public Term diviser(Term t) {
+	public Terme diviser(Terme t) {
 		if (n.equals(t)) {// n^p / n = n^(p-1)
 			if (exposant instanceof NombreEntier)
 				((NombreEntier) exposant).valeur--;
@@ -56,7 +56,7 @@ public class Puissance implements Term {
 	}
 
 	@Override
-	public Term simplifier() {
+	public Terme simplifier() {
 		n = n.simplifier();
 		exposant = exposant.simplifier();
 		if (exposant instanceof NombreEntier) {
