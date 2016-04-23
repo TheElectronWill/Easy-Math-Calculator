@@ -75,11 +75,19 @@ public class MathAnalyseur {
 				case '*':
 					dernierIndex = terms.size() - 1;
 					termePrecedent = terms.remove(dernierIndex);
-					return new Multiplication(termePrecedent, termeSuivant(terms));
+					Terme next = termeSuivant(terms);
+					if (next instanceof Multiplication) {// pour respecter l'ordre afin que 1*2*5 = (1*2)*5 et pas 1*(2*5)
+						Multiplication m = (Multiplication) next;
+						return new Multiplication(new Multiplication(termePrecedent, m.a), m.b);
+					} else if (next instanceof Division) {// pour que 1/2*3 = (1/2)*3 et pas 1/(2*3)
+						Division d = (Division) next;
+						return new Multiplication(new Division(termePrecedent, d.a), d.b);
+					}
+					return new Multiplication(termePrecedent, next);
 				case '/':
 					dernierIndex = terms.size() - 1;
 					termePrecedent = terms.remove(dernierIndex);
-					Terme next = termeSuivant(terms);
+					next = termeSuivant(terms);
 					if (next instanceof Multiplication) {// pour respecter l'ordre afin que 1/2*5 = (1/2)*5 et pas 1/(2*5)
 						Multiplication m = (Multiplication) next;
 						return new Multiplication(new Division(termePrecedent, m.a), m.b);
@@ -91,6 +99,13 @@ public class MathAnalyseur {
 				case '^':
 					dernierIndex = terms.size() - 1;
 					termePrecedent = terms.remove(dernierIndex);
+					if (termePrecedent instanceof Multiplication) {//pour respecter l'ordre afin que 3*x^2 = 3*(x^2) et pas (3*x)^2
+						Multiplication m = (Multiplication) termePrecedent;
+						return new Multiplication(m.a, new Puissance(m.b, termeSuivant(terms)));
+					} else if (termePrecedent instanceof Division) {//pour que 3/x^2 = 3/(x^2) et pas (3/x)^2
+						Division m = (Division) termePrecedent;
+						return new Division(m.a, new Puissance(m.b, termeSuivant(terms)));
+					}
 					return new Puissance(termePrecedent, termeSuivant(terms));
 				case 'x':
 					return new Variable("x");
@@ -126,9 +141,17 @@ public class MathAnalyseur {
 			case '+':
 				return terme;
 			case '*':
-				return new Multiplication(terme, termeSuivant(terms));
-			case '/':
 				Terme next = termeSuivant(terms);
+				if (next instanceof Multiplication) {// pour respecter l'ordre afin que 1*2*5 = (1*2)*5 et pas 1*(2*5)
+					Multiplication m = (Multiplication) next;
+					return new Multiplication(new Multiplication(terme, m.a), m.b);
+				} else if (next instanceof Division) {// pour que 1/2*3 = (1/2)*3 et pas 1/(2*3)
+					Division d = (Division) next;
+					return new Multiplication(new Division(terme, d.a), d.b);
+				}
+				return new Multiplication(terme, next);
+			case '/':
+				next = termeSuivant(terms);
 				if (next instanceof Multiplication) {// pour respecter l'ordre afin que 1/2*5 = (1/2)*5 et pas 1/(2*5)
 					Multiplication m = (Multiplication) next;
 					return new Multiplication(new Division(terme, m.a), m.b);
