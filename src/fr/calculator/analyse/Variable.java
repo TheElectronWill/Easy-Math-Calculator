@@ -4,8 +4,11 @@ public class Variable implements Terme {
 
 	public final String nom;
 
-	public Variable(String name) {
-		this.nom = name;
+	public Variable(String nom) {
+		if (!nom.equals("x")) {
+			throw new IllegalArgumentException("Nom de variable invalide : \"" + nom + "\". Seul x est autorisé.");
+		}
+		this.nom = nom;
 	}
 
 	@Override
