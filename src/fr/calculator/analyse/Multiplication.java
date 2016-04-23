@@ -27,13 +27,15 @@ public class Multiplication implements Terme {
 		return simplifier(a, b, true);
 	}
 
-	/** Simplifie cette multiplication. Les paramètres a et b sont présents uniquement pour pouvoir en changer l'ordre, c'est-à-dire pour
+	/** Simplifie cette multiplication. Les paramètres a et b sont présents uniquement pour pouvoir en changer
+	 * l'ordre, c'est-à-dire pour
 	 * pouvoir mettre b en premier et a en deuxième. Ils ne sont ni modifiés ni remplacés par d'autres termes.
-	 * 
+	 *
 	 * @param a le premier terme
 	 * @param b le deuxième terme
 	 * @param mayChangeOrder true si l'ordre de a et b peut être changé.
-	 * @return une simplification de cette multiplication, ou cette multiplication si elle ne peut pas être simplifiée. */
+	 * @return une simplification de cette multiplication, ou cette multiplication si elle ne peut pas être
+	 * simplifiée. */
 	private Terme simplifier(final Terme a, final Terme b, final boolean mayChangeOrder) {
 		if (a instanceof NombreEntier) {
 			NombreEntier n = (NombreEntier) a;
@@ -43,7 +45,7 @@ public class Multiplication implements Terme {
 			}
 			if (b instanceof Fraction) {// n*fraction
 				Fraction fraction = (Fraction) b;
-				return fraction.multiplier(n).simplifier();
+				return fraction.multiplier(n.valeur).simplifier();
 			}
 			if (b instanceof Multiplication) {// n(a*b)
 				Multiplication m = (Multiplication) b;
@@ -57,18 +59,18 @@ public class Multiplication implements Terme {
 				}
 				if (m.a instanceof Fraction) {// n(fraction*b)
 					Fraction fraction = (Fraction) m.a;
-					return new Multiplication(fraction.multiplier(n).simplifier(), m.b);
+					return new Multiplication(fraction.multiplier(n.valeur).simplifier(), m.b);
 				}
 				if (m.b instanceof Fraction) {// n(a*fraction)
 					Fraction fraction = (Fraction) m.b;
-					return new Multiplication(fraction.multiplier(n).simplifier(), m.a);
+					return new Multiplication(fraction.multiplier(n.valeur).simplifier(), m.a);
 				}
 			}
 		} else if (a instanceof Fraction) {
 			Fraction fraction = (Fraction) a;
 			if (b instanceof NombreEntier) {// fraction*n
 				NombreEntier n = (NombreEntier) b;
-				return fraction.multiplier(n).simplifier();
+				return fraction.multiplier(n.valeur).simplifier();
 			}
 			if (b instanceof Fraction) {// fraction*fraction
 				Fraction fraction2 = (Fraction) b;
@@ -78,11 +80,11 @@ public class Multiplication implements Terme {
 				Multiplication m = (Multiplication) b;
 				if (m.a instanceof NombreEntier) {// fraction(n*b)
 					NombreEntier n = (NombreEntier) m.a;
-					return new Multiplication(fraction.multiplier(n).simplifier(), m.b);
+					return new Multiplication(fraction.multiplier(n.valeur).simplifier(), m.b);
 				}
 				if (m.b instanceof NombreEntier) {// fraction(a*n)
 					NombreEntier n = (NombreEntier) m.b;
-					return new Multiplication(fraction.multiplier(n).simplifier(), m.a);
+					return new Multiplication(fraction.multiplier(n.valeur).simplifier(), m.a);
 				}
 				if (m.a instanceof Fraction) {// fraction(fraction2*b)
 					Fraction fraction2 = (Fraction) m.a;
@@ -95,13 +97,14 @@ public class Multiplication implements Terme {
 			}
 		}
 		return mayChangeOrder ? simplifier(b, a, false) : this;// Si ça n'a pas déjà été fait, on essaie en inversant a et
-																// b. Sinon on renvoie "this".
+		// b. Sinon on renvoie "this".
 	}
 
 	@Override
 	public String toString() {
-		if (a instanceof NombreEntier && b instanceof NombreEntier)
+		if (a instanceof NombreEntier && b instanceof NombreEntier) {
 			return a + "*" + b;
+		}
 		return "(" + a + ")*(" + b + ")";
 	}
 

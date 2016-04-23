@@ -41,7 +41,7 @@ public class Division implements Terme {
 			Fraction fraction = (Fraction) b;
 			if (b instanceof NombreEntier) {// (num/den)/n
 				NombreEntier n = (NombreEntier) b;
-				return fraction.diviser(n).simplifier();
+				return fraction.diviser(n.valeur).simplifier();
 			}
 			if (b instanceof Fraction) {// (num/den)/(num2/den2) = (num*den2)/(den*num2)
 				Fraction fraction2 = (Fraction) b;

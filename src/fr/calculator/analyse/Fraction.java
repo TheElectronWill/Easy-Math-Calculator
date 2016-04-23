@@ -14,6 +14,24 @@ public class Fraction implements Terme, Cloneable {
 	}
 
 	/**
+	 * Ajoute une fraction ou un nombre entier à cette fraction.
+	 *
+	 * @return cette fraction
+	 */
+	public Fraction ajouter(Object o) {
+		if (o instanceof Fraction) {
+			return ajouter((Fraction) o);
+		}
+		if (o instanceof NombreEntier) {
+			return ajouter(((NombreEntier) o).valeur);
+		}
+		if (o instanceof Number) {
+			return ajouter(((Number) o).intValue());
+		}
+		throw new IllegalArgumentException("Impossible d'ajouter à une fraction un objet de type " + o.getClass());
+	}
+
+	/**
 	 * Ajoute une autre fraction à celle-là.
 	 *
 	 * @return cette fraction
@@ -33,27 +51,24 @@ public class Fraction implements Terme, Cloneable {
 	 *
 	 * @return cette fraction
 	 */
-	public Fraction ajouter(NombreEntier i) {
-		return ajouter(i.valeur);
-	}
-
-	/**
-	 * Ajoute un nombre entier à cette fraction.
-	 *
-	 * @return cette fraction
-	 */
 	public Fraction ajouter(int i) {
 		num += i * denom;
 		return this;
 	}
 
 	/**
-	 * Soustrait un nombre entier à cette fraction.
+	 * Soustrait une fraction ou un nombre entier à cette fraction.
 	 *
 	 * @return cette fraction
 	 */
-	public Fraction soustraire(NombreEntier i) {
-		return soustraire(i.valeur);
+	public Fraction soustraire(Object o) {
+		if (o instanceof Fraction) {
+			return soustraire((Fraction) o);
+		}
+		if (o instanceof NombreEntier) {
+			return soustraire(((NombreEntier) o).valeur);
+		}
+		throw new IllegalArgumentException("Impossible de soustraire à une fraction un objet de type " + o.getClass());
 	}
 
 	/**
@@ -97,15 +112,6 @@ public class Fraction implements Terme, Cloneable {
 	 *
 	 * @return cette fraction
 	 */
-	public Fraction multiplier(NombreEntier i) {
-		return multiplier(i.valeur);
-	}
-
-	/**
-	 * Multiplie cette fraction par une nombre entier.
-	 *
-	 * @return cette fraction
-	 */
 	public Fraction multiplier(int i) {
 		num *= i;
 		return this;
@@ -120,15 +126,6 @@ public class Fraction implements Terme, Cloneable {
 		num *= f.denom;
 		denom *= f.num;
 		return this;
-	}
-
-	/**
-	 * Multiplie cette fraction par un nombre entier.
-	 *
-	 * @return cette fraction
-	 */
-	public Fraction diviser(NombreEntier i) {
-		return diviser(i.valeur);
 	}
 
 	/**
