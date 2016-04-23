@@ -1,10 +1,9 @@
 package fr.calculator.analyse;
 
+import fr.calculator.resolution.MathSimplifieur;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
-
-import fr.calculator.resolution.MathSimplifieur;
 
 public class Parenthese implements Terme {
 
@@ -36,12 +35,14 @@ public class Parenthese implements Terme {
 
 	@Override
 	public Terme simplifier() {
-		if (termes.isEmpty())
+		if (termes.isEmpty()) {
 			return new NombreEntier(0);
-		if (termes.size() == 1)
+		}
+		if (termes.size() == 1) {
 			return termes.get(0).simplifier();
+		}
 
-		termes = MathSimplifieur.simplifier(termes);
+		termes = MathSimplifieur.simplifierTermes(termes);
 		boolean canCalculate = true;
 		for (Terme t : termes) {
 			if (!(t instanceof NombreEntier || t instanceof Fraction)) {
