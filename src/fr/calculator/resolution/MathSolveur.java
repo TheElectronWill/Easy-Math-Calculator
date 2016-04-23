@@ -62,8 +62,8 @@ public class MathSolveur {
 				fonction1 = (Fonction) X2;
 			}
 			if ((fonction.nom == NomFonction.EXPONENTIELLE && fonction1.nom == NomFonction.EXPONENTIELLE) || (fonction.nom == NomFonction.LOGARITHME_NEPERIEN && fonction1.nom == NomFonction.LOGARITHME_NEPERIEN) || (fonction.nom == NomFonction.COSINUS && fonction1.nom == NomFonction.COSINUS) || (fonction.nom == NomFonction.SINUS && fonction1.nom == NomFonction.SINUS)) { // fonction et fonction2 sont deux fonctions du même genre (deux logarithmes, deux exponentielles...)
-				gauche = (List<Terme>) fonction.t;
-				droit = (List<Terme>) fonction.t;
+				gauche = (List<Terme>) fonction.param;
+				droit = (List<Terme>) fonction.param;
 				if (gauche == droit) { //
 					System.out.print("L'égalité est toujours vraie.");
 				}
@@ -96,14 +96,14 @@ public class MathSolveur {
 					Z2 = droit.get(2);
 				}
 			} else if (fonction.nom == NomFonction.EXPONENTIELLE) { // fonction est une fonction exponentielle.
-				if (fonction.t instanceof NombreEntier || fonction.t instanceof Fraction) { // Le paramètre de fonction est un nombre entier ou une fraction.
+				if (fonction.param instanceof NombreEntier || fonction.param instanceof Fraction) { // Le paramètre de fonction est un nombre entier ou une fraction.
 					if (X2 instanceof NombreEntier || X2 instanceof Fraction) { // X2 est un nombre entier ou une fraction.
 						System.out.print("Vous devez utiliser la variable x.");
-					} else if (fonction.t instanceof NombreEntier) { // Le paramètre de fonction est un nombre entier.
-						NombreEntier a = (NombreEntier) fonction.t;
+					} else if (fonction.param instanceof NombreEntier) { // Le paramètre de fonction est un nombre entier.
+						NombreEntier a = (NombreEntier) fonction.param;
 						solution1 = Math.exp((a.valeur));
-					} else if (fonction.t instanceof Fraction) { // Le paramètre de fonction est une fraction.
-						Fraction frac = (Fraction) fonction.t;
+					} else if (fonction.param instanceof Fraction) { // Le paramètre de fonction est une fraction.
+						Fraction frac = (Fraction) fonction.param;
 						solution1 = Math.exp((frac.num / frac.denom));
 					}
 				} else if (X2 instanceof NombreEntier) { // X2 est un nombre entier.
@@ -116,14 +116,14 @@ public class MathSolveur {
 					System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 				}
 			} else if (fonction1.nom == NomFonction.EXPONENTIELLE) { // fonction1 est une fonction exponentielle.
-				if (fonction1.t instanceof NombreEntier || fonction1.t instanceof Fraction) { // Le paramètre de fonction1 est un nombre entier ou une fraction.
+				if (fonction1.param instanceof NombreEntier || fonction1.param instanceof Fraction) { // Le paramètre de fonction1 est un nombre entier ou une fraction.
 					if (X instanceof NombreEntier || X instanceof Fraction) { // X est un nombre entier ou une fraction.
 						System.out.print("Vous devez utiliser la variable x.");
-					} else if (fonction1.t instanceof NombreEntier) { // Le paramètre de fonction1 est un nombre entier.
+					} else if (fonction1.param instanceof NombreEntier) { // Le paramètre de fonction1 est un nombre entier.
 						NombreEntier a = (NombreEntier) X;
 						solution1 = Math.exp((a.valeur));
-					} else if (fonction1.t instanceof Fraction) { // Le paramètre de fonction1 est une fraction.
-						Fraction frac = (Fraction) fonction.t;
+					} else if (fonction1.param instanceof Fraction) { // Le paramètre de fonction1 est une fraction.
+						Fraction frac = (Fraction) fonction.param;
 						solution1 = Math.exp(frac.num / frac.denom);
 					}
 				} else if (X instanceof NombreEntier) { // X est un nombre entier.
@@ -136,14 +136,14 @@ public class MathSolveur {
 					System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 				}
 			} else if (fonction.nom == NomFonction.LOGARITHME_NEPERIEN) { // fonction est une fonction logarithme.
-				if (fonction.t instanceof NombreEntier || fonction.t instanceof Fraction) { // Le paramètre de fonction est un nombre entier ou une fraction.
+				if (fonction.param instanceof NombreEntier || fonction.param instanceof Fraction) { // Le paramètre de fonction est un nombre entier ou une fraction.
 					if (X2 instanceof NombreEntier || X2 instanceof Fraction) { // X2 est un nombre entier ou une fonction.
 						System.out.print("Vous devez utiliser la variable x.");
-					} else if (fonction.t instanceof NombreEntier) { // Le paramètre de fonction est un nombre entier.
-						NombreEntier a = (NombreEntier) fonction.t;
+					} else if (fonction.param instanceof NombreEntier) { // Le paramètre de fonction est un nombre entier.
+						NombreEntier a = (NombreEntier) fonction.param;
 						solution1 = Math.log((a.valeur));
-					} else if (fonction.t instanceof Fraction) { // Le paramètre de fonction est une fraction.
-						Fraction frac = (Fraction) fonction.t;
+					} else if (fonction.param instanceof Fraction) { // Le paramètre de fonction est une fraction.
+						Fraction frac = (Fraction) fonction.param;
 						solution1 = Math.log((frac.num / frac.denom));
 					}
 				} else if (X2 instanceof NombreEntier) { // X2 est un nombre entier.
@@ -156,14 +156,14 @@ public class MathSolveur {
 					System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 				}
 			} else if (fonction1.nom == NomFonction.LOGARITHME_NEPERIEN) { // fonction1 est un fonction logarithme.
-				if (fonction1.t instanceof NombreEntier || fonction1.t instanceof Fraction) { // Le paramètre de fonction1 est un nombre entier ou une fraction.
+				if (fonction1.param instanceof NombreEntier || fonction1.param instanceof Fraction) { // Le paramètre de fonction1 est un nombre entier ou une fraction.
 					if (X instanceof NombreEntier || X instanceof Fraction) { // X est un nombre entier ou une fraction.
 						System.out.print("Vous devez utiliser la variable x.");
-					} else if (fonction1.t instanceof NombreEntier) { // Le paramètre de fonction1 est un nombre entier.
-						NombreEntier a = (NombreEntier) fonction.t;
+					} else if (fonction1.param instanceof NombreEntier) { // Le paramètre de fonction1 est un nombre entier.
+						NombreEntier a = (NombreEntier) fonction.param;
 						solution1 = Math.log((a.valeur));
-					} else if (fonction1.t instanceof Fraction) { // Le paramètre de fonction1 est une fraction.
-						Fraction frac = (Fraction) fonction.t;
+					} else if (fonction1.param instanceof Fraction) { // Le paramètre de fonction1 est une fraction.
+						Fraction frac = (Fraction) fonction.param;
 						solution1 = Math.log((frac.num / frac.denom));
 					}
 				} else if (X instanceof NombreEntier) { // X est un nombre entier.
@@ -176,14 +176,14 @@ public class MathSolveur {
 					System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 				}
 			} else if (fonction.nom == NomFonction.COSINUS) { // fonction est une fonction cosinus.
-				if (fonction.t instanceof NombreEntier || fonction.t instanceof Fraction) { // Le paramètre de fonction est un nombre entier ou une fraction.
+				if (fonction.param instanceof NombreEntier || fonction.param instanceof Fraction) { // Le paramètre de fonction est un nombre entier ou une fraction.
 					if (X2 instanceof NombreEntier || X instanceof Fraction) { // X2 est un nombre entier ou une fraction.
 						System.out.print("Vous devez utiliser la variable x.");
-					} else if (fonction.t instanceof NombreEntier) { // Le paramètre de fonction est un nombre entier.
-						NombreEntier a = (NombreEntier) fonction.t;
+					} else if (fonction.param instanceof NombreEntier) { // Le paramètre de fonction est un nombre entier.
+						NombreEntier a = (NombreEntier) fonction.param;
 						solution1 = Math.cos((a.valeur));
-					} else if (fonction.t instanceof Fraction) { // Le paramètre de fonction est une fraction.
-						Fraction frac = (Fraction) fonction.t;
+					} else if (fonction.param instanceof Fraction) { // Le paramètre de fonction est une fraction.
+						Fraction frac = (Fraction) fonction.param;
 						solution1 = Math.cos((frac.num / frac.denom));
 					}
 				} else if (X2 instanceof NombreEntier) { // X2 est un nombre entier.
@@ -200,14 +200,14 @@ public class MathSolveur {
 					System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 				}
 			} else if (fonction1.nom == NomFonction.COSINUS) { // fonction1 est une fonction cosinus.
-				if (fonction1.t instanceof NombreEntier || fonction1.t instanceof Fraction) { // Le paramètre de fonction1 est un nombre entier ou une fraction.
+				if (fonction1.param instanceof NombreEntier || fonction1.param instanceof Fraction) { // Le paramètre de fonction1 est un nombre entier ou une fraction.
 					if (X instanceof NombreEntier || X instanceof Fraction) { // X est un nombre entier ou une fraction.
 						System.out.print("Vous devez utiliser la variable x.");
-					} else if (fonction1.t instanceof NombreEntier) { // Le paramètre de fonction1 est un nombre entier.
-						NombreEntier a = (NombreEntier) fonction.t;
+					} else if (fonction1.param instanceof NombreEntier) { // Le paramètre de fonction1 est un nombre entier.
+						NombreEntier a = (NombreEntier) fonction.param;
 						solution1 = Math.cos((a.valeur));
-					} else if (fonction1.t instanceof Fraction) { // Le paramètre de fonction1 est une fraction.
-						Fraction frac = (Fraction) fonction.t;
+					} else if (fonction1.param instanceof Fraction) { // Le paramètre de fonction1 est une fraction.
+						Fraction frac = (Fraction) fonction.param;
 						solution1 = Math.cos((frac.num / frac.denom));
 					}
 
@@ -225,14 +225,14 @@ public class MathSolveur {
 					System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 				}
 			} else if (fonction.nom == NomFonction.SINUS) { // fonction est une fonction sinus.
-				if (fonction.t instanceof NombreEntier || fonction.t instanceof Fraction) { // Le paramètre de fonction est un nombre entier ou une fraction.
+				if (fonction.param instanceof NombreEntier || fonction.param instanceof Fraction) { // Le paramètre de fonction est un nombre entier ou une fraction.
 					if (X2 instanceof NombreEntier || X2 instanceof Fraction) { // X2 est un nombre entier ou une fraction.
 						System.out.print("Vous devez utiliser la variable x.");
-					} else if (fonction.t instanceof NombreEntier) { // Le paramètre de fonction est un nombre entier.
-						NombreEntier a = (NombreEntier) fonction.t;
+					} else if (fonction.param instanceof NombreEntier) { // Le paramètre de fonction est un nombre entier.
+						NombreEntier a = (NombreEntier) fonction.param;
 						solution1 = Math.sin((a.valeur));
-					} else if (fonction.t instanceof Fraction) { // Le paramètre de fonction est une fraction.
-						Fraction frac = (Fraction) fonction.t;
+					} else if (fonction.param instanceof Fraction) { // Le paramètre de fonction est une fraction.
+						Fraction frac = (Fraction) fonction.param;
 						solution1 = Math.sin((frac.num / frac.denom));
 					}
 				} else if (X2 instanceof NombreEntier) { // X2 est un nombre entier.
@@ -249,14 +249,14 @@ public class MathSolveur {
 					System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 				}
 			} else if (fonction1.nom == NomFonction.SINUS) { // fonction1 est une fonction sinus.
-				if (fonction1.t instanceof NombreEntier || fonction1.t instanceof Fraction) { // Le paramètre de fonction1 est un nombre entier ou une fraction.
+				if (fonction1.param instanceof NombreEntier || fonction1.param instanceof Fraction) { // Le paramètre de fonction1 est un nombre entier ou une fraction.
 					if (X instanceof NombreEntier || X instanceof Fraction) { // X es un nombre entier ou une fraction.
 						System.out.print("Vous devez utiliser la variable x.");
-					} else if (fonction1.t instanceof NombreEntier) { // Le paramètre de fonction1 est un nombre entier.
-						NombreEntier a = (NombreEntier) fonction.t;
+					} else if (fonction1.param instanceof NombreEntier) { // Le paramètre de fonction1 est un nombre entier.
+						NombreEntier a = (NombreEntier) fonction.param;
 						solution1 = Math.sin((a.valeur));
-					} else if (fonction.t instanceof Fraction) { // Le paramètre de fonction1 est une fraction.
-						Fraction frac = (Fraction) fonction.t;
+					} else if (fonction.param instanceof Fraction) { // Le paramètre de fonction1 est une fraction.
+						Fraction frac = (Fraction) fonction.param;
 						solution1 = Math.sin((frac.num / frac.denom));
 					}
 
