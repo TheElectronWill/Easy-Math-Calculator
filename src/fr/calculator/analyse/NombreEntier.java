@@ -1,5 +1,10 @@
 package fr.calculator.analyse;
 
+/**
+ * @author TheElectronWill
+ * @deprecated utiliser {@link Rationnel} à la place.
+ */
+@Deprecated
 public class NombreEntier implements Terme {
 
 	public int valeur;
@@ -15,8 +20,8 @@ public class NombreEntier implements Terme {
 	}
 
 	@Override
-	public Fraction inverser() {
-		return new Fraction(1, valeur);
+	public Rationnel inverser() {
+		return new Rationnel(1, valeur);
 	}
 
 	@Override

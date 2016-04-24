@@ -31,20 +31,20 @@ public class Division implements Terme {
 			NombreEntier n = (NombreEntier) a;
 			if (b instanceof NombreEntier) {// n/n2
 				NombreEntier n2 = (NombreEntier) b;
-				return new Fraction(n.valeur, n2.valeur).simplifier();
+				return new Rationnel(n.valeur, n2.valeur).simplifier();
 			}
-			if (b instanceof Fraction) {// n/(num/den) = (n*den)/num
-				Fraction fraction = (Fraction) b;
-				return new Fraction(n.valeur * fraction.denom, fraction.num).simplifier();
+			if (b instanceof Rationnel) {// n/(num/den) = (n*den)/num
+				Rationnel fraction = (Rationnel) b;
+				return new Rationnel(n.valeur * fraction.denom, fraction.num).simplifier();
 			}
-		} else if (a instanceof Fraction) {
-			Fraction fraction = (Fraction) a;
+		} else if (a instanceof Rationnel) {
+			Rationnel fraction = (Rationnel) a;
 			if (b instanceof NombreEntier) {// (num/den)/n
 				NombreEntier n = (NombreEntier) b;
 				return fraction.diviser(n.valeur).simplifier();
 			}
-			if (b instanceof Fraction) {// (num/den)/(num2/den2) = (num*den2)/(den*num2)
-				Fraction fraction2 = (Fraction) b;
+			if (b instanceof Rationnel) {// (num/den)/(num2/den2) = (num*den2)/(den*num2)
+				Rationnel fraction2 = (Rationnel) b;
 				return fraction.diviser(fraction2).simplifier();
 			}
 		} else if (a instanceof Puissance) {
@@ -53,7 +53,7 @@ public class Division implements Terme {
 		}
 		if (b instanceof Puissance) {
 			Puissance powB = (Puissance) b;
-			Puissance powA = new Puissance(a, new NombreEntier(1));
+			Puissance powA = new Puissance(a, new Rationnel(1));
 			return powA.diviser(powB).simplifier();
 		}
 		return this;

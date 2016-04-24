@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Parseur d'expressions mathématiques.
+ * Analyseur d'expressions mathématiques.
  * <h1>Représentation interne des données</h1> Une "expression mathématique" est définie comme une suite de
  * termes qui s'additionnent pour donner un résultat. Ces termes sont stockés sous la forme d'une liste, plus
- * précisément {@code List<Term>}. Par exemple, le calcul <code>"2 + 45 - 6"</code> donne la liste suivante:
- * <code>[+2,+45,-6]</code>
+ * précisément une {@code List<Terme>}. Par exemple, le calcul <code>"2 + 45 - 6"</code> donne la liste
+ * suivante: <code>[+2,+45,-6]</code>
  *
  * @author Guillaume
  */
@@ -58,7 +58,7 @@ public class MathAnalyseur {
 				}
 			} else if (negatif) {// Il y'a un signe moins devant la parenthèse
 				negatif = false;
-				term = new NombreEntier(-1);
+				term = new Rationnel(-1);
 			}
 			return term == null ? lireParentheses() : new Multiplication(term, lireParentheses());
 		}
@@ -110,7 +110,7 @@ public class MathAnalyseur {
 				case 'x':
 					if (negatif) {
 						negatif = false;
-						return new Multiplication(new NombreEntier(-1), new Variable("x"));
+						return new Multiplication(new Rationnel(-1), new Variable("x"));
 					}
 					return new Variable("x");
 				default:
@@ -123,7 +123,7 @@ public class MathAnalyseur {
 						}
 						if (negatif) {
 							negatif = false;
-							return new Multiplication(new NombreEntier(-1), new Fonction(NomFonction.get(nomFonction), lireParentheses()));
+							return new Multiplication(new Rationnel(-1), new Fonction(NomFonction.get(nomFonction), lireParentheses()));
 						}
 						return new Fonction(NomFonction.get(nomFonction), lireParentheses());
 					}
@@ -214,17 +214,13 @@ public class MathAnalyseur {
 	}
 
 	private Terme lireNombre(String nombreStr, boolean negatif) {
-		Terme t = nombreStr.contains(".") ? decimalVersFraction(nombreStr) : new NombreEntier(Integer.parseInt(nombreStr));
+		Terme t = nombreStr.contains(".") ? new Rationnel(nombreStr) : new Rationnel(Integer.parseInt(nombreStr));
 		return negatif ? t.negatif() : t;
 	}
 
-	private Fraction decimalVersFraction(String decimalStr) {
-		int numerator = Integer.parseInt(decimalStr.replace(".", ""));
-		int denominator = (int) Math.pow(10, decimalStr.length() - decimalStr.indexOf('.') - 1);
-		return new Fraction(numerator, denominator);
-	}
-
-	/** Avance la position jusqu'à trouver un caractère qui n'est pas un espace. */
+	/**
+	 * Avance la position jusqu'à trouver un caractère qui n'est pas un espace.
+	 */
 	private void sauterEspaces() {
 		while (pos < expression.length() && (expression.charAt(pos) == ' ')) {
 			pos++;

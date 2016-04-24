@@ -7,10 +7,9 @@ package fr.calculator.resolution;
 
 import fr.calculator.analyse.Fonction;
 import fr.calculator.analyse.Fonction.NomFonction;
-import fr.calculator.analyse.Fraction;
 import fr.calculator.analyse.Multiplication;
-import fr.calculator.analyse.NombreEntier;
 import fr.calculator.analyse.Puissance;
+import fr.calculator.analyse.Rationnel;
 import fr.calculator.analyse.Terme;
 import fr.calculator.analyse.Variable;
 import java.util.ArrayList;
@@ -22,15 +21,15 @@ import java.util.Map;
  * Une expression (un seul côté d'une égalité) simplifiée, dont on a extrait les informations importantes pour
  * la résolution: constante, facteur de x, facteur de x², facteurs des fonctions, paramètres des fonctions.
  *
- * @author TheElectronWill
+ * @author Guillaume
  */
 public class ExpressionSimple {
 
-	public Fraction constante, facteurX, facteurX2;
-	public EnumMap<NomFonction, Fraction> facteurFonctions;
+	public Rationnel constante, facteurX, facteurX2;
+	public EnumMap<NomFonction, Rationnel> facteurFonctions;
 	public EnumMap<NomFonction, Terme> paramFonctions;
 
-	public ExpressionSimple(Fraction constante, Fraction facteurX, Fraction facteurX2, EnumMap<NomFonction, Fraction> facteurFonctions, EnumMap<NomFonction, Terme> paramFonctions) {
+	public ExpressionSimple(Rationnel constante, Rationnel facteurX, Rationnel facteurX2, EnumMap<NomFonction, Rationnel> facteurFonctions, EnumMap<NomFonction, Terme> paramFonctions) {
 		this.constante = constante;
 		this.facteurX = facteurX;
 		this.facteurX2 = facteurX2;
@@ -39,12 +38,12 @@ public class ExpressionSimple {
 	}
 
 	public ExpressionSimple() {
-		this.constante = new Fraction(0, 1);
-		this.facteurX = new Fraction(0, 1);
-		this.facteurX2 = new Fraction(0, 1);
+		this.constante = new Rationnel(0, 1);
+		this.facteurX = new Rationnel(0, 1);
+		this.facteurX2 = new Rationnel(0, 1);
 		this.facteurFonctions = new EnumMap(NomFonction.class);
 		for (NomFonction fonction : NomFonction.values()) {
-			facteurFonctions.put(fonction, new Fraction(0, 1));
+			facteurFonctions.put(fonction, new Rationnel(0, 1));
 		}
 		this.paramFonctions = new EnumMap(NomFonction.class);
 	}
@@ -58,7 +57,7 @@ public class ExpressionSimple {
 		constante.simplifierFraction();
 		facteurX.simplifierFraction();
 		facteurX2.simplifierFraction();
-		for (Fraction facteurFonction : facteurFonctions.values()) {
+		for (Rationnel facteurFonction : facteurFonctions.values()) {
 			facteurFonction.simplifierFraction();
 		}
 		for (Map.Entry<NomFonction, Terme> e : paramFonctions.entrySet()) {
@@ -79,11 +78,11 @@ public class ExpressionSimple {
 			termes.add(new Multiplication(facteurX, new Variable("x")).simplifier());
 		}
 		if (facteurX2.num != 0) {
-			termes.add(new Multiplication(facteurX2, new Puissance(new Variable("x"), new NombreEntier(2))).simplifier());
+			termes.add(new Multiplication(facteurX2, new Puissance(new Variable("x"), new Rationnel(2))).simplifier());
 		}
-		for (Map.Entry<NomFonction, Fraction> e : facteurFonctions.entrySet()) {
+		for (Map.Entry<NomFonction, Rationnel> e : facteurFonctions.entrySet()) {
 			NomFonction nom = e.getKey();
-			Fraction facteur = e.getValue();
+			Rationnel facteur = e.getValue();
 			Terme param = paramFonctions.get(nom);
 			if (facteur.num != 0) {
 				termes.add(new Multiplication(facteur, new Fonction(nom, param)).simplifier());
@@ -99,9 +98,9 @@ public class ExpressionSimple {
 	 */
 	public String toMathString() {
 		StringBuilder sb = new StringBuilder();
-		for (Map.Entry<NomFonction, Fraction> e : facteurFonctions.entrySet()) {
+		for (Map.Entry<NomFonction, Rationnel> e : facteurFonctions.entrySet()) {
 			NomFonction nom = e.getKey();
-			Fraction facteur = e.getValue();
+			Rationnel facteur = e.getValue();
 			Terme param = paramFonctions.get(nom);
 			if (facteur.num != 0) {//facteur non nul
 				if (sb.length() > 0) {//ce n'est pas le premier terme qu'on écrit, il faut donc mettre un + ou un - devant

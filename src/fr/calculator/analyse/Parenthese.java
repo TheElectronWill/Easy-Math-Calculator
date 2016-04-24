@@ -30,14 +30,14 @@ public class Parenthese implements Terme {
 
 	@Override
 	public Terme inverser() {
-		return new Division(new NombreEntier(1), this);
+		return new Division(new Rationnel(1), this);
 	}
 
 	@Override
 	public Terme simplifier() {
 		switch (termes.size()) {
 			case 0:
-				return new NombreEntier(0);
+				return new Rationnel(0);
 			case 1:
 				return termes.get(0).simplifier();
 			default:

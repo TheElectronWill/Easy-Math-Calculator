@@ -4,6 +4,10 @@ public class Puissance implements Terme {
 
 	public Terme n, exposant;
 
+	public Puissance(Terme n, int exposant) {
+		this(n, new Rationnel(exposant));
+	}
+
 	public Puissance(Terme n, Terme exposant) {
 		this.n = n;
 		this.exposant = exposant;
@@ -11,37 +15,50 @@ public class Puissance implements Terme {
 
 	@Override
 	public Terme inverser() {
-		return new Division(new NombreEntier(1), this);
+		return new Division(new Rationnel(1), this);
+	}
+
+	public Terme multiplier(Terme t) {
+		if (n.equals(t)) {
+			if (exposant instanceof Rationnel) {
+				((Rationnel) exposant).ajouter(1);
+			} else {
+				exposant = new Parenthese(exposant, new Rationnel(+1));
+			}
+			return this;
+		} else if (t instanceof Puissance) {
+			Puissance p = (Puissance) t;
+			if (n.equals(p.n)) {// n^p1 * n^p2 = n^(p1+p2)
+				if (exposant instanceof Rationnel) {
+					if (p.exposant instanceof Rationnel) {
+						((Rationnel) exposant).ajouter((Rationnel) p.exposant);
+					} else {
+						exposant = new Parenthese(exposant, new Rationnel(+1));
+					}
+					return this;
+				}
+			}
+		}
+		return new Multiplication(this, t);
 	}
 
 	public Terme diviser(Terme t) {
 		if (n.equals(t)) {// n^p / n = n^(p-1)
-			if (exposant instanceof NombreEntier)
-				((NombreEntier) exposant).valeur--;
-			else if (exposant instanceof Fraction)
-				((Fraction) exposant).ajouter(new NombreEntier(-1));
-			else
-				exposant = new Parenthese(exposant, new NombreEntier(-1));
+			if (exposant instanceof Rationnel) {
+				((Rationnel) exposant).soustraire(1);
+			} else {
+				exposant = new Parenthese(exposant, new Rationnel(-1));
+			}
 			return this;
 		} else if (t instanceof Puissance) {
-			Puissance pow = (Puissance) t;
-			if (n.equals(pow.n)) {// n^p1 / n^p2 = n^(p1-p2)
-				if (exposant instanceof NombreEntier) {
-					if (pow.exposant instanceof NombreEntier)
-						((NombreEntier) exposant).valeur -= ((NombreEntier) pow.exposant).valeur;
-					else if (pow.exposant instanceof Fraction)
-						exposant = new Fraction(((NombreEntier) exposant).valeur, 1).soustraire((Fraction) pow.exposant);
-					else
-						exposant = new Parenthese(exposant, new NombreEntier(-1));
-					return this;
-				}
-				if (exposant instanceof Fraction) {
-					if (pow.exposant instanceof NombreEntier)
-						((Fraction) exposant).soustraire((NombreEntier) pow.exposant);
-					else if (pow.exposant instanceof Fraction)
-						((Fraction) exposant).soustraire((Fraction) pow.exposant);
-					else
-						exposant = new Parenthese(exposant, new NombreEntier(-1));
+			Puissance p = (Puissance) t;
+			if (n.equals(p.n)) {// n^p1 / n^p2 = n^(p1-p2)
+				if (exposant instanceof Rationnel) {
+					if (p.exposant instanceof Rationnel) {
+						((Rationnel) exposant).soustraire((Rationnel) p.exposant);
+					} else {
+						exposant = new Parenthese(exposant, new Rationnel(-1));
+					}
 					return this;
 				}
 			}
@@ -59,26 +76,25 @@ public class Puissance implements Terme {
 	public Terme simplifier() {
 		n = n.simplifier();
 		exposant = exposant.simplifier();
-		if (exposant instanceof NombreEntier) {
-			int p = ((NombreEntier) exposant).valeur;
-			if (p == 0)
-				return new NombreEntier(1);
-			if (p == 1)
-				return n;
-			if (n instanceof NombreEntier) {
-				int nValue = ((NombreEntier) n).valeur;
-				double result = Math.pow(nValue, p);// on calcule la valeur
-				int integerResult = (int) result;
-				return integerResult == result ? new NombreEntier(integerResult) : this;// on ne renvoie integerResult
-																						// que si la valeur est exacte
+		if (exposant instanceof Rationnel) {
+			Rationnel p = (Rationnel) exposant;
+			if (p.num == 0) {//p vaut 0
+				return new Rationnel(1);
 			}
-			if (n instanceof Fraction) {
-				Fraction frac = (Fraction) n;
-				Fraction result = frac.clone();
-				for (int i = 0; i < p; i++) {
-					result.multiplier(frac);
+			if (p.num == p.denom) {//p vaut 1
+				return n;
+			}
+			if (n instanceof Rationnel) {//q^p avec q rationnel
+				Rationnel q = (Rationnel) n;
+				if (p.denom == 1) {//q^p avec p entier -> calcul en valeur exacte
+					Rationnel result = q.clone();
+					for (int i = 0; i < p.num; i++) {
+						result.multiplier(q);
+					}
+				} else {//q^p avec p non entier -> calcul en valeur approchée
+					double result = Math.pow(q.num / q.denom, p.num / p.denom);
+					return new Rationnel(result);
 				}
-				return result;
 			}
 		}
 		return this;
@@ -86,12 +102,7 @@ public class Puissance implements Terme {
 
 	@Override
 	public String toString() {
-		if (n instanceof NombreEntier) {
-			if (exposant instanceof NombreEntier)
-				return n + "^" + exposant;
-			return n + "^(" + exposant + ")";
-		}
-		return "Power: " + n + "^" + exposant;
+		return n + "^" + exposant;
 	}
 
 	@Override

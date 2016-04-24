@@ -19,8 +19,8 @@ public class TestSimplifieur {
 		List<Terme> termes = new ArrayList<>();
 		termes.add(new Variable("x"));
 		termes.add(new Fonction(Fonction.NomFonction.COSINUS, new Variable("x")));
-		termes.add(new Fonction(Fonction.NomFonction.EXPONENTIELLE, new Parenthese(new NombreEntier(3), new Fraction(6, 2))));
-		termes.add(new Division(new Variable("x"), new NombreEntier(-10)));
+		termes.add(new Fonction(Fonction.NomFonction.EXPONENTIELLE, new Parenthese(new Rationnel(3), new Rationnel(6, 2))));
+		termes.add(new Division(new Variable("x"), new Rationnel(-10)));
 		termes.add(new Puissance(new Variable("x"), new NombreEntier(2)));
 		ExpressionSimple expression = MathSimplifieur.simplifierExpression(termes);
 		System.out.println("expression simplifiée : " + expression);
@@ -34,7 +34,7 @@ public class TestSimplifieur {
 		Multiplication m = new Multiplication(new Variable("x"), new Division(i, new Puissance(i, new NombreEntier(2))));
 
 		List<Terme> termes = Arrays.asList(new NombreEntier(-20), new Parenthese(m),
-				new Parenthese(new NombreEntier(2), new Fraction(25, 10)));
+				new Parenthese(new NombreEntier(2), new Rationnel(25, 10)));
 
 		System.out.println("tel quel  : " + Arrays.deepToString(termes.toArray()));
 
@@ -54,7 +54,7 @@ public class TestSimplifieur {
 		Multiplication m = new Multiplication(new Variable("x"), new Division(i, new Puissance(i, new NombreEntier(2))));
 
 		List<Terme> termes = Arrays.asList(new NombreEntier(-20), new Parenthese(m),
-				new Parenthese(new NombreEntier(2), new Fraction(25, 10)));
+				new Parenthese(new NombreEntier(2), new Rationnel(25, 10)));
 
 		System.out.println("tel quel  : " + Arrays.deepToString(termes.toArray()));
 

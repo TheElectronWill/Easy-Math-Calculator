@@ -4,6 +4,18 @@ public class Multiplication implements Terme {
 
 	public Terme a, b;
 
+	public Multiplication(Terme... termes) {
+		if (termes.length < 3) {
+			throw new IllegalArgumentException("Il faut au moins 3 termes");
+		}
+		Multiplication m = new Multiplication(termes[0], termes[1]);
+		for (int i = 2; i < termes.length - 1; i++) {
+			m = new Multiplication(m, termes[i]);
+		}
+		a = termes[termes.length - 1];
+		b = m;
+	}
+
 	public Multiplication(Terme a, Terme b) {
 		this.a = a;
 		this.b = b;
@@ -17,7 +29,7 @@ public class Multiplication implements Terme {
 
 	@Override
 	public Terme inverser() {
-		return new Division(new NombreEntier(1), this);
+		return new Division(new Rationnel(1), this);
 	}
 
 	@Override
@@ -28,8 +40,8 @@ public class Multiplication implements Terme {
 	}
 
 	/** Simplifie cette multiplication. Les paramètres a et b sont présents uniquement pour pouvoir en changer
-	 * l'ordre, c'est-à-dire pour
-	 * pouvoir mettre b en premier et a en deuxième. Ils ne sont ni modifiés ni remplacés par d'autres termes.
+	 * l'ordre, c'est-à-dire pour pouvoir mettre b en premier et a en deuxième. Ils ne sont ni modifiés ni
+	 * remplacés par d'autres termes.
 	 *
 	 * @param a le premier terme
 	 * @param b le deuxième terme
@@ -37,72 +49,53 @@ public class Multiplication implements Terme {
 	 * @return une simplification de cette multiplication, ou cette multiplication si elle ne peut pas être
 	 * simplifiée. */
 	private Terme simplifier(final Terme a, final Terme b, final boolean mayChangeOrder) {
-		if (a instanceof NombreEntier) {
-			NombreEntier n = (NombreEntier) a;
-			if (b instanceof NombreEntier) {// n*n2
-				NombreEntier n2 = (NombreEntier) b;
-				return new NombreEntier(n.valeur * n2.valeur);
+		if (a instanceof Variable && b instanceof Variable) {
+			return new Puissance(a, 2);
+		}
+		if (a instanceof Fonction && b instanceof Fonction) {
+			Fonction fa = (Fonction) a, fb = (Fonction) b;
+			if (fa.param.equals(fb.param)) {
+				return new Puissance(fa, 2);
 			}
-			if (b instanceof Fraction) {// n*fraction
-				Fraction fraction = (Fraction) b;
-				return fraction.multiplier(n.valeur).simplifier();
+			return this;//non simplifiable
+		}
+		if (a instanceof Puissance) {
+			return ((Puissance) a).multiplier(b).simplifier();
+		}
+		if (a instanceof Rationnel) {
+			Rationnel q1 = (Rationnel) a;
+			if (b instanceof Rationnel) {
+				Rationnel q2 = (Rationnel) b;
+				return q1.multiplier(q2).simplifier();
 			}
-			if (b instanceof Multiplication) {// n(a*b)
+			if (b instanceof Multiplication) {
 				Multiplication m = (Multiplication) b;
-				if (m.a instanceof NombreEntier) {// n(n2*b)
-					NombreEntier n2 = (NombreEntier) m.a;
-					return new Multiplication(new NombreEntier(n.valeur * n2.valeur), m.b);
+				if (m.a instanceof Rationnel) {
+					Rationnel q2 = (Rationnel) m.a;
+					return new Multiplication(q1.multiplier(q2), m.b).simplifier();
 				}
-				if (m.b instanceof NombreEntier) {// n(a*n2)
-					NombreEntier n2 = (NombreEntier) m.b;
-					return new Multiplication(new NombreEntier(n.valeur * n2.valeur), m.a);
+				if (m.b instanceof Rationnel) {
+					Rationnel q2 = (Rationnel) m.b;
+					return new Multiplication(q1.multiplier(q2), m.a).simplifier();
 				}
-				if (m.a instanceof Fraction) {// n(fraction*b)
-					Fraction fraction = (Fraction) m.a;
-					return new Multiplication(fraction.multiplier(n.valeur).simplifier(), m.b);
+			} else if (b instanceof Division) {
+				Division d = (Division) b;//division c/d
+				if (d.a instanceof Rationnel) {// a/(c/d) = a/c * d
+					Rationnel q2 = (Rationnel) d.a;
+					return new Multiplication(q1.diviser(q2), d.b).simplifier();
 				}
-				if (m.b instanceof Fraction) {// n(a*fraction)
-					Fraction fraction = (Fraction) m.b;
-					return new Multiplication(fraction.multiplier(n.valeur).simplifier(), m.a);
-				}
-			}
-		} else if (a instanceof Fraction) {
-			Fraction fraction = (Fraction) a;
-			if (b instanceof NombreEntier) {// fraction*n
-				NombreEntier n = (NombreEntier) b;
-				return fraction.multiplier(n.valeur).simplifier();
-			}
-			if (b instanceof Fraction) {// fraction*fraction
-				Fraction fraction2 = (Fraction) b;
-				return fraction.multiplier(fraction2).simplifier();
-			}
-			if (b instanceof Multiplication) {// fraction(a*b)
-				Multiplication m = (Multiplication) b;
-				if (m.a instanceof NombreEntier) {// fraction(n*b)
-					NombreEntier n = (NombreEntier) m.a;
-					return new Multiplication(fraction.multiplier(n.valeur).simplifier(), m.b);
-				}
-				if (m.b instanceof NombreEntier) {// fraction(a*n)
-					NombreEntier n = (NombreEntier) m.b;
-					return new Multiplication(fraction.multiplier(n.valeur).simplifier(), m.a);
-				}
-				if (m.a instanceof Fraction) {// fraction(fraction2*b)
-					Fraction fraction2 = (Fraction) m.a;
-					return new Multiplication(fraction.multiplier(fraction2).simplifier(), m.b);
-				}
-				if (m.b instanceof Fraction) {// fraction(a*fraction2)
-					Fraction fraction2 = (Fraction) m.b;
-					return new Multiplication(fraction.multiplier(fraction2).simplifier(), m.a);
+				if (d.b instanceof Rationnel) {// a/(c/d) = a*d / c
+					Rationnel q2 = (Rationnel) d.b;
+					return new Division(q1.multiplier(q2), d.a).simplifier();
 				}
 			}
 		}
-		return mayChangeOrder ? simplifier(b, a, false) : this;// Si ça n'a pas déjà été fait, on essaie en inversant a et
-		// b. Sinon on renvoie "this".
+		return mayChangeOrder ? simplifier(b, a, false) : this;// Si ça n'a pas déjà été fait, on essaie en inversant a et b.
 	}
 
 	@Override
 	public String toString() {
-		if (a instanceof NombreEntier && b instanceof NombreEntier) {
+		if (a instanceof Rationnel && b instanceof Rationnel && ((Rationnel) a).denom == 1 && ((Rationnel) b).denom == 1) {
 			return a + "*" + b;
 		}
 		return "(" + a + ")*(" + b + ")";

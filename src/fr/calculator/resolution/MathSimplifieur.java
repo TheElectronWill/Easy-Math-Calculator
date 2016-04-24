@@ -2,7 +2,7 @@ package fr.calculator.resolution;
 
 import fr.calculator.analyse.Division;
 import fr.calculator.analyse.Fonction;
-import fr.calculator.analyse.Fraction;
+import fr.calculator.analyse.Rationnel;
 import fr.calculator.analyse.Multiplication;
 import fr.calculator.analyse.NombreEntier;
 import fr.calculator.analyse.Parenthese;
@@ -51,7 +51,7 @@ public class MathSimplifieur {
 	}
 
 	private static void ajouterTerme(ExpressionSimple expression, Terme t) {
-		if (t instanceof Fraction || t instanceof NombreEntier) {
+		if (t instanceof Rationnel || t instanceof NombreEntier) {
 			expression.constante.ajouter(t);
 		} else if (t instanceof Variable) {
 			expression.facteurX.ajouter(1);
@@ -119,7 +119,7 @@ public class MathSimplifieur {
 		}
 		int exposant = ((NombreEntier) puissance.exposant).valeur;
 		if (exposant == 2) {
-			if (facteur instanceof Fraction || facteur instanceof NombreEntier || facteur instanceof Number) {
+			if (facteur instanceof Rationnel || facteur instanceof NombreEntier || facteur instanceof Number) {
 				expression.facteurX2.ajouter(facteur);
 			} else {
 				throw new RuntimeException("Impossible de simplifier la multiplication de " + puissance + " par " + facteur);

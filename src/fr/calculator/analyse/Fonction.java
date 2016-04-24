@@ -19,12 +19,12 @@ public class Fonction implements Terme {
 
 	@Override
 	public Terme inverser() {
-		return new Division(new NombreEntier(1), this);
+		return new Division(new Rationnel(1), this);
 	}
 
 	@Override
 	public Terme negatif() {
-		return new Multiplication(new NombreEntier(-1), this);
+		return new Multiplication(new Rationnel(-1), this);
 	}
 
 	@Override

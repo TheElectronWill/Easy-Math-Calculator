@@ -2,10 +2,10 @@ package fr.calculator.resolution;
 
 import fr.calculator.analyse.Fonction;
 import fr.calculator.analyse.Fonction.NomFonction;
-import fr.calculator.analyse.Fraction;
 import fr.calculator.analyse.Multiplication;
 import fr.calculator.analyse.NombreEntier;
 import fr.calculator.analyse.Puissance;
+import fr.calculator.analyse.Rationnel;
 import fr.calculator.analyse.Terme;
 import fr.calculator.analyse.Variable;
 import java.util.List;
@@ -18,7 +18,7 @@ public class MathSolveur {
 		int surfact1 = 0, surfact11 = 0, surfact111 = 0, surfact2 = 0, surfact22 = 0, surfact222 = 0;
 		int u = 0, u1 = 1, v = 0, v1 = 1, w = 0, w1 = 1, delta = 0;
 		double solution1 = 0, solution2 = 0, im1 = 0, im2 = 0, re3 = 0, re4 = 0;
-		Fraction frac1 = new Fraction(0, 0), frac2 = new Fraction(0, 0), re1 = new Fraction(0, 0), re2 = new Fraction(0, 0);
+		Rationnel frac1 = new Rationnel(0), frac2 = new Rationnel(0), re1 = new Rationnel(0), re2 = new Rationnel(0);
 		int modulo = 0, deux = 0;
 		if (gauche == droit) { // Les deux parties de l'équation sont identiques.
 			System.out.print("L'égalité est toujours vraie.");
@@ -51,7 +51,7 @@ public class MathSolveur {
 		if (droit.size() > 2) {
 			Z2 = droit.get(2);
 		}
-		if (Y.equals("") && Y2.equals("") && Z.equals("") && Z2.equals("") && (X instanceof NombreEntier || X instanceof Fraction || X.equals("")) && (X2 instanceof NombreEntier || X2 instanceof Fraction || X2.equals(""))) { // La variable est absente.
+		if (Y.equals("") && Y2.equals("") && Z.equals("") && Z2.equals("") && (X instanceof NombreEntier || X instanceof Rationnel || X.equals("")) && (X2 instanceof NombreEntier || X2 instanceof Rationnel || X2.equals(""))) { // La variable est absente.
 			System.out.print("Vous devez utiliser la variable x.");
 		} else if (X instanceof Fonction || X2 instanceof Fonction) { // X ou X2 sont des fonctions.
 			Fonction fonction = null, fonction1 = null;
@@ -96,94 +96,94 @@ public class MathSolveur {
 					Z2 = droit.get(2);
 				}
 			} else if (fonction.nom == NomFonction.EXPONENTIELLE) { // fonction est une fonction exponentielle.
-				if (fonction.param instanceof NombreEntier || fonction.param instanceof Fraction) { // Le paramètre de fonction est un nombre entier ou une fraction.
-					if (X2 instanceof NombreEntier || X2 instanceof Fraction) { // X2 est un nombre entier ou une fraction.
+				if (fonction.param instanceof NombreEntier || fonction.param instanceof Rationnel) { // Le paramètre de fonction est un nombre entier ou une fraction.
+					if (X2 instanceof NombreEntier || X2 instanceof Rationnel) { // X2 est un nombre entier ou une fraction.
 						System.out.print("Vous devez utiliser la variable x.");
 					} else if (fonction.param instanceof NombreEntier) { // Le paramètre de fonction est un nombre entier.
 						NombreEntier a = (NombreEntier) fonction.param;
 						solution1 = Math.exp((a.valeur));
-					} else if (fonction.param instanceof Fraction) { // Le paramètre de fonction est une fraction.
-						Fraction frac = (Fraction) fonction.param;
+					} else if (fonction.param instanceof Rationnel) { // Le paramètre de fonction est une fraction.
+						Rationnel frac = (Rationnel) fonction.param;
 						solution1 = Math.exp((frac.num / frac.denom));
 					}
 				} else if (X2 instanceof NombreEntier) { // X2 est un nombre entier.
 					NombreEntier a = (NombreEntier) X2;
 					solution1 = Math.log((a.valeur));
-				} else if (X2 instanceof Fraction) { // X2 est une fraction.
-					Fraction frac = (Fraction) X2;
+				} else if (X2 instanceof Rationnel) { // X2 est une fraction.
+					Rationnel frac = (Rationnel) X2;
 					solution1 = Math.log(frac.num / frac.denom);
 				} else {
 					System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 				}
 			} else if (fonction1.nom == NomFonction.EXPONENTIELLE) { // fonction1 est une fonction exponentielle.
-				if (fonction1.param instanceof NombreEntier || fonction1.param instanceof Fraction) { // Le paramètre de fonction1 est un nombre entier ou une fraction.
-					if (X instanceof NombreEntier || X instanceof Fraction) { // X est un nombre entier ou une fraction.
+				if (fonction1.param instanceof NombreEntier || fonction1.param instanceof Rationnel) { // Le paramètre de fonction1 est un nombre entier ou une fraction.
+					if (X instanceof NombreEntier || X instanceof Rationnel) { // X est un nombre entier ou une fraction.
 						System.out.print("Vous devez utiliser la variable x.");
 					} else if (fonction1.param instanceof NombreEntier) { // Le paramètre de fonction1 est un nombre entier.
 						NombreEntier a = (NombreEntier) X;
 						solution1 = Math.exp((a.valeur));
-					} else if (fonction1.param instanceof Fraction) { // Le paramètre de fonction1 est une fraction.
-						Fraction frac = (Fraction) fonction.param;
+					} else if (fonction1.param instanceof Rationnel) { // Le paramètre de fonction1 est une fraction.
+						Rationnel frac = (Rationnel) fonction.param;
 						solution1 = Math.exp(frac.num / frac.denom);
 					}
 				} else if (X instanceof NombreEntier) { // X est un nombre entier.
 					NombreEntier a = (NombreEntier) X2;
 					solution1 = Math.log(a.valeur);
-				} else if (X instanceof Fraction) { // X est une fraction.
-					Fraction frac = (Fraction) X2;
+				} else if (X instanceof Rationnel) { // X est une fraction.
+					Rationnel frac = (Rationnel) X2;
 					solution1 = Math.log((frac.num / frac.denom));
 				} else {
 					System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 				}
 			} else if (fonction.nom == NomFonction.LOGARITHME_NEPERIEN) { // fonction est une fonction logarithme.
-				if (fonction.param instanceof NombreEntier || fonction.param instanceof Fraction) { // Le paramètre de fonction est un nombre entier ou une fraction.
-					if (X2 instanceof NombreEntier || X2 instanceof Fraction) { // X2 est un nombre entier ou une fonction.
+				if (fonction.param instanceof NombreEntier || fonction.param instanceof Rationnel) { // Le paramètre de fonction est un nombre entier ou une fraction.
+					if (X2 instanceof NombreEntier || X2 instanceof Rationnel) { // X2 est un nombre entier ou une fonction.
 						System.out.print("Vous devez utiliser la variable x.");
 					} else if (fonction.param instanceof NombreEntier) { // Le paramètre de fonction est un nombre entier.
 						NombreEntier a = (NombreEntier) fonction.param;
 						solution1 = Math.log((a.valeur));
-					} else if (fonction.param instanceof Fraction) { // Le paramètre de fonction est une fraction.
-						Fraction frac = (Fraction) fonction.param;
+					} else if (fonction.param instanceof Rationnel) { // Le paramètre de fonction est une fraction.
+						Rationnel frac = (Rationnel) fonction.param;
 						solution1 = Math.log((frac.num / frac.denom));
 					}
 				} else if (X2 instanceof NombreEntier) { // X2 est un nombre entier.
 					NombreEntier a = (NombreEntier) X2;
 					solution1 = Math.exp((a.valeur));
-				} else if (X2 instanceof Fraction) { // X2 est un nombre entier.
-					Fraction frac = (Fraction) X2;
+				} else if (X2 instanceof Rationnel) { // X2 est un nombre entier.
+					Rationnel frac = (Rationnel) X2;
 					solution1 = Math.exp((frac.num / frac.denom));
 				} else {
 					System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 				}
 			} else if (fonction1.nom == NomFonction.LOGARITHME_NEPERIEN) { // fonction1 est un fonction logarithme.
-				if (fonction1.param instanceof NombreEntier || fonction1.param instanceof Fraction) { // Le paramètre de fonction1 est un nombre entier ou une fraction.
-					if (X instanceof NombreEntier || X instanceof Fraction) { // X est un nombre entier ou une fraction.
+				if (fonction1.param instanceof NombreEntier || fonction1.param instanceof Rationnel) { // Le paramètre de fonction1 est un nombre entier ou une fraction.
+					if (X instanceof NombreEntier || X instanceof Rationnel) { // X est un nombre entier ou une fraction.
 						System.out.print("Vous devez utiliser la variable x.");
 					} else if (fonction1.param instanceof NombreEntier) { // Le paramètre de fonction1 est un nombre entier.
 						NombreEntier a = (NombreEntier) fonction.param;
 						solution1 = Math.log((a.valeur));
-					} else if (fonction1.param instanceof Fraction) { // Le paramètre de fonction1 est une fraction.
-						Fraction frac = (Fraction) fonction.param;
+					} else if (fonction1.param instanceof Rationnel) { // Le paramètre de fonction1 est une fraction.
+						Rationnel frac = (Rationnel) fonction.param;
 						solution1 = Math.log((frac.num / frac.denom));
 					}
 				} else if (X instanceof NombreEntier) { // X est un nombre entier.
 					NombreEntier a = (NombreEntier) X2;
 					solution1 = Math.exp((a.valeur));
-				} else if (X instanceof Fraction) { // X est une fraction.
-					Fraction frac = (Fraction) X2;
+				} else if (X instanceof Rationnel) { // X est une fraction.
+					Rationnel frac = (Rationnel) X2;
 					solution1 = Math.exp((frac.num / frac.denom));
 				} else {
 					System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 				}
 			} else if (fonction.nom == NomFonction.COSINUS) { // fonction est une fonction cosinus.
-				if (fonction.param instanceof NombreEntier || fonction.param instanceof Fraction) { // Le paramètre de fonction est un nombre entier ou une fraction.
-					if (X2 instanceof NombreEntier || X instanceof Fraction) { // X2 est un nombre entier ou une fraction.
+				if (fonction.param instanceof NombreEntier || fonction.param instanceof Rationnel) { // Le paramètre de fonction est un nombre entier ou une fraction.
+					if (X2 instanceof NombreEntier || X instanceof Rationnel) { // X2 est un nombre entier ou une fraction.
 						System.out.print("Vous devez utiliser la variable x.");
 					} else if (fonction.param instanceof NombreEntier) { // Le paramètre de fonction est un nombre entier.
 						NombreEntier a = (NombreEntier) fonction.param;
 						solution1 = Math.cos((a.valeur));
-					} else if (fonction.param instanceof Fraction) { // Le paramètre de fonction est une fraction.
-						Fraction frac = (Fraction) fonction.param;
+					} else if (fonction.param instanceof Rationnel) { // Le paramètre de fonction est une fraction.
+						Rationnel frac = (Rationnel) fonction.param;
 						solution1 = Math.cos((frac.num / frac.denom));
 					}
 				} else if (X2 instanceof NombreEntier) { // X2 est un nombre entier.
@@ -191,8 +191,8 @@ public class MathSolveur {
 					solution1 = Math.acos((a.valeur));
 					solution2 = -solution1;
 					modulo = 1;
-				} else if (X2 instanceof Fraction) { // X2 est une fraction.
-					Fraction frac = (Fraction) X2;
+				} else if (X2 instanceof Rationnel) { // X2 est une fraction.
+					Rationnel frac = (Rationnel) X2;
 					solution1 = Math.acos((frac.num / frac.denom));
 					solution2 = -solution1;
 					modulo = 1;
@@ -200,14 +200,14 @@ public class MathSolveur {
 					System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 				}
 			} else if (fonction1.nom == NomFonction.COSINUS) { // fonction1 est une fonction cosinus.
-				if (fonction1.param instanceof NombreEntier || fonction1.param instanceof Fraction) { // Le paramètre de fonction1 est un nombre entier ou une fraction.
-					if (X instanceof NombreEntier || X instanceof Fraction) { // X est un nombre entier ou une fraction.
+				if (fonction1.param instanceof NombreEntier || fonction1.param instanceof Rationnel) { // Le paramètre de fonction1 est un nombre entier ou une fraction.
+					if (X instanceof NombreEntier || X instanceof Rationnel) { // X est un nombre entier ou une fraction.
 						System.out.print("Vous devez utiliser la variable x.");
 					} else if (fonction1.param instanceof NombreEntier) { // Le paramètre de fonction1 est un nombre entier.
 						NombreEntier a = (NombreEntier) fonction.param;
 						solution1 = Math.cos((a.valeur));
-					} else if (fonction1.param instanceof Fraction) { // Le paramètre de fonction1 est une fraction.
-						Fraction frac = (Fraction) fonction.param;
+					} else if (fonction1.param instanceof Rationnel) { // Le paramètre de fonction1 est une fraction.
+						Rationnel frac = (Rationnel) fonction.param;
 						solution1 = Math.cos((frac.num / frac.denom));
 					}
 
@@ -216,8 +216,8 @@ public class MathSolveur {
 					solution1 = Math.acos((a.valeur));
 					solution2 = -solution1;
 					modulo = 1;
-				} else if (X instanceof Fraction) { // X est une fraction.
-					Fraction frac = (Fraction) X2;
+				} else if (X instanceof Rationnel) { // X est une fraction.
+					Rationnel frac = (Rationnel) X2;
 					solution1 = Math.acos((frac.num / frac.denom));
 					solution2 = -solution1;
 					modulo = 1;
@@ -225,14 +225,14 @@ public class MathSolveur {
 					System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 				}
 			} else if (fonction.nom == NomFonction.SINUS) { // fonction est une fonction sinus.
-				if (fonction.param instanceof NombreEntier || fonction.param instanceof Fraction) { // Le paramètre de fonction est un nombre entier ou une fraction.
-					if (X2 instanceof NombreEntier || X2 instanceof Fraction) { // X2 est un nombre entier ou une fraction.
+				if (fonction.param instanceof NombreEntier || fonction.param instanceof Rationnel) { // Le paramètre de fonction est un nombre entier ou une fraction.
+					if (X2 instanceof NombreEntier || X2 instanceof Rationnel) { // X2 est un nombre entier ou une fraction.
 						System.out.print("Vous devez utiliser la variable x.");
 					} else if (fonction.param instanceof NombreEntier) { // Le paramètre de fonction est un nombre entier.
 						NombreEntier a = (NombreEntier) fonction.param;
 						solution1 = Math.sin((a.valeur));
-					} else if (fonction.param instanceof Fraction) { // Le paramètre de fonction est une fraction.
-						Fraction frac = (Fraction) fonction.param;
+					} else if (fonction.param instanceof Rationnel) { // Le paramètre de fonction est une fraction.
+						Rationnel frac = (Rationnel) fonction.param;
 						solution1 = Math.sin((frac.num / frac.denom));
 					}
 				} else if (X2 instanceof NombreEntier) { // X2 est un nombre entier.
@@ -240,8 +240,8 @@ public class MathSolveur {
 					solution1 = Math.asin((a.valeur));
 					solution2 = Math.PI - solution1;
 					modulo = 1;
-				} else if (X2 instanceof Fraction) { // X2 est une fraction.
-					Fraction frac = (Fraction) X2;
+				} else if (X2 instanceof Rationnel) { // X2 est une fraction.
+					Rationnel frac = (Rationnel) X2;
 					solution1 = Math.asin((frac.num / frac.denom));
 					solution2 = Math.PI - solution1;
 					modulo = 1;
@@ -249,14 +249,14 @@ public class MathSolveur {
 					System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 				}
 			} else if (fonction1.nom == NomFonction.SINUS) { // fonction1 est une fonction sinus.
-				if (fonction1.param instanceof NombreEntier || fonction1.param instanceof Fraction) { // Le paramètre de fonction1 est un nombre entier ou une fraction.
-					if (X instanceof NombreEntier || X instanceof Fraction) { // X es un nombre entier ou une fraction.
+				if (fonction1.param instanceof NombreEntier || fonction1.param instanceof Rationnel) { // Le paramètre de fonction1 est un nombre entier ou une fraction.
+					if (X instanceof NombreEntier || X instanceof Rationnel) { // X es un nombre entier ou une fraction.
 						System.out.print("Vous devez utiliser la variable x.");
 					} else if (fonction1.param instanceof NombreEntier) { // Le paramètre de fonction1 est un nombre entier.
 						NombreEntier a = (NombreEntier) fonction.param;
 						solution1 = Math.sin((a.valeur));
-					} else if (fonction.param instanceof Fraction) { // Le paramètre de fonction1 est une fraction.
-						Fraction frac = (Fraction) fonction.param;
+					} else if (fonction.param instanceof Rationnel) { // Le paramètre de fonction1 est une fraction.
+						Rationnel frac = (Rationnel) fonction.param;
 						solution1 = Math.sin((frac.num / frac.denom));
 					}
 
@@ -265,8 +265,8 @@ public class MathSolveur {
 					solution1 = Math.asin((a.valeur));
 					solution2 = Math.PI - solution1;
 					modulo = 1;
-				} else if (X instanceof Fraction) { // X est une fraction.
-					Fraction frac = (Fraction) X2;
+				} else if (X instanceof Rationnel) { // X est une fraction.
+					Rationnel frac = (Rationnel) X2;
 					solution1 = Math.asin((frac.num / frac.denom));
 					solution2 = Math.PI - solution1;
 					modulo = 1;
@@ -281,44 +281,44 @@ public class MathSolveur {
 					int ex = ((Puissance) a).exposant;
 					Terme n = ((Puissance) a).n;
 					if (n instanceof Variable && ex == 2) { // n est variable et ex = 2.
-						if (b instanceof Fraction) { // b est une fraction.
-							surfact11 = ((Fraction) b).num;
-							surfact111 = ((Fraction) b).denom;
+						if (b instanceof Rationnel) { // b est une fraction.
+							surfact11 = ((Rationnel) b).num;
+							surfact111 = ((Rationnel) b).denom;
 						} else if (b instanceof NombreEntier) { // b est un nombre entier.
 							surfact1 = ((NombreEntier) b).valeur;
 						} else { // b est autre chose.
 							System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 						}
 					}
-				} else if (a instanceof Fraction) { // a est une fraction.
-					fact11 = ((Fraction) a).num;
-					fact111 = ((Fraction) a).denom;
+				} else if (a instanceof Rationnel) { // a est une fraction.
+					fact11 = ((Rationnel) a).num;
+					fact111 = ((Rationnel) a).denom;
 				} else if (a instanceof NombreEntier) { // a est un nombre entier.
 					fact1 = ((NombreEntier) a).valeur;
 				} else if (b instanceof Puissance) { // b est une puissance de nombre n et d'exposant ex.
 					int ex = ((Puissance) b).exposant;
 					Terme n = ((Puissance) b).n;
 					if (n instanceof Variable && ex == 2) {
-						if (a instanceof Fraction) { // a est une fraction.
-							surfact11 = ((Fraction) a).num;
-							surfact111 = ((Fraction) a).denom;
+						if (a instanceof Rationnel) { // a est une fraction.
+							surfact11 = ((Rationnel) a).num;
+							surfact111 = ((Rationnel) a).denom;
 						} else if (a instanceof NombreEntier) { // a est un nombre entier.
 							surfact1 = ((NombreEntier) a).valeur;
 						} else { // n est autre chose.
 							System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 						}
 					}
-				} else if (b instanceof Fraction) { // b est une fraction.
-					fact11 = ((Fraction) b).num;
-					fact111 = ((Fraction) b).num;
+				} else if (b instanceof Rationnel) { // b est une fraction.
+					fact11 = ((Rationnel) b).num;
+					fact111 = ((Rationnel) b).num;
 				} else if (b instanceof NombreEntier) { // b est un nombre entier.
 					fact1 = ((NombreEntier) b).valeur;
 				} else { // a ou b sont autre chose.
 					System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 				}
-			} else if (X instanceof Fraction) { // X est une fraction.
-				cons11 = ((Fraction) X).num;
-				cons111 = ((Fraction) X).denom;
+			} else if (X instanceof Rationnel) { // X est une fraction.
+				cons11 = ((Rationnel) X).num;
+				cons111 = ((Rationnel) X).denom;
 			} else if (X instanceof NombreEntier) { // X est un nombre entier.
 				cons1 = ((NombreEntier) X).valeur;
 			}
@@ -328,44 +328,44 @@ public class MathSolveur {
 					int ex = ((Puissance) a).exposant;
 					Terme n = ((Puissance) a).n;
 					if (n instanceof Variable && ex == 2) { // n est variable et ex = 2.
-						if (b instanceof Fraction) { // b est une fraction.
-							surfact22 = ((Fraction) b).num;
-							surfact222 = ((Fraction) b).denom;
+						if (b instanceof Rationnel) { // b est une fraction.
+							surfact22 = ((Rationnel) b).num;
+							surfact222 = ((Rationnel) b).denom;
 						} else if (b instanceof NombreEntier) { // b est un nombre entier.
 							surfact1 = ((NombreEntier) b).valeur;
 						} else { // b est autre chose.
 							System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 						}
 					}
-				} else if (a instanceof Fraction) { // a est une fraction.
-					fact22 = ((Fraction) a).num;
-					fact222 = ((Fraction) a).denom;
+				} else if (a instanceof Rationnel) { // a est une fraction.
+					fact22 = ((Rationnel) a).num;
+					fact222 = ((Rationnel) a).denom;
 				} else if (a instanceof NombreEntier) { // a est un nombre entier.
 					fact2 = ((NombreEntier) a).valeur;
 				} else if (b instanceof Puissance) { // b est une puissance de nombre n et d'exposant ex.
 					int ex = ((Puissance) b).exposant;
 					Terme n = ((Puissance) b).n;
 					if (n instanceof Variable && ex == 2) {
-						if (a instanceof Fraction) { // a est une fraction.
-							surfact22 = ((Fraction) a).num;
-							surfact222 = ((Fraction) a).denom;
+						if (a instanceof Rationnel) { // a est une fraction.
+							surfact22 = ((Rationnel) a).num;
+							surfact222 = ((Rationnel) a).denom;
 						} else if (a instanceof NombreEntier) { // a est un nombre entier.
 							surfact2 = ((NombreEntier) a).valeur;
 						} else { // n est autre chose.
 							System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 						}
 					}
-				} else if (b instanceof Fraction) { // b est une fraction.
-					fact22 = ((Fraction) b).num;
-					fact222 = ((Fraction) b).denom;
+				} else if (b instanceof Rationnel) { // b est une fraction.
+					fact22 = ((Rationnel) b).num;
+					fact222 = ((Rationnel) b).denom;
 				} else if (b instanceof NombreEntier) { // b est un nombre entier.
 					fact2 = ((NombreEntier) b).valeur;
 				} else { // a ou b sont autre chose.
 					System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 				}
-			} else if (X2 instanceof Fraction) { // X2 est une fraction.
-				cons22 = ((Fraction) X2).num;
-				cons222 = ((Fraction) X2).denom;
+			} else if (X2 instanceof Rationnel) { // X2 est une fraction.
+				cons22 = ((Rationnel) X2).num;
+				cons222 = ((Rationnel) X2).denom;
 			} else if (X2 instanceof NombreEntier) { // X2 est un nombre entier.
 				cons2 = ((NombreEntier) X2).valeur;
 			}
@@ -375,44 +375,44 @@ public class MathSolveur {
 					int ex = ((Puissance) a).exposant;
 					Terme n = ((Puissance) a).n;
 					if (n instanceof Variable && ex == 2) { // n est variable et ex = 2.
-						if (b instanceof Fraction) { // b est une fraction.
-							surfact11 = ((Fraction) b).num;
-							surfact111 = ((Fraction) b).denom;
+						if (b instanceof Rationnel) { // b est une fraction.
+							surfact11 = ((Rationnel) b).num;
+							surfact111 = ((Rationnel) b).denom;
 						} else if (b instanceof NombreEntier) { // b est un nombre entier.
 							surfact1 = ((NombreEntier) b).valeur;
 						} else { // b est autre chose.
 							System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 						}
 					}
-				} else if (a instanceof Fraction) { // a est une fraction.
-					fact11 = ((Fraction) a).num;
-					fact111 = ((Fraction) a).denom;
+				} else if (a instanceof Rationnel) { // a est une fraction.
+					fact11 = ((Rationnel) a).num;
+					fact111 = ((Rationnel) a).denom;
 				} else if (a instanceof NombreEntier) { // a est un nombre entier.
 					fact1 = ((NombreEntier) a).valeur;
 				} else if (b instanceof Puissance) { // b est une puissance de nombre n et d'exposant ex.
 					int ex = ((Puissance) b).exposant;
 					Terme n = ((Puissance) b).n;
 					if (n instanceof Variable && ex == 2) {
-						if (a instanceof Fraction) { // a est une fraction.
-							surfact11 = ((Fraction) a).num;
-							surfact111 = ((Fraction) a).denom;
+						if (a instanceof Rationnel) { // a est une fraction.
+							surfact11 = ((Rationnel) a).num;
+							surfact111 = ((Rationnel) a).denom;
 						} else if (a instanceof NombreEntier) { // a est un nombre entier.
 							surfact1 = ((NombreEntier) a).valeur;
 						} else { // n est autre chose.
 							System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 						}
 					}
-				} else if (b instanceof Fraction) { // b est une fraction.
-					fact11 = ((Fraction) b).num;
-					fact111 = ((Fraction) b).denom;
+				} else if (b instanceof Rationnel) { // b est une fraction.
+					fact11 = ((Rationnel) b).num;
+					fact111 = ((Rationnel) b).denom;
 				} else if (b instanceof NombreEntier) { // b est un nombre entier.
 					fact1 = ((NombreEntier) b).valeur;
 				} else { // a ou b sont autre chose.
 					System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 				}
-			} else if (Y instanceof Fraction) { // Y est une fraction.
-				cons11 = ((Fraction) Y).num;
-				cons111 = ((Fraction) Y).denom;
+			} else if (Y instanceof Rationnel) { // Y est une fraction.
+				cons11 = ((Rationnel) Y).num;
+				cons111 = ((Rationnel) Y).denom;
 			} else if (Y instanceof NombreEntier) { // Y est un nombre entier.
 				cons1 = ((NombreEntier) Y).valeur;
 			}
@@ -422,44 +422,44 @@ public class MathSolveur {
 					int ex = ((Puissance) a).exposant;
 					Terme n = ((Puissance) a).n;
 					if (n instanceof Variable && ex == 2) { // n est variable et ex = 2.
-						if (b instanceof Fraction) { // b est une fraction.
-							surfact22 = ((Fraction) b).num;
-							surfact222 = ((Fraction) b).denom;
+						if (b instanceof Rationnel) { // b est une fraction.
+							surfact22 = ((Rationnel) b).num;
+							surfact222 = ((Rationnel) b).denom;
 						} else if (b instanceof NombreEntier) { // b est un nombre entier.
 							surfact2 = ((NombreEntier) b).valeur;
 						} else { // b est autre chose.
 							System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 						}
 					}
-				} else if (a instanceof Fraction) { // a est une fraction.
-					fact22 = ((Fraction) a).num;
-					fact222 = ((Fraction) a).denom;
+				} else if (a instanceof Rationnel) { // a est une fraction.
+					fact22 = ((Rationnel) a).num;
+					fact222 = ((Rationnel) a).denom;
 				} else if (a instanceof NombreEntier) { // a est un nombre entier.
 					fact2 = ((NombreEntier) a).valeur;
 				} else if (b instanceof Puissance) { // b est une puissance de nombre n et d'exposant ex.
 					int ex = ((Puissance) b).exposant;
 					Terme n = ((Puissance) b).n;
 					if (n instanceof Variable && ex == 2) {
-						if (a instanceof Fraction) { // a est une fraction.
-							surfact22 = ((Fraction) a).num;
-							surfact222 = ((Fraction) a).denom;
+						if (a instanceof Rationnel) { // a est une fraction.
+							surfact22 = ((Rationnel) a).num;
+							surfact222 = ((Rationnel) a).denom;
 						} else if (a instanceof NombreEntier) { // a est un nombre entier.
 							surfact2 = ((NombreEntier) a).valeur;
 						} else { // n est autre chose.
 							System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 						}
 					}
-				} else if (b instanceof Fraction) { // b est une fraction.
-					fact22 = ((Fraction) b).num;
-					fact222 = ((Fraction) b).denom;
+				} else if (b instanceof Rationnel) { // b est une fraction.
+					fact22 = ((Rationnel) b).num;
+					fact222 = ((Rationnel) b).denom;
 				} else if (b instanceof NombreEntier) { // b est un nombre entier.
 					fact2 = ((NombreEntier) b).valeur;
 				} else { // a ou b sont autre chose.
 					System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 				}
-			} else if (Y2 instanceof Fraction) { // Y2 est une fraction.
-				cons22 = ((Fraction) Y2).num;
-				cons222 = ((Fraction) Y2).denom;
+			} else if (Y2 instanceof Rationnel) { // Y2 est une fraction.
+				cons22 = ((Rationnel) Y2).num;
+				cons222 = ((Rationnel) Y2).denom;
 			} else if (Y2 instanceof NombreEntier) { // Y2 est un nombre entier.
 				cons2 = ((NombreEntier) Y2).valeur;
 			}
@@ -469,44 +469,44 @@ public class MathSolveur {
 					int ex = ((Puissance) a).exposant;
 					Terme n = ((Puissance) a).n;
 					if (n instanceof Variable && ex == 2) { // n est variable et ex = 2.
-						if (b instanceof Fraction) { // b est une fraction.
-							surfact11 = ((Fraction) b).num;
-							surfact111 = ((Fraction) b).denom;
+						if (b instanceof Rationnel) { // b est une fraction.
+							surfact11 = ((Rationnel) b).num;
+							surfact111 = ((Rationnel) b).denom;
 						} else if (b instanceof NombreEntier) { // b est un nombre entier.
 							surfact1 = ((NombreEntier) b).valeur;
 						} else { // b est autre chose.
 							System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 						}
 					}
-				} else if (a instanceof Fraction) { // a est une fraction.
-					fact11 = ((Fraction) a).num;
-					fact111 = ((Fraction) a).denom;
+				} else if (a instanceof Rationnel) { // a est une fraction.
+					fact11 = ((Rationnel) a).num;
+					fact111 = ((Rationnel) a).denom;
 				} else if (a instanceof NombreEntier) { // a est un nombre entier.
 					fact1 = ((NombreEntier) a).valeur;
 				} else if (b instanceof Puissance) { // b est une puissance de nombre n et d'exposant ex.
 					int ex = ((Puissance) b).exposant;
 					Terme n = ((Puissance) b).n;
 					if (n instanceof Variable && ex == 2) {
-						if (a instanceof Fraction) { // a est une fraction.
-							surfact11 = ((Fraction) a).num;
-							surfact111 = ((Fraction) a).denom;
+						if (a instanceof Rationnel) { // a est une fraction.
+							surfact11 = ((Rationnel) a).num;
+							surfact111 = ((Rationnel) a).denom;
 						} else if (a instanceof NombreEntier) { // a est un nombre entier.
 							surfact1 = ((NombreEntier) a).valeur;
 						} else { // n est autre chose.
 							System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 						}
 					}
-				} else if (b instanceof Fraction) { // b est une fraction.
-					fact11 = ((Fraction) b).num;
-					fact111 = ((Fraction) b).denom;
+				} else if (b instanceof Rationnel) { // b est une fraction.
+					fact11 = ((Rationnel) b).num;
+					fact111 = ((Rationnel) b).denom;
 				} else if (b instanceof NombreEntier) { // b est un nombre entier.
 					fact1 = ((NombreEntier) b).valeur;
 				} else { // a ou b sont autre chose.
 					System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 				}
-			} else if (Z instanceof Fraction) { // Z est une fraction.
-				cons11 = ((Fraction) Z).num;
-				cons111 = ((Fraction) Z).denom;
+			} else if (Z instanceof Rationnel) { // Z est une fraction.
+				cons11 = ((Rationnel) Z).num;
+				cons111 = ((Rationnel) Z).denom;
 			} else if (Z instanceof NombreEntier) { // Z est un nombre entier.
 				cons1 = ((NombreEntier) Z).valeur;
 			}
@@ -516,44 +516,44 @@ public class MathSolveur {
 					int ex = ((Puissance) a).exposant;
 					Terme n = ((Puissance) a).n;
 					if (n instanceof Variable && ex == 2) { // n est variable et ex = 2.
-						if (b instanceof Fraction) { // b est une fraction.
-							surfact22 = ((Fraction) b).num;
-							surfact222 = ((Fraction) b).denom;
+						if (b instanceof Rationnel) { // b est une fraction.
+							surfact22 = ((Rationnel) b).num;
+							surfact222 = ((Rationnel) b).denom;
 						} else if (b instanceof NombreEntier) { // b est un nombre entier.
 							surfact2 = ((NombreEntier) b).valeur;
 						} else { // b est autre chose.
 							System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 						}
 					}
-				} else if (a instanceof Fraction) { // a est une fraction.
-					fact22 = ((Fraction) a).num;
-					fact222 = ((Fraction) a).denom;
+				} else if (a instanceof Rationnel) { // a est une fraction.
+					fact22 = ((Rationnel) a).num;
+					fact222 = ((Rationnel) a).denom;
 				} else if (a instanceof NombreEntier) { // a est un nombre entier.
 					fact2 = ((NombreEntier) a).valeur;
 				} else if (b instanceof Puissance) { // b est une puissance de nombre n et d'exposant ex.
 					int ex = ((Puissance) b).exposant;
 					Terme n = ((Puissance) b).n;
 					if (n instanceof Variable && ex == 2) {
-						if (a instanceof Fraction) { // a est une fraction.
-							surfact22 = ((Fraction) a).num;
-							surfact222 = ((Fraction) a).denom;
+						if (a instanceof Rationnel) { // a est une fraction.
+							surfact22 = ((Rationnel) a).num;
+							surfact222 = ((Rationnel) a).denom;
 						} else if (a instanceof NombreEntier) { // a est un nombre entier.
 							surfact2 = ((NombreEntier) a).valeur;
 						} else { // n est autre chose.
 							System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 						}
 					}
-				} else if (b instanceof Fraction) { // b est une fraction.
-					fact22 = ((Fraction) b).num;
-					fact222 = ((Fraction) b).denom;
+				} else if (b instanceof Rationnel) { // b est une fraction.
+					fact22 = ((Rationnel) b).num;
+					fact222 = ((Rationnel) b).denom;
 				} else if (b instanceof NombreEntier) { // b est un nombre entier.
 					fact2 = ((NombreEntier) b).valeur;
 				} else { // a ou b sont autre chose.
 					System.out.print("La résolution de cette équation par ce logiciel est impossible.");
 				}
-			} else if (Z2 instanceof Fraction) { // Z2 est une fraction.
-				cons22 = ((Fraction) Z2).num;
-				cons222 = ((Fraction) Z2).denom;
+			} else if (Z2 instanceof Rationnel) { // Z2 est une fraction.
+				cons22 = ((Rationnel) Z2).num;
+				cons222 = ((Rationnel) Z2).denom;
 			} else if (Z2 instanceof NombreEntier) { // Z2 est un nombre entier.
 				cons2 = ((NombreEntier) Z2).valeur;
 			}
@@ -652,7 +652,7 @@ public class MathSolveur {
 				solution1 = (((NombreEntier) simplifié).valeur);
 				System.out.print(solution1);
 			} else {
-				((Fraction) simplifié).toString();
+				((Rationnel) simplifié).toString();
 			}
 		} else { // Affichage solutions imaginaires.
 			System.out.print("Les solutions à cette équation sont: ");
