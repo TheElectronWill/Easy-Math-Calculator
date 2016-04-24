@@ -27,34 +27,32 @@ public class Division implements Terme {
 	public Terme simplifier() {
 		a = a.simplifier();
 		b = b.simplifier();
-		if (a instanceof NombreEntier) {
-			NombreEntier n = (NombreEntier) a;
-			if (b instanceof NombreEntier) {// n/n2
-				NombreEntier n2 = (NombreEntier) b;
-				return new Rationnel(n.valeur, n2.valeur).simplifier();
+		if (a.equals(b)) {
+			return new Rationnel(1);
+		}
+		if (b instanceof Rationnel && ((Rationnel) b).num == ((Rationnel) b).denom) {//b vaut 1
+			return a;
+		}
+		if (a instanceof Rationnel) {
+			Rationnel q1 = (Rationnel) a;
+			if (b instanceof Rationnel) {
+				return q1.diviser((Rationnel) b);
 			}
-			if (b instanceof Rationnel) {// n/(num/den) = (n*den)/num
-				Rationnel fraction = (Rationnel) b;
-				return new Rationnel(n.valeur * fraction.denom, fraction.num).simplifier();
-			}
-		} else if (a instanceof Rationnel) {
-			Rationnel fraction = (Rationnel) a;
-			if (b instanceof NombreEntier) {// (num/den)/n
-				NombreEntier n = (NombreEntier) b;
-				return fraction.diviser(n.valeur).simplifier();
-			}
-			if (b instanceof Rationnel) {// (num/den)/(num2/den2) = (num*den2)/(den*num2)
-				Rationnel fraction2 = (Rationnel) b;
-				return fraction.diviser(fraction2).simplifier();
+			if (b instanceof Multiplication) {
+				Multiplication m = (Multiplication) b;
+				if (m.a instanceof Rationnel) {
+					return new Multiplication(new Division(a, m.a), m.b).simplifier();
+				}
+				if (m.b instanceof Rationnel) {
+					return new Multiplication(new Division(a, m.b), m.a).simplifier();
+				}
+			} else if (b instanceof Division) {
+				return new Multiplication(a, b.inverser()).simplifier();
 			}
 		} else if (a instanceof Puissance) {
-			Puissance pow = (Puissance) a;
-			return pow.diviser(b).simplifier();
-		}
-		if (b instanceof Puissance) {
-			Puissance powB = (Puissance) b;
-			Puissance powA = new Puissance(a, new Rationnel(1));
-			return powA.diviser(powB).simplifier();
+			return ((Puissance) a).diviser(b).simplifier();
+		} else if (b instanceof Puissance) {
+			return new Puissance(a, 1).diviser((Puissance) b).simplifier();
 		}
 		return this;
 	}
