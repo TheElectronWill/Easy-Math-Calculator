@@ -64,6 +64,9 @@ public class Multiplication implements Terme {
 		}
 		if (a instanceof Rationnel) {
 			Rationnel q1 = (Rationnel) a;
+			if (q1.num == q1.denom) {//a vaut 1
+				return b;
+			}
 			if (b instanceof Rationnel) {
 				Rationnel q2 = (Rationnel) b;
 				return q1.multiplier(q2).simplifier();
