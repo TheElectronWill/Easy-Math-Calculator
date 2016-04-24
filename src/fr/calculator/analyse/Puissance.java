@@ -88,9 +88,10 @@ public class Puissance implements Terme {
 				Rationnel q = (Rationnel) n;
 				if (p.denom == 1) {//q^p avec p entier -> calcul en valeur exacte
 					Rationnel result = q.clone();
-					for (int i = 0; i < p.num; i++) {
+					for (int i = 1; i < p.num; i++) {
 						result.multiplier(q);
 					}
+					return result;
 				} else {//q^p avec p non entier -> calcul en valeur approchée
 					double result = Math.pow(q.num / q.denom, p.num / p.denom);
 					return new Rationnel(result);
