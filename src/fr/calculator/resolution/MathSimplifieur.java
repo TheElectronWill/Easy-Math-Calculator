@@ -2,11 +2,11 @@ package fr.calculator.resolution;
 
 import fr.calculator.analyse.Division;
 import fr.calculator.analyse.Fonction;
-import fr.calculator.analyse.Rationnel;
 import fr.calculator.analyse.Multiplication;
 import fr.calculator.analyse.NombreEntier;
 import fr.calculator.analyse.Parenthese;
 import fr.calculator.analyse.Puissance;
+import fr.calculator.analyse.Rationnel;
 import fr.calculator.analyse.Terme;
 import fr.calculator.analyse.Variable;
 import java.util.Arrays;
@@ -44,7 +44,7 @@ public class MathSimplifieur {
 					ajouterTerme(expression, pt.simplifier());
 				}
 			} else {
-				ajouterTerme(expression, t.simplifier());
+				ajouterTerme(expression, t);
 			}
 		}
 		return expression.simplifier();
@@ -114,12 +114,12 @@ public class MathSimplifieur {
 
 	private static void ajouterPuissance(ExpressionSimple expression, Object objetPuissance, Object facteur) {
 		Puissance puissance = (Puissance) objetPuissance;
-		if (!(puissance.n instanceof Variable) || !(puissance.exposant instanceof NombreEntier)) {
+		if (!(puissance.n instanceof Variable) || !(puissance.exposant instanceof Rationnel)) {
 			throw new RuntimeException("Impossible de simplifier la puissance " + puissance);
 		}
-		int exposant = ((NombreEntier) puissance.exposant).valeur;
-		if (exposant == 2) {
-			if (facteur instanceof Rationnel || facteur instanceof NombreEntier || facteur instanceof Number) {
+		Rationnel exposant = (Rationnel) puissance.exposant;
+		if (exposant.num == 2 && exposant.denom == 1) {
+			if (facteur instanceof Rationnel || facteur instanceof Number) {
 				expression.facteurX2.ajouter(facteur);
 			} else {
 				throw new RuntimeException("Impossible de simplifier la multiplication de " + puissance + " par " + facteur);
