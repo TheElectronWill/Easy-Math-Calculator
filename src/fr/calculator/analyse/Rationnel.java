@@ -166,12 +166,12 @@ public class Rationnel implements Terme, Cloneable {
 	}
 
 	/**
-	 * Simplifie cette fraction, en la gardant sous forme de fraction dans tous les cas (même si le
-	 * dénominateur vaut 1).
+	 * Simplifie ce nombre rationnel. Ce même rationnel est retourné, même si à l'issue de la simplification le dénominateur vaut 1.
 	 *
-	 * @return cette fraction
+	 * @return ce rationnel simplifié
 	 */
-	public Rationnel simplifierFraction() {
+	@Override
+	public Rationnel simplifier() {
 		int gcd = pgcd(num, denom);
 		int numSimple = num / gcd, denomSimple = denom / gcd;
 		if (numSimple > 0 && denomSimple < 0) {// Transformer a/-b en -a/b
@@ -183,18 +183,6 @@ public class Rationnel implements Terme, Cloneable {
 		return this;
 	}
 
-	/**
-	 * Simplifie cette fraction. Si le dénominateur vaut 1 à l'issue de la simplification, un NombreEntier
-	 * dont la valeur est celle du dénominateur est retourné. Sinon, cette même fraction est retournée.
-	 *
-	 * @return cette fraction, ou un nouvel objet NombreEntier
-	 */
-	@Override
-	public Terme simplifier() {
-		simplifierFraction();
-		return denom == 1 ? new Rationnel(num) : this;
-	}
-
 	@Override
 	public String toString() {
 		return denom == 1 ? String.valueOf(num) : num + "/" + denom;
@@ -203,8 +191,8 @@ public class Rationnel implements Terme, Cloneable {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Rationnel) {
-			Rationnel frac = (Rationnel) obj;
-			return num == frac.num && denom == frac.denom;
+			Rationnel q = (Rationnel) obj;
+			return num == q.num && denom == q.denom;
 		}
 		return false;
 	}
