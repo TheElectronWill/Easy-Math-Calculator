@@ -18,7 +18,7 @@ import javax.swing.UIManager;
 
 /**
  * Fenêtre principale. Utilise la bibliothèque graphique swing.
- * 
+ *
  * @author Guillaume
  */
 public class Fenetre extends JFrame {
@@ -123,6 +123,7 @@ public class Fenetre extends JFrame {
 	}
 
 	private class EraseButtonListener implements ActionListener {
+
 		/**
 		 * Appelée quand on clique sur le bouton "Effacer".
 		 */
@@ -133,6 +134,7 @@ public class Fenetre extends JFrame {
 	}
 
 	private class CalculateButtonListener implements ActionListener {
+
 		/**
 		 * Appelée quand on clique sur le bouton "Calculer".
 		 */

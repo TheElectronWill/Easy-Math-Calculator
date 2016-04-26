@@ -18,11 +18,12 @@ import fr.calculator.analyse.Rationnel;
 import fr.calculator.analyse.Terme;
 import fr.calculator.analyse.Variable;
 
-/** 
- * Une expression (un seul côté d'une égalité) simplifiée, dont on a extrait les informations importantes pour la résolution: constante,
- * facteur de x, facteur de x², facteurs des fonctions, paramètres des fonctions.
+/**
+ * Une expression (un seul côté d'une égalité) simplifiée, dont on a extrait les informations importantes pour la
+ * résolution: constante, facteur de x, facteur de x², facteurs des fonctions, paramètres des fonctions.
  *
- * @author Guillaume */
+ * @author Guillaume
+ */
 public class ExpressionSimple {
 
 	public Rationnel constante, facteurX, facteurX2;
@@ -49,9 +50,11 @@ public class ExpressionSimple {
 		this.paramFonctions = new EnumMap(NomFonction.class);
 	}
 
-	/** Simplifie les facteurs de cette ExpressionSimple, ainsi que les paramètres des fonctions.
+	/**
+	 * Simplifie les facteurs de cette ExpressionSimple, ainsi que les paramètres des fonctions.
 	 *
-	 * @return cette ExpressionSimple */
+	 * @return cette ExpressionSimple
+	 */
 	public ExpressionSimple simplifier() {
 		constante.simplifier();
 		facteurX.simplifier();
@@ -65,7 +68,9 @@ public class ExpressionSimple {
 		return this;
 	}
 
-	/** Créer une liste de termes qui correspond à cette expression. */
+	/**
+	 * Créer une liste de termes qui correspond à cette expression.
+	 */
 	public List<Terme> getTermes() {
 		List<Terme> termes = new ArrayList<>();
 		if (constante.num != 0) {
@@ -88,8 +93,11 @@ public class ExpressionSimple {
 		return termes;
 	}
 
-	/** Crée une chaîne de caractères qui contient une expression mathématique correspondant à cet objet ExpressionSimple. Il faut d'abord
-	 * appeler la méthode {@link #simplifier()} au moins une fois avant d'appeler celle-ci. */
+	/**
+	 * Crée une chaîne de caractères qui contient une expression mathématique correspondant à cet objet
+	 * ExpressionSimple. Il faut d'abord appeler la méthode {@link #simplifier()} au moins une fois avant d'appeler
+	 * celle-ci.
+	 */
 	public String toMathString() {
 		StringBuilder sb = new StringBuilder();
 		for (Map.Entry<NomFonction, Rationnel> e : facteurFonctions.entrySet()) {

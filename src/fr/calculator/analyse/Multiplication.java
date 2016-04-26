@@ -39,15 +39,16 @@ public class Multiplication implements Terme {
 		return simplifier(a, b, true);
 	}
 
-	/** Simplifie cette multiplication. Les paramètres a et b sont présents uniquement pour pouvoir en changer
-	 * l'ordre, c'est-à-dire pour pouvoir mettre b en premier et a en deuxième. Ils ne sont ni modifiés ni
-	 * remplacés par d'autres termes.
+	/**
+	 * Simplifie cette multiplication. Les paramètres a et b sont présents uniquement pour pouvoir en changer l'ordre,
+	 * c'est-à-dire pour pouvoir mettre b en premier et a en deuxième. Ils ne sont ni modifiés ni remplacés par d'autres
+	 * termes.
 	 *
 	 * @param a le premier terme
 	 * @param b le deuxième terme
 	 * @param mayChangeOrder true si l'ordre de a et b peut être changé.
-	 * @return une simplification de cette multiplication, ou cette multiplication si elle ne peut pas être
-	 * simplifiée. */
+	 * @return une simplification de cette multiplication, ou cette multiplication si elle ne peut pas être simplifiée.
+	 */
 	private Terme simplifier(final Terme a, final Terme b, final boolean mayChangeOrder) {
 		if (a instanceof Variable && b instanceof Variable) {
 			return new Puissance(a, 2);

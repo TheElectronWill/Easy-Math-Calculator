@@ -166,7 +166,8 @@ public class Rationnel implements Terme, Cloneable {
 	}
 
 	/**
-	 * Simplifie ce nombre rationnel. Ce même rationnel est retourné, même si à l'issue de la simplification le dénominateur vaut 1.
+	 * Simplifie ce nombre rationnel. Ce même rationnel est retourné, même si à l'issue de la simplification le
+	 * dénominateur vaut 1.
 	 *
 	 * @return ce rationnel simplifié
 	 */

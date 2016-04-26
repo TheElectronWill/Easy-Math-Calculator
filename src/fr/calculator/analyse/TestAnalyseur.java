@@ -6,18 +6,18 @@ import java.util.Scanner;
 
 /**
  * Teste le fonctionnement du {@link MathAnalyseur}.
- * 
+ *
  * @author Guillaume
- * 		
+ *
  */
 public class TestAnalyseur {
-	
+
 	public static void main(String[] args) throws InterruptedException {
 		System.out.println("Entrez une expression mathématique");
 		Scanner sc = new Scanner(System.in);
 		String expression = sc.nextLine();
 		sc.close();
-		
+
 		long t0 = System.nanoTime();
 		List<Terme> terms = new MathAnalyseur(expression).analyser();
 		long nanos = System.nanoTime() - t0;
@@ -26,5 +26,5 @@ public class TestAnalyseur {
 		System.out.println("Analysé en " + secondes + " secondes  (" + nanos + " ns = " + millis + " ms )");
 		System.out.println(Arrays.deepToString(terms.toArray()));
 	}
-	
+
 }

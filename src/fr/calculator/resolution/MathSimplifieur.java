@@ -16,7 +16,6 @@ import java.util.List;
  * Utilitaire pour simplifier les expressions mathématiques.
  *
  * @author Guillaume
- *
  */
 public class MathSimplifieur {
 
