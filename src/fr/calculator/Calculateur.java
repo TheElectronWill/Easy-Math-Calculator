@@ -8,12 +8,10 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
 /**
- * Un <code>SwingWorker</code> qui effectue les calculs dans un autre Thread que
- * l'EDT (Event Dispatch Thread, le thread dans lequel doit s'effectuer toute
- * modification de composant graphique).
+ * Un <code>SwingWorker</code> qui effectue les calculs dans un autre Thread que l'EDT (Event Dispatch Thread, le thread
+ * dans lequel doit s'effectuer toute modification de composant graphique).
  * <p>
- * Un nouveau <code>Calculator</code> est créé à chaque fois qu'on clique sur le
- * bouton "Calculer".
+ * Un nouveau <code>Calculator</code> est créé à chaque fois qu'on clique sur le bouton "Calculer".
  * </p>
  *
  * @author Guillaume
@@ -21,9 +19,8 @@ import javax.swing.SwingWorker;
 public class Calculateur extends SwingWorker<String, Void> {
 
 	/**
-	 * La fenêtre principale. Cette référence est nécessaire pour accéder aux
-	 * composants graphiques qui sont affectés par le calcul, comme le JLabel
-	 * contenant le résultat.
+	 * La fenêtre principale. Cette référence est nécessaire pour accéder aux composants graphiques qui sont affectés
+	 * par le calcul, comme le JLabel contenant le résultat.
 	 */
 	private final Fenetre fenetre;
 
@@ -32,8 +29,7 @@ public class Calculateur extends SwingWorker<String, Void> {
 	}
 
 	/**
-	 * Effectue les calculs et donne le résultat sous forme de chaîne de
-	 * caractères.
+	 * Effectue les calculs et donne le résultat sous forme de chaîne de caractères.
 	 */
 	@Override
 	protected String doInBackground() throws Exception {
@@ -54,7 +50,7 @@ public class Calculateur extends SwingWorker<String, Void> {
 			}
 
 			return (parties.length == 1) ? expressionsSimples[0].toMathString()
-					: MathSolveur.resoudre(expressionsSimples[0].getTermes(), expressionsSimples[1].getTermes());
+					: MathSolveur.resoudre(expressionsSimples[0], expressionsSimples[1]);
 		} catch (MathException | ArithmeticException e) {
 			String msg = e.getLocalizedMessage().equals("/ by zero") ? "Impossible de diviser par zéro" : e.getLocalizedMessage();
 			e.printStackTrace();
