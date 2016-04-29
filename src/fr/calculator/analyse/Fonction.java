@@ -7,8 +7,7 @@ public class Fonction implements Terme {
 	 */
 	public NomFonction nom;
 	/**
-	 * Ce qui est passé en paramètre de la fonction. Par exemple, dans "cosinus(2x+3)", param vaut
-	 * Parenthese(2*x, 3).
+	 * Ce qui est passé en paramètre de la fonction. Par exemple, dans "cosinus(2x+3)", param vaut Parenthese(2*x, 3).
 	 */
 	public Terme param;
 

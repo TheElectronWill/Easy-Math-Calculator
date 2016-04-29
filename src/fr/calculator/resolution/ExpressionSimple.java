@@ -5,6 +5,11 @@
  */
 package fr.calculator.resolution;
 
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+
 import fr.calculator.analyse.Fonction;
 import fr.calculator.analyse.Fonction.NomFonction;
 import fr.calculator.analyse.Multiplication;
@@ -12,14 +17,10 @@ import fr.calculator.analyse.Puissance;
 import fr.calculator.analyse.Rationnel;
 import fr.calculator.analyse.Terme;
 import fr.calculator.analyse.Variable;
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
 
 /**
- * Une expression (un seul côté d'une égalité) simplifiée, dont on a extrait les informations importantes pour
- * la résolution: constante, facteur de x, facteur de x², facteurs des fonctions, paramètres des fonctions.
+ * Une expression (un seul côté d'une égalité) simplifiée, dont on a extrait les informations importantes pour la
+ * résolution: constante, facteur de x, facteur de x², facteurs des fonctions, paramètres des fonctions.
  *
  * @author Guillaume
  */
@@ -29,7 +30,8 @@ public class ExpressionSimple {
 	public EnumMap<NomFonction, Rationnel> facteurFonctions;
 	public EnumMap<NomFonction, Terme> paramFonctions;
 
-	public ExpressionSimple(Rationnel constante, Rationnel facteurX, Rationnel facteurX2, EnumMap<NomFonction, Rationnel> facteurFonctions, EnumMap<NomFonction, Terme> paramFonctions) {
+	public ExpressionSimple(Rationnel constante, Rationnel facteurX, Rationnel facteurX2,
+			EnumMap<NomFonction, Rationnel> facteurFonctions, EnumMap<NomFonction, Terme> paramFonctions) {
 		this.constante = constante;
 		this.facteurX = facteurX;
 		this.facteurX2 = facteurX2;
@@ -54,11 +56,11 @@ public class ExpressionSimple {
 	 * @return cette ExpressionSimple
 	 */
 	public ExpressionSimple simplifier() {
-		constante.simplifierFraction();
-		facteurX.simplifierFraction();
-		facteurX2.simplifierFraction();
+		constante.simplifier();
+		facteurX.simplifier();
+		facteurX2.simplifier();
 		for (Rationnel facteurFonction : facteurFonctions.values()) {
-			facteurFonction.simplifierFraction();
+			facteurFonction.simplifier();
 		}
 		for (Map.Entry<NomFonction, Terme> e : paramFonctions.entrySet()) {
 			e.setValue(e.getValue().simplifier());
@@ -93,8 +95,8 @@ public class ExpressionSimple {
 
 	/**
 	 * Crée une chaîne de caractères qui contient une expression mathématique correspondant à cet objet
-	 * ExpressionSimple. Il faut d'abord appeler la méthode {@link #simplifier()} au moins une fois avant
-	 * d'appeler celle-ci.
+	 * ExpressionSimple. Il faut d'abord appeler la méthode {@link #simplifier()} au moins une fois avant d'appeler
+	 * celle-ci.
 	 */
 	public String toMathString() {
 		StringBuilder sb = new StringBuilder();
@@ -186,7 +188,19 @@ public class ExpressionSimple {
 
 	@Override
 	public String toString() {
-		return "ExpressionSimple{" + "constante=" + constante + ", facteurX=" + facteurX + ", facteurX2=" + facteurX2 + ", facteurFonctions=" + facteurFonctions + ", paramFonctions=" + paramFonctions + '}';
+		return "ExpressionSimple{" + "constante=" + constante + ", facteurX=" + facteurX + ", facteurX2=" + facteurX2
+				+ ", facteurFonctions=" + facteurFonctions + ", paramFonctions=" + paramFonctions + '}';
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof ExpressionSimple) {
+			ExpressionSimple expression = (ExpressionSimple) obj;
+			return expression.constante.equals(constante) && expression.facteurX.equals(facteurX)
+					&& expression.facteurX2.equals(facteurX2) && expression.facteurFonctions.equals(facteurFonctions)
+					&& expression.paramFonctions.equals(paramFonctions);
+		}
+		return false;
 	}
 
 }

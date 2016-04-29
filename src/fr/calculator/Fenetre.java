@@ -18,7 +18,7 @@ import javax.swing.UIManager;
 
 /**
  * Fenêtre principale. Utilise la bibliothèque graphique swing.
- * 
+ *
  * @author Guillaume
  */
 public class Fenetre extends JFrame {
@@ -103,18 +103,12 @@ public class Fenetre extends JFrame {
 		c.gridwidth = 2;
 		panel.add(boutonCalculer, c);
 
-		JLabel resultLabel = new JLabel("Résultat:");
-		c.insets = new Insets(10, 15, 15, 5);
-		c.gridx = 0;
-		c.gridy = 3;
-		c.gridwidth = 1;
-		panel.add(resultLabel, c);
-
-		resultat = new JLabel("aucun résultat à afficher pour l'instant");
+		resultat = new JLabel("aucun résultat à afficher pour l'instant.");
 		resultat.setFont(resultat.getFont().deriveFont(Font.ITALIC));
 		c.insets = new Insets(0, 0, 5, 15);
+		c.gridy=3;
 		c.gridx = 1;
-		c.gridwidth = 3;
+		c.gridwidth = 4;
 		panel.add(resultat, c);
 
 		this.setContentPane(panel);
@@ -123,6 +117,7 @@ public class Fenetre extends JFrame {
 	}
 
 	private class EraseButtonListener implements ActionListener {
+
 		/**
 		 * Appelée quand on clique sur le bouton "Effacer".
 		 */
@@ -133,6 +128,7 @@ public class Fenetre extends JFrame {
 	}
 
 	private class CalculateButtonListener implements ActionListener {
+
 		/**
 		 * Appelée quand on clique sur le bouton "Calculer".
 		 */
