@@ -7,27 +7,27 @@ public class MathSolveur {
 	public static String resoudre(ExpressionSimple gauche, ExpressionSimple droit) {
 		int surfact = 0, surfact1 = 1, fact = 0, fact1 = 1; // Déclaration des variables.
 		double cons = 0, cons1 = 1; 
-		double consexpgauche1 = 0, consexpgauche2 = 1, consexpdroit1 = 0, consexpdroit2 = 1;
-		double consloggauche1 = 0, consloggauche2 = 1, conslogdroit1 = 0, conslogdroit2 = 1;
-		double conscosgauche1 = 0, conscosgauche2 = 1, conscosdroit1 = 0, conscosdroit2 = 1;
-		double conssingauche1 = 0, conssingauche2 = 1, conssindroit1 = 0, conssindroit2 = 1;
-		double consgauche1 = 0, consgauche2 = 1, consdroit1 = 0, consdroit2 = 1;
-		int constrin1 = 0, constrin2 = 1; 
-		double consfonct1 = 0, consfonct2 = 1;
-		int exp = 0, exp1 = 1, expgauche1 = 0, expgauche2 = 1, expdroit1 = 0, expdroit2 = 1; 
-		int log = 0, log1 = 1, loggauche1 = 0, loggauche2 = 1, logdroit1 = 0, logdroit2 = 1; 
-		int cos = 0, cos1 = 1, cosgauche1 = 0, cosgauche2 = 1, cosdroit1 = 0, cosdroit2 = 1; 
-		int sin = 0, sin1 = 1, singauche1 = 0, singauche2 = 1, sindroit1 = 0 , sindroit2 = 1;
+		double consExpGauche1 = 0, consExpGauche2 = 1, consExpDroit1 = 0, consExpDroit2 = 1;
+		double consLogGauche1 = 0, consLogGauche2 = 1, consLogDroit1 = 0, consLogDroit2 = 1;
+		double consCosGauche1 = 0, consCosGauche2 = 1, consCosDroit1 = 0, consCosDroit2 = 1;
+		double consSinGauche1 = 0, consSinGauche2 = 1, consSinDroit1 = 0, consSinDroit2 = 1;
+		double consGauche1 = 0, consGauche2 = 1, consDroit1 = 0, consDroit2 = 1;
+		int consTrin1 = 0, consTrin2 = 1;
+		double consFonct1 = 0, consFonct2 = 1;
+		int exp = 0, exp1 = 1, expGauche1 = 0, expGauche2 = 1, expDroit1 = 0, expdDoit2 = 1; 
+		int log = 0, log1 = 1, logGauche1 = 0, logGauche2 = 1, logDroit1 = 0, logdDoit2 = 1; 
+		int cos = 0, cos1 = 1, cosGauche1 = 0, cosGauche2 = 1, cosDroit1 = 0, cosdDoit2 = 1; 
+		int sin = 0, sin1 = 1, sinGauche1 = 0, sinGauche2 = 1, sinDroit1 = 0 , sinDroit2 = 1;
 		double delta = 0; 
 		double solution1 = 0, solution2 = 0, im1 = 0, im2 = 0;
 		Rationnel frac1 = new Rationnel(0), frac2 = new Rationnel(0), re1 = new Rationnel(0), re2 = new Rationnel(0);
 		int modulo = 0, deux = 0, pi = 0;
 		StringBuilder sb = new StringBuilder();
 		if (gauche. equals(droit)) { // Les deux parties de l'équation sont identiques.
-			return ("Tous les nombres sont solutions de cette équation.");
+			return ("S = ℝ");
 		}
 		if (gauche.paramFonctions.get(NomFonction.EXPONENTIELLE) instanceof Rationnel) { // Initialisation des variables.
-			consexpgauche1 = gauche.facteurFonctions.get(NomFonction.EXPONENTIELLE).num / gauche.facteurFonctions.get(NomFonction.EXPONENTIELLE).denom * Math.exp((Rationnel)(gauche.paramFonctions.get(NomFonction.EXPONENTIELLE)).num / (Rationnel)(gauche.paramFonctions.get(NomFonction.EXPONENTIELLE)).denom); // Exponentielle constante.
+			consexpgauche1 = gauche.facteurFonctions.get(NomFonction.EXPONENTIELLE).num / gauche.facteurFonctions.get(NomFonction.EXPONENTIELLE).denom * Math.exp(((Rationnel)gauche.paramFonctions.get(NomFonction.EXPONENTIELLE)).num / ((Rationnel)gauche.paramFonctions.get(NomFonction.EXPONENTIELLE)).denom); // Exponentielle constante.
 		}
 		else if (gauche.paramFonctions.get(NomFonction.EXPONENTIELLE) instanceof Variable) {
 			expgauche1 = gauche.facteurFonctions.get(NomFonction.EXPONENTIELLE).num; // Exponentielle réelle.
@@ -37,7 +37,7 @@ public class MathSolveur {
 			return ("Cette équation ne peut être résolue à l'aide de ce logiciel.");
 		}
 		if (droit.paramFonctions.get(NomFonction.EXPONENTIELLE) instanceof Rationnel) {
-			consexpdroit1 = droit.facteurFonctions.get(NomFonction.EXPONENTIELLE).num / droit.facteurFonctions.get(NomFonction.EXPONENTIELLE).denom * Math.exp((Rationnel)(droit.paramFonctions.get(NomFonction.EXPONENTIELLE)).num / (Rationnel)(droit.paramFonctions.get(NomFonction.EXPONENTIELLE)).denom); // Exponentielle constante.
+			consexpdroit1 = droit.facteurFonctions.get(NomFonction.EXPONENTIELLE).num / droit.facteurFonctions.get(NomFonction.EXPONENTIELLE).denom * Math.exp(((Rationnel)droit.paramFonctions.get(NomFonction.EXPONENTIELLE)).num / ((Rationnel)droit.paramFonctions.get(NomFonction.EXPONENTIELLE)).denom); // Exponentielle constante.
 		}
 		else if (droit.paramFonctions.get(NomFonction.EXPONENTIELLE) instanceof Variable) {
 			expdroit1 = droit.facteurFonctions.get(NomFonction.EXPONENTIELLE).num; // Exponentielle réelle.
@@ -47,8 +47,8 @@ public class MathSolveur {
 			return ("Cette équation ne peut être résolue à l'aide de ce logiciel.");
 		}
 		if (gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN) instanceof Rationnel) {
-			if (((Rationnel)(gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).num > 0 && (Rationnel)(gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).denom > 0) || ((Rationnel)(gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).num < 0 && (Rationnel)(gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).denom < 0)) {
-				consloggauche1 = gauche.facteurFonctions.get(NomFonction.LOGARITHME_NEPERIEN).num / gauche.facteurFonctions.get(NomFonction.LOGARITHME_NEPERIEN).denom * Math.log((Rationnel)(gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).num / (Rationnel)(gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).denom); // Logarithme néperien constant.
+			if (((Rationnel)gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).num > 0 && ((Rationnel)gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).denom > 0) || (((Rationnel)gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).num < 0 && ((Rationnel)gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).denom < 0) {
+				consloggauche1 = gauche.facteurFonctions.get(NomFonction.LOGARITHME_NEPERIEN).num / gauche.facteurFonctions.get(NomFonction.LOGARITHME_NEPERIEN).denom * Math.log(((Rationnel)gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).num / ((Rationnel)gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).denom); // Logarithme néperien constant.
 			}
 			else {
 				return ("Le logarithme néperien d'un nombre négatif n'existe pas.");
@@ -62,8 +62,8 @@ public class MathSolveur {
 			return ("Cette équation ne peut être résolue à l'aide de ce logiciel.");
 		}
 		if (droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN) instanceof Rationnel) {
-			if (((Rationnel)(droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).num > 0 && (Rationnel)(droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).denom > 0) || ((Rationnel)(droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).num < 0 && (Rationnel)(droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).denom < 0)) {
-				conslogdroit1 = droit.facteurFonctions.get(NomFonction.LOGARITHME_NEPERIEN).num / droit.facteurFonctions.get(NomFonction.LOGARITHME_NEPERIEN).denom * Math.log((Rationnel)(droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).num / (Rationnel)(droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).denom); // Logarithmr néperien constant.
+			if (((Rationnel)droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).num > 0 && ((Rationnel)droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).denom > 0) || (((Rationnel)droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).num < 0 && ((Rationnel)droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).denom < 0) {
+				conslogdroit1 = droit.facteurFonctions.get(NomFonction.LOGARITHME_NEPERIEN).num / droit.facteurFonctions.get(NomFonction.LOGARITHME_NEPERIEN).denom * Math.log(((Rationnel)droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).num / ((Rationnel)droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).denom); // Logarithmr néperien constant.
 			}
 			else {
 				return ("Le logarithme néperien d'un nombre négatif n'existe pas.");
@@ -77,7 +77,7 @@ public class MathSolveur {
 			return ("Cette équation ne peut être résolue à l'aide de ce logiciel.");
 		}
 		if (gauche.paramFonctions.get(NomFonction.COSINUS) instanceof Rationnel) {
-			conscosgauche1 = gauche.facteurFonctions.get(NomFonction.COSINUS).num / gauche.facteurFonctions.get(NomFonction.COSINUS).denom * Math.cos((Rationnel)(gauche.paramFonctions.get(NomFonction.COSINUS)).num / (Rationnel)(gauche.paramFonctions.get(NomFonction.COSINUS)).denom); // Cosinus constant.
+			conscosgauche1 = gauche.facteurFonctions.get(NomFonction.COSINUS).num / gauche.facteurFonctions.get(NomFonction.COSINUS).denom * Math.cos(((Rationnel)gauche.paramFonctions.get(NomFonction.COSINUS)).num / ((Rationnel)gauche.paramFonctions.get(NomFonction.COSINUS)).denom); // Cosinus constant.
 		}
 		else if (gauche.paramFonctions.get(NomFonction.COSINUS) instanceof Variable) {
 			cosgauche1 = gauche.facteurFonctions.get(NomFonction.COSINUS).num; // Cosinus réel.
@@ -87,7 +87,7 @@ public class MathSolveur {
 			return ("Cette équation ne peut être résolue à l'aide de ce logiciel.");
 		}
 		if (droit.paramFonctions.get(NomFonction.COSINUS) instanceof Rationnel) {
-			conscosdroit1 = droit.facteurFonctions.get(NomFonction.COSINUS).num / droit.facteurFonctions.get(NomFonction.COSINUS).denom * Math.cos((Rationnel)(droit.paramFonctions.get(NomFonction.COSINUS)).num / (Rationnel)(droit.paramFonctions.get(NomFonction.COSINUS)).denom); // Cosinus constant.
+			conscosdroit1 = droit.facteurFonctions.get(NomFonction.COSINUS).num / droit.facteurFonctions.get(NomFonction.COSINUS).denom * Math.cos(((Rationnel)droit.paramFonctions.get(NomFonction.COSINUS)).num / ((Rationnel)droit.paramFonctions.get(NomFonction.COSINUS)).denom); // Cosinus constant.
 		}
 		else if (roit.paramFonctions.get(NomFonction.COSINUS) instanceof Variable) {
 			cosdroit1 = droit.facteurFonctions.get(NomFonction.COSINUS).num; // Cosinus réel.
@@ -97,7 +97,7 @@ public class MathSolveur {
 			return ("Cette équation ne peut être résolue à l'aide de ce logiciel.");
 		}
 		if (gauche.paramFonctions.get(NomFonction.SINUS) instanceof Rationnel) {
-			conssingauche1 = gauche.facteurFonctions.get(NomFonction.SINUS).num / gauche.facteurFonctions.get(NomFonction.SINUS).denom * Math.sin((Rationnel)(gauche.paramFonctions.get(NomFonction.SINUS)).num / (Rationnel)(gauche.paramFonctions.get(NomFonction.SINUS).denom)); // Sinus constant.
+			conssingauche1 = gauche.facteurFonctions.get(NomFonction.SINUS).num / gauche.facteurFonctions.get(NomFonction.SINUS).denom * Math.sin(((Rationnel)gauche.paramFonctions.get(NomFonction.SINUS)).num / ((Rationnel)gauche.paramFonctions.get(NomFonction.SINUS).denom)); // Sinus constant.
 		}
 		else if (gauche.paramFonctions.get(NomFonction.SINUS) instanceof Variable) {
 			singauche1 = gauche.facteurFonctions.get(NomFonction.SINUS).num; // Sinus réel.
@@ -107,7 +107,7 @@ public class MathSolveur {
 			return ("Cette équation ne peut être résolue à l'aide de ce logiciel.");
 		}
 		if (droit.paramFonctions.get(NomFonction.SINUS) instanceof Rationnel) {
-			conssindroit1 = droit.facteurFonctions.get(NomFonction.SINUS).num / droit.facteurFonctions.get(NomFonction.SINUS).denom * Math.sin((Rationnel)(droit.paramFonctions.get(NomFonction.SINUS)).num / (Rationnel)(droit.paramFonctions.get(NomFonction.SINUS)).denom); // Sinus constant.
+			conssindroit1 = droit.facteurFonctions.get(NomFonction.SINUS).num / droit.facteurFonctions.get(NomFonction.SINUS).denom * Math.sin(((Rationnel)droit.paramFonctions.get(NomFonction.SINUS)).num / ((Rationnel)droit.paramFonctions.get(NomFonction.SINUS)).denom); // Sinus constant.
 		}
 		else if (droit.paramFonctions.get(NomFonction.SINUS) instanceof Variable) {
 			sindroit1 = droit.facteurFonctions.get(NomFonction.SINUS).num; // Sinus réel.
@@ -153,7 +153,7 @@ public class MathSolveur {
 					solution1 = Math.log(-cons/cons1) / exp * exp1;
 				}
 				else {
-					return ("Cette équation n'admet aucune solution.");
+					return ("S = ∅");
 				}
 			}
 			else {
@@ -275,7 +275,7 @@ public class MathSolveur {
 				solution1 = 0;
 			} 
 			else if (fact == 0) {
-				return ("Tous les nombres sont solutions de cette équation.");
+				return ("S = ℝ");
 			}
 		}
 		else if (cons != 0) {
@@ -285,7 +285,31 @@ public class MathSolveur {
 			return ("Vous devez rentrer une équation.");
 		}
 		if (re1.denom != 0 && re2.denom != 0) { // Affichage solutions imaginaires.
-			sb.append("S = [ ").append(re1.num).append("/").append(re1.denom).append(" i + (").append(im1).append(") ; ").append(re2.num).append("/").append(re2.denom).append(" i + (").append(im2).append(") ]");
+			sb.append("S = [ ");
+			Rationnel simplifié1 = re1.simplifier();
+			if (simplifié1.denom == 1) {
+				solution1 = simplifié1.num;
+				sb.append(solution1);
+			}
+			else if (simplifié.num == 0) {
+				sb.append("0");
+			}
+			else {
+				sb.append(simplifié1.num).append("/").append(silplifié1.denom)
+			}
+			sb.append(" i + (").append(im1).append(") ; ")sb.append(" i + (").append(im2).append(") ]");
+			Rationnel simplifié2 = re2.simplifier();
+			if (simplifié2.denom == 1) {
+				solution2 = simplifié2.num;
+				sb.append(solution2);
+			}
+			else if (simplifié.num == 0) {
+				sb.append("0");
+			}
+			else {
+				sb.append(simplifié2.num).append("/").append(simplifié2.denom);
+			}
+			sb.append(" i + (").append(im2).append(") ]");
 		}
 		else if (frac1.denom != 0) { // Affichage solutions fractionnaires.  
 			sb.append("S = [ ");
@@ -294,28 +318,28 @@ public class MathSolveur {
 				solution1 = simplifié.num;
 				sb.append(solution1);
 				if (pi == 1) { // Affichage pi pour les valeurs remarquables d'équations avec cosinus et sinus.
-					sb.append("pi");
+					sb.append("π");
 				}
 				if (modulo == 1) { // Affichage modulo pi pour les solutions d'équations avec cosinus et sinus.
-					sb.append("[2*pi]");
+					sb.append("[2π]");
 				}
 			}
 			else if (simplifié.num == 0) {
 				sb.append("0");
 				if (pi == 1) { // Affichage pi pour les valeurs remarquables d'équations avec cosinus et sinus.
-					sb.append("pi");
+					sb.append("π");
 				}
 				if (modulo == 1) { // Affichage modulo pi pour les solutions d'équations avec cosinus et sinus.
-					sb.append("[2*pi]");
+					sb.append("[2π]");
 				}
 			}
 			else {
 				sb.append(simplifié.num).append("/").append(simplifié.denom);
 				if (pi == 1) { // Affichage pi pour les valeurs remarquables d'équations avec cosinus et sinus.
-					sb.append("pi");
+					sb.append("π");
 				}
 				if (modulo == 1) { // Affichage modulo pi pour les solutions d'équations avec cosinus et sinus.
-					sb.append("[2*pi]");
+					sb.append("[2π]");
 				}
 			}
 			if (deux != 0 && frac2.denom != 0) { // Affichage deuxième solution potentielle.
@@ -325,28 +349,28 @@ public class MathSolveur {
 					solution2 = simplifié2.num;
 					sb.append(solution2);
 					if (pi == 1) { // Affichage pi pour les valeurs remarquables d'équations avec cosinus et sinus.
-						sb.append("pi");
+						sb.append("π");
 					}
 					if (modulo == 1) { // Affichage modulo pi pour les solutions d'équations avec cosinus et sinus.
-						sb.append("[2*pi]");
+						sb.append("[2π]");
 					}
 				}
 				else if (simplifié2.num == 0) {
 					sb.append("0");
 					if (pi == 1) { // Affichage pi pour les valeurs remarquables d'équations avec cosinus et sinus.
-						sb.append("pi");
+						sb.append("π");
 					}
 					if (modulo == 1) { // Affichage modulo pi pour les solutions d'équations avec cosinus et sinus.
-						sb.append("[2*pi]");
+						sb.append("[2π]");
 					}
 				}
 				else {
 					sb.append(simplifié2.num).append("/").append(simplifié2.denom);
 					if (pi == 1) { // Affichage pi pour les valeurs remarquables d'équations avec cosinus et sinus.
-						sb.append("pi");
+						sb.append("π");
 					}
 					if (modulo == 1) { // Affichage modulo pi pour les solutions d'équations avec cosinus et sinus.
-						sb.append("[2*pi]");
+						sb.append("[2π]");
 					}
 				}
 			}
@@ -357,7 +381,7 @@ public class MathSolveur {
 			if (deux != 0) { // Affichage deuxième solution potentielle.
 				sb.append(" ; ").append(solution2);
 				if (modulo == 1) { // Affichage modulo pi pour les solutions d'équations avec cosinus et sinus.
-					sb.append("[2*pi]");
+					sb.append("[2π]");
 				}
 			}
 			sb.append(" ]");
