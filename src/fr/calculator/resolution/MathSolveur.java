@@ -248,21 +248,11 @@ public class MathSolveur {
 				deux = 1;
 			} 
 			else if (delta < 0) {
-				if (fact != 0) {
-					re1.num = -fact * surfact1;
-					re1.denom = 2 * surfact * fact1;
-				} 
-				else if (fact == 0) {
-					re3 = 0;
-				}
+				re1.num = -fact * surfact1;
+				re1.denom = 2 * surfact * fact1;
 				im1 = -Math.sqrt(delta) / 2 * surfact / surfact1;
-				if (fact != 0) {
-					re2.num = -fact * surfact1;		
-					re2.denom = 2 * surfact * fact1;
-				} 
-				else if (fact == 0) {
-					re4 = 0;
-				}
+				re2.num = -fact * surfact1;		
+				re2.denom = 2 * surfact * fact1;
 				im2 = Math.sqrt(delta) / 2 * surfact / surfact1;
 			}
 		}
