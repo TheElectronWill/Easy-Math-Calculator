@@ -1,13 +1,11 @@
 package fr.calculator;
 
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -78,7 +76,7 @@ public class Fenetre extends JFrame {
 		c.gridheight = 1;
 		c.gridheight = 1;
 
-		JLabel calcLabel = new JLabel("Calcul:");
+		JLabel calcLabel = new JLabel("Calcul/Équation : ");
 		c.insets = new Insets(15, 15, 5, 5);
 		panel.add(calcLabel, c);
 
@@ -103,10 +101,10 @@ public class Fenetre extends JFrame {
 		c.gridwidth = 2;
 		panel.add(boutonCalculer, c);
 
-		resultat = new JLabel("aucun résultat à afficher pour l'instant.");
-		resultat.setFont(resultat.getFont().deriveFont(Font.ITALIC));
-		c.insets = new Insets(0, 0, 5, 15);
-		c.gridy=3;
+		resultat = new JLabel("Aucun résultat à afficher pour l'instant.");
+		resultat.setFont(resultat.getFont().deriveFont(resultat.getFont().getSize() * 1.2f));
+		c.insets = new Insets(5, 0, 10, 15);
+		c.gridy = 3;
 		c.gridx = 1;
 		c.gridwidth = 4;
 		panel.add(resultat, c);
