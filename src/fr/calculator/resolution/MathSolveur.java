@@ -9,13 +9,13 @@ public class MathSolveur {
 
 	public static String resoudre(ExpressionSimple gauche, ExpressionSimple droit) {
 		Rationnel surfact = new Rationnel(0), fact = new Rationnel(0); // Déclaration des variables.
-		double cons = 0;
+		double cons;
 		double consExpGauche = 0, consExpDroit = 0;
 		double consLogGauche = 0, consLogDroit = 0;
 		double consCosGauche = 0, consCosDroit = 0;
 		double consSinGauche = 0, consSinDroit = 0;
 		double consGauche, consDroit;
-		double consTrin = 0;
+		double consTrin;
 		double consFonct;
 		Rationnel exp, expGauche = new Rationnel(0), expDroit = new Rationnel(0);
 		Rationnel log, logGauche = new Rationnel(0), logDroit = new Rationnel(0);
@@ -122,7 +122,7 @@ public class MathSolveur {
 					deux = true;
 					modulo = true;
 				} else if (cons < -1 || cons > 1) {
-					throw new MathException("Cosinus invalide : la valeur doit être comprise entre -1 et 1.");
+					return "S = ∅";
 				} else {
 					solution1 = Math.acos(-cons) / cos.num * cos.denom;
 					solution2 = -solution1;
@@ -147,7 +147,7 @@ public class MathSolveur {
 					deux = true;
 					modulo = true;
 				} else if (cons < -1 || cons > 1) {
-					throw new MathException("Sinus invalide : la valeur doit être comprise entre -1 et 1.");
+					return "S = ∅";
 				} else {
 					solution1 = Math.asin(-cons) / sin.num * sin.denom;
 					solution2 = Math.PI - solution1;
