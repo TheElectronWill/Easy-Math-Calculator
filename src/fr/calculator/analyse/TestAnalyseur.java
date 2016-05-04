@@ -13,6 +13,10 @@ import java.util.Scanner;
 public class TestAnalyseur {
 
 	public static void main(String[] args) throws InterruptedException {
+		Rationnel r = new Rationnel(1, 1);
+		System.out.println(r);
+		System.out.println(r.soustraire(new Rationnel(0, 1)));
+		System.out.println(new Rationnel(1, 1).ajouter(new Rationnel(0, 1)));
 		System.out.println("Entrez une expression mathématique");
 		Scanner sc = new Scanner(System.in);
 		String expression = sc.nextLine();

@@ -3,7 +3,6 @@ package fr.calculator.resolution;
 import fr.calculator.analyse.Division;
 import fr.calculator.analyse.Fonction;
 import fr.calculator.analyse.Multiplication;
-import fr.calculator.analyse.NombreEntier;
 import fr.calculator.analyse.Parenthese;
 import fr.calculator.analyse.Puissance;
 import fr.calculator.analyse.Rationnel;
@@ -50,7 +49,7 @@ public class MathSimplifieur {
 	}
 
 	private static void ajouterTerme(ExpressionSimple expression, Terme t) {
-		if (t instanceof Rationnel || t instanceof NombreEntier) {
+		if (t instanceof Rationnel) {
 			expression.constante.ajouter(t);
 		} else if (t instanceof Variable) {
 			expression.facteurX.ajouter(1);
@@ -103,11 +102,9 @@ public class MathSimplifieur {
 		if (param == null) {//on n'avait pas encore rencontré cette fonction
 			expression.paramFonctions.put(fonction.nom, fonction.param);
 		} else//on a déjà rencontré la même fonction dans cette expression, il faut alors s'assurer que le même paramètre est donné à la fonction à chaque fois
-		{
-			if (!param.equals(fonction.param)) {//les paramètres ne sont pas identiques, donc on ne peut pas regrouper les deux occurrence de la fonction
+		 if (!param.equals(fonction.param)) {//les paramètres ne sont pas identiques, donc on ne peut pas regrouper les deux occurrence de la fonction
 				throw new RuntimeException("Impossible de gérer plusieurs occurrences de la même fonction si les paramètres ne sont pas à chaque fois identiques");
 			}
-		}
 		expression.facteurFonctions.get(fonction.nom).ajouter(facteur);
 	}
 

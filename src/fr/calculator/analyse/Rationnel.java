@@ -22,21 +22,21 @@ public class Rationnel implements Terme, Cloneable {
 	}
 
 	public Rationnel(int num, int denom) {
+		if (denom == 0) {
+			throw new IllegalArgumentException("Impossible de diviser par zéro");
+		}
 		this.num = num;
 		this.denom = denom;
 	}
 
 	/**
-	 * Ajoute un Rationnel, un NombreEntier ou un Number à ce rationnel.
+	 * Ajoute un Rationnel ou un Number à ce rationnel.
 	 *
 	 * @return ce Rationnel, contenant le résultat de l'addition
 	 */
 	public Rationnel ajouter(Object o) {
 		if (o instanceof Rationnel) {
 			return ajouter((Rationnel) o);
-		}
-		if (o instanceof NombreEntier) {
-			return ajouter(((NombreEntier) o).valeur);
 		}
 		if (o instanceof Number) {
 			return ajouter(((Number) o).intValue());
@@ -70,16 +70,13 @@ public class Rationnel implements Terme, Cloneable {
 	}
 
 	/**
-	 * Soustrait un Rationnel, un NombreEntier ou un Number à ce rationnel.
+	 * Soustrait un Rationnel ou un Number à ce rationnel.
 	 *
 	 * @return ce Rationnel, contenant le résultat de la soustraction
 	 */
 	public Rationnel soustraire(Object o) {
 		if (o instanceof Rationnel) {
 			return soustraire((Rationnel) o);
-		}
-		if (o instanceof NombreEntier) {
-			return soustraire(((NombreEntier) o).valeur);
 		}
 		throw new IllegalArgumentException("Impossible de soustraire à un rationnel un objet de type " + o.getClass());
 	}
@@ -165,8 +162,13 @@ public class Rationnel implements Terme, Cloneable {
 		return this;
 	}
 
+	public double decimal() {
+		return (double) num / denom;
+	}
+
 	/**
-	 * Simplifie ce nombre rationnel. Ce même rationnel est retourné, même si à l'issue de la simplification le
+	 * Simplifie ce nombre rationnel. Ce même rationnel est retourné, même si à l'issue de la simplification
+	 * le
 	 * dénominateur vaut 1.
 	 *
 	 * @return ce rationnel simplifié

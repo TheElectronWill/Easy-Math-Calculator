@@ -1,5 +1,7 @@
 package fr.calculator.analyse;
 
+import fr.calculator.MathException;
+
 public class Fonction implements Terme {
 
 	/**
@@ -7,7 +9,8 @@ public class Fonction implements Terme {
 	 */
 	public NomFonction nom;
 	/**
-	 * Ce qui est passé en paramètre de la fonction. Par exemple, dans "cosinus(2x+3)", param vaut Parenthese(2*x, 3).
+	 * Ce qui est passé en paramètre de la fonction. Par exemple, dans "cosinus(2x+3)", param vaut
+	 * Parenthese(2*x, 3).
 	 */
 	public Terme param;
 
@@ -54,8 +57,10 @@ public class Fonction implements Terme {
 				case "sin":
 				case "sinus":
 					return SINUS;
+				case "log":
+					throw new MathException("Pour le logarithme néperien, utilisez ln. Les autres logarithmes ne sont pas supportés.");
 				default:
-					throw new RuntimeException("Fonction inconnue: " + nom);
+					throw new MathException("Fonction inconnue : " + nom);
 			}
 		}
 
