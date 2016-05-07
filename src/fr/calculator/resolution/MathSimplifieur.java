@@ -102,9 +102,11 @@ public class MathSimplifieur {
 		if (param == null) {//on n'avait pas encore rencontré cette fonction
 			expression.paramFonctions.put(fonction.nom, fonction.param);
 		} else//on a déjà rencontré la même fonction dans cette expression, il faut alors s'assurer que le même paramètre est donné à la fonction à chaque fois
-		 if (!param.equals(fonction.param)) {//les paramètres ne sont pas identiques, donc on ne peut pas regrouper les deux occurrence de la fonction
+		{
+			if (!param.equals(fonction.param)) {//les paramètres ne sont pas identiques, donc on ne peut pas regrouper les deux occurrence de la fonction
 				throw new RuntimeException("Impossible de gérer plusieurs occurrences de la même fonction si les paramètres ne sont pas à chaque fois identiques");
 			}
+		}
 		expression.facteurFonctions.get(fonction.nom).ajouter(facteur);
 	}
 
@@ -121,7 +123,7 @@ public class MathSimplifieur {
 				throw new RuntimeException("Impossible de simplifier la multiplication de " + puissance + " par " + facteur);
 			}
 		} else {
-			throw new RuntimeException("Impossible de simplifier la puissance " + puissance);
+			throw new RuntimeException("Impossible de traiter la puissance " + puissance);
 		}
 	}
 
