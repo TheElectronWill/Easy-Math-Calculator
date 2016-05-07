@@ -83,7 +83,8 @@ public class Multiplication implements Terme {
 			return this;//non simplifiable
 		}
 		if (a instanceof Puissance) {
-			return ((Puissance) a).multiplier(b).simplifier();
+			Terme pm = ((Puissance) a).multiplier(b);
+			return (pm instanceof Multiplication) ? pm : pm.simplifier();
 		}
 		if (a instanceof Rationnel) {
 			Rationnel q1 = (Rationnel) a;
