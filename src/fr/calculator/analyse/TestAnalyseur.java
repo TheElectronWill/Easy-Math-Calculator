@@ -18,7 +18,7 @@ public class TestAnalyseur {
 		String expression = sc.nextLine();
 		sc.close();
 		if (expression.isEmpty()) {
-			expression = "-22x + -24x^2 - +45 / 2 (56+4) - x(2+4)(3x-1) - xxxcos(2)ln(4)xsin(x) + 2 / 2*pi";
+			expression = "-22x + -24x^2 - +45 / 2 (56+4) - x(2+4)(3x-1) - xxxcos(2)ln(4)xexp(-x) + 2sin(0) / 2pi * -pi";
 			System.out.println("L'expression par défaut va être utilisée : " + expression);
 		}
 		long t0 = System.nanoTime();
