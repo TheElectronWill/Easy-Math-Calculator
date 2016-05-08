@@ -2,6 +2,7 @@ package fr.calculator.analyse;
 
 import fr.calculator.resolution.MathSimplifieur;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -48,7 +49,18 @@ public class Parenthese implements Terme {
 
 	@Override
 	public String toString() {
-		return termes.toString();
+		StringBuilder sb = new StringBuilder();
+		sb.append('[');
+		Iterator<Terme> it = termes.iterator();
+		while (it.hasNext()) {
+			Terme t = it.next();
+			sb.append(t);
+			if (it.hasNext()) {
+				sb.append(" + ");
+			}
+		}
+		sb.append(']');
+		return sb.toString();
 	}
 
 	@Override
