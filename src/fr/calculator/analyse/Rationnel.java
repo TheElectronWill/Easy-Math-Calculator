@@ -8,9 +8,14 @@ public class Rationnel implements Terme, Cloneable {
 
 	public int num, denom;
 
-	public Rationnel(String decimal) {
-		num = Integer.parseInt(decimal.replace(".", ""));
-		denom = (int) Math.pow(10, decimal.length() - decimal.indexOf('.') - 1);
+	public Rationnel(String nombre) {
+		if (nombre.contains(".")) {
+			num = Integer.parseInt(nombre.replace(".", ""));
+			denom = (int) Math.pow(10, nombre.length() - nombre.indexOf('.') - 1);
+		} else {
+			num = Integer.parseInt(nombre);
+			denom = 1;
+		}
 	}
 
 	public Rationnel(double d) {
