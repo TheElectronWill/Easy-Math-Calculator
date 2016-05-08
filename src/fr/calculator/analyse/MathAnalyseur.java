@@ -41,8 +41,9 @@ public class MathAnalyseur {
 	 * <p>
 	 * Fonctionnement :
 	 * <ul>
-	 * <li>{@code (?<![a-w]x)} exclut les endroits précédés d'un x qui est lui-même précédé d'un caractère
-	 * entre a et w (avant x). Ceci pour éviter d'inclure des fonctions contenant x comme exp.</li>
+	 * <li>{@code (?<![a-z&&[^x]]x)} exclut les endroits précédés d'un x qui est lui-même précédé d'un
+	 * caractère entre a et z qui n'est pas x. Ceci pour éviter d'inclure des fonctions contenant x comme
+	 * exp.</li>
 	 * <li>{@code (?<=(\d|\)|x)} inclut les endroits précédés d'un chiffre, d'une parenthèse fermance ou d'un
 	 * x.</li>
 	 * <li>{@code \\s*} accepte 0, 1 ou plus d'espaces ou de tabulations.</li>
@@ -51,7 +52,7 @@ public class MathAnalyseur {
 	 * </ul>
 	 * </p>
 	 */
-	private static final Pattern PATTERN_MULTIPLICATION_IMPLICITE = Pattern.compile("(?<![a-w]x)(?<=(\\d|\\)|x))\\s*(?=([a-z]|\\())");
+	private static final Pattern PATTERN_MULTIPLICATION_IMPLICITE = Pattern.compile("(?<![a-z&&[^x]]x)(?<=(\\d|\\)|x))\\s*(?=([a-z]|\\())");
 	/*
 	 * Note : dans une classe de caractères (cad "[caractères]"), les metacaractères comme + ou * se
 	 * comportent comme des caractères normaux. Un tiret situé juste après un crochet ne définit pas un
