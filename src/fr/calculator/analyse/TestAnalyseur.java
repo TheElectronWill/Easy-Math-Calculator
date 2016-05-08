@@ -17,11 +17,15 @@ public class TestAnalyseur {
 		System.out.println(r);
 		System.out.println(r.soustraire(new Rationnel(0, 1)));
 		System.out.println(new Rationnel(1, 1).ajouter(new Rationnel(0, 1)));
-		System.out.println("Entrez une expression mathématique");
+		System.out.println("Entrez une expression mathématique, ou appuyez sur entrée pour l'expression de test par défaut.");
 		Scanner sc = new Scanner(System.in);
 		String expression = sc.nextLine();
 		sc.close();
 
+		if (expression.isEmpty()) {
+			expression = "-22x + -24x^2 - +45 / 2 (56+4) - x(2+4)(3x-1) - xxxcos(2)ln(4)xsin(x) + 2 / 2*pi";
+			System.out.println("L'expression par défaut va être utilisée : " + expression);
+		}
 		long t0 = System.nanoTime();
 		List<Terme> terms = new MathAnalyseur(expression).analyser();
 		long nanos = System.nanoTime() - t0;
