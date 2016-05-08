@@ -32,14 +32,31 @@ public class MathAnalyseur {
 	 * </p>
 	 */
 	private static final Pattern PATTERN_OPERATEUR = Pattern.compile("(?<=\\s*)[-+)/*\\^]");//Pattern.compile("(?<=\\s*)\\S");
-
-	private static final String DECIMAL = "[-+]?[0-9]+(\\.[0-9]+)?";//comme le "-" est juste après le crochet, il ne définit pas un intervalle
-	//Dans une classe de caractères (cad "[caractères]"), les metacaractères comme + ou * se comportent comme des caractères normaux
-
+	private static final String DECIMAL = "[0-9]+(\\.[0-9]+)?";
 	private static final String PARENTHESE = "\\(.*?\\)";
-	private static final String FONCTION = "[a-z]+" + PARENTHESE;
-	private static final Pattern PATTERN_TERME = Pattern.compile("(?<=\\s*)(" + DECIMAL + "|" + PARENTHESE + "|x|pi|" + FONCTION + ")");
-	private static final Pattern PATTERN_MULTIPLICATION_IMPLICITE = Pattern.compile("(?<=(\\d|\\)|x))\\s*(?=([a-z]|\\())");
+	private static final String LITERAL = "[a-z]+(" + PARENTHESE + ")?";
+	private static final Pattern PATTERN_TERME = Pattern.compile("(?<=\\s*)[-+]?(" + DECIMAL + "|" + PARENTHESE + "|" + LITERAL + ")");
+	/**
+	 * Une expression régulière pour détecter les multiplications implicites.
+	 * <p>
+	 * Fonctionnement :
+	 * <ul>
+	 * <li>{@code (?<![a-w]x)} exclut les endroits précédés d'un x qui est lui-même précédé d'un caractère
+	 * entre a et w (avant x). Ceci pour éviter d'inclure des fonctions contenant x comme exp.</li>
+	 * <li>{@code (?<=(\d|\)|x)} inclut les endroits précédés d'un chiffre, d'une parenthèse fermance ou d'un
+	 * x.</li>
+	 * <li>{@code \\s*} accepte 0, 1 ou plus d'espaces ou de tabulations.</li>
+	 * <li>{@code (?=([a-z]|\())} inclut les endroits suivis d'une lettre minuscule ou d'une parenthèse
+	 * ouvrante.</li>
+	 * </ul>
+	 * </p>
+	 */
+	private static final Pattern PATTERN_MULTIPLICATION_IMPLICITE = Pattern.compile("(?<![a-w]x)(?<=(\\d|\\)|x))\\s*(?=([a-z]|\\())");
+	/*
+	 * Note : dans une classe de caractères (cad "[caractères]"), les metacaractères comme + ou * se
+	 * comportent comme des caractères normaux. Un tiret situé juste après un crochet ne définit pas un
+	 * intervalle, mais le caractère du tiret.
+	 */
 
 	private final String expression;
 	private final Scanner sc;
@@ -51,6 +68,7 @@ public class MathAnalyseur {
 	private MathAnalyseur(String expression, boolean rendreExplicite) {
 		if (rendreExplicite) {
 			expression = PATTERN_MULTIPLICATION_IMPLICITE.matcher(expression).replaceAll("*");
+			System.out.println("expression explicite : " + expression);
 		}
 		this.expression = expression;
 		this.sc = new Scanner(expression);
@@ -111,6 +129,14 @@ public class MathAnalyseur {
 		if (termeStr == null) {
 			throw new MathException("Expression erronée : il manque au moins un terme");
 		}
+		if (termeStr.startsWith("-")) {//négation
+			termeStr = termeStr.substring(1);
+			return new Multiplication(new Rationnel(-1), construireTerme(termeStr));
+		}
+		return construireTerme(termeStr);
+	}
+
+	private Terme construireTerme(String termeStr) {
 		if (termeStr.startsWith("(")) {//parenthèse
 			List<Terme> contenuParenthese = new MathAnalyseur(termeStr.substring(0, termeStr.length() - 1), false).analyser();
 			return new Parenthese(contenuParenthese);
