@@ -108,7 +108,6 @@ public class MathAnalyseur {
 
 	private Terme termeSuivant() {
 		String termeStr = sc.findWithinHorizon(PATTERN_TERME, expression.length());
-		System.out.println(termeStr);
 		if (termeStr == null) {
 			throw new MathException("Expression erronée : il manque au moins un terme");
 		}
