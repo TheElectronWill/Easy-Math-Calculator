@@ -31,7 +31,7 @@ public class MathAnalyseur {
 	 * comme un opérateur, ce qui génère un erreur.
 	 * </p>
 	 */
-	private static final Pattern PATTERN_OPERATEUR = Pattern.compile("(?<=\\s*)[-+)/*\\^]");//Pattern.compile("(?<=\\s*)\\S");
+	private static final Pattern PATTERN_OPERATEUR = Pattern.compile("(?<=\\s*)\\S");
 	private static final String DECIMAL = "[0-9]+(\\.[0-9]+)?";
 	private static final String PARENTHESE = "\\(.*?\\)";
 	private static final String LITERAL = "[a-z]+(" + PARENTHESE + ")?";
