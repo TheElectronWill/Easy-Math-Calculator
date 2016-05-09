@@ -73,7 +73,7 @@ public class Calculateur extends SwingWorker<String, Void> {
 		try {
 			fenetre.resultat.setText(this.get());
 			fenetre.boutonCalculer.setEnabled(true);
-			fenetre.boutonCalculer.setText("Calculer/Résoudre");
+			fenetre.pack();
 		} catch (Exception e) {
 			e.printStackTrace();// écrit les détails de l'erreur dans la console.
 			JOptionPane.showMessageDialog(null, e.toString(), "Erreur", JOptionPane.ERROR_MESSAGE);// affiche un message d'erreur dans une nouvelle fenêtre.
