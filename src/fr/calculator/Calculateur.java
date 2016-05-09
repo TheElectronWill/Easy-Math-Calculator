@@ -48,7 +48,11 @@ public class Calculateur extends SwingWorker<String, Void> {
 			final ExpressionSimple[] expressionsSimples = new ExpressionSimple[parties.length];
 			for (int i = 0; i < parties.length; i++) {
 				MathAnalyseur analyseur = new MathAnalyseur(parties[i]);
-				expressionsSimples[i] = MathSimplifieur.simplifierExpression(analyseur.analyser());
+				try {
+					expressionsSimples[i] = MathSimplifieur.simplifierExpression(analyseur.analyser());
+				} catch (Exception ex) {
+					throw new MathException("Cette expression ne peut pas être simplifiée avec ce logiciel.", ex);
+				}
 			}
 
 			return (parties.length == 1) ? "E = " + expressionsSimples[0].toMathString()
