@@ -75,7 +75,6 @@ public class Fenetre extends JFrame {
 		c.gridx = 0;
 		c.gridy = 0;
 		c.gridheight = 1;
-		c.gridheight = 1;
 
 		JLabel calcLabel = new JLabel("Calcul/Équation : ");
 		c.insets = new Insets(15, 15, 5, 5);
