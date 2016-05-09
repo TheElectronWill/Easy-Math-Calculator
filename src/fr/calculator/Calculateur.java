@@ -50,8 +50,10 @@ public class Calculateur extends SwingWorker<String, Void> {
 				MathAnalyseur analyseur = new MathAnalyseur(parties[i]);
 				try {
 					expressionsSimples[i] = MathSimplifieur.simplifierExpression(analyseur.analyser());
-				} catch (Exception ex) {
-					throw new MathException("Cette expression ne peut pas être simplifiée avec ce logiciel.", ex);
+				} catch (MathException ex) {
+					throw ex;
+				} catch (Exception ex2) {
+					throw new MathException("Cette expression ne peut pas être simplifiée avec ce logiciel.", ex2);
 				}
 			}
 
