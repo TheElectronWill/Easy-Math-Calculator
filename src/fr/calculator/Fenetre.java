@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -50,7 +51,7 @@ public class Fenetre extends JFrame {
 	/**
 	 * Contient le résultat calculé par le logiciel.
 	 */
-	final JLabel resultat;
+	final JTextArea resultat;
 	/**
 	 * Bouton "Calculer". Lance le calcul.
 	 */
@@ -101,12 +102,17 @@ public class Fenetre extends JFrame {
 		c.gridwidth = 2;
 		panel.add(boutonCalculer, c);
 
-		resultat = new JLabel("Aucun résultat à afficher pour l'instant.");
+		resultat = new JTextArea("Aucun résultat à afficher pour l'instant.");
 		resultat.setFont(resultat.getFont().deriveFont(resultat.getFont().getSize() * 1.2f));
-		c.insets = new Insets(5, 0, 10, 15);
+		resultat.setLineWrap(true);
+		resultat.setWrapStyleWord(true);
+		resultat.setEditable(false);
+		resultat.setOpaque(false);
+		c.insets = new Insets(5, 0, 15, 15);
 		c.gridy = 3;
 		c.gridx = 1;
 		c.gridwidth = 4;
+		c.gridheight = 3;
 		panel.add(resultat, c);
 
 		this.setContentPane(panel);
