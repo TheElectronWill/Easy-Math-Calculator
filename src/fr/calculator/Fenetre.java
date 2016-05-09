@@ -138,7 +138,6 @@ public class Fenetre extends JFrame {
 		 */
 		@Override
 		public void actionPerformed(ActionEvent event) {
-			final JButton boutonCalculer = (JButton) event.getSource();
 			resultat.setText("Calcul en cours...");
 			boutonCalculer.setEnabled(false);
 
