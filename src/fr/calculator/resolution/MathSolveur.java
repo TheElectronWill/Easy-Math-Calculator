@@ -33,7 +33,7 @@ public class MathSolveur {
 			exp.soustraire(droit.facteurFonctions.get(NomFonction.EXPONENTIELLE)); // Exponentielle réelle.
 		}
 		if (gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN) instanceof Rationnel) {
-			if ((Rationnel) gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).decimal() > 0) {
+			if (((Rationnel) gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).decimal() > 0) {
 				cons += gauche.facteurFonctions.get(NomFonction.LOGARITHME_NEPERIEN).decimal() * Math.log(((Rationnel) gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).decimal()); // Logarithme néperien constant.
 			} else {
 				throw new MathException("Le logarithme néperien d'un nombre négatif n'existe pas.");
@@ -42,7 +42,7 @@ public class MathSolveur {
 			log.ajouter(gauche.facteurFonctions.get(NomFonction.LOGARITHME_NEPERIEN)); // Logarithme néperien réel.
 		}
 		if (droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN) instanceof Rationnel) {
-			if ((Rationnel) droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).decimal() > 0) {
+			if (((Rationnel) droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).decimal() > 0) {
 				cons -= droit.facteurFonctions.get(NomFonction.LOGARITHME_NEPERIEN).decimal() * Math.log(((Rationnel) droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).decimal()); // Logarithmr néperien constant.
 			} else {
 				throw new MathException("Le logarithme néperien d'un nombre négatif n'existe pas.");
@@ -100,20 +100,20 @@ public class MathSolveur {
 					pi = true;
 					modulo = true;
 				} else if (-cons * cos.denom / cos.num == -0.5) {
-					frac1 = new Rationnel(2,3);
-					frac2 = new Rationnel(-2,3);
+					frac1 = new Rationnel(2, 3);
+					frac2 = new Rationnel(-2, 3);
 					pi = true;
 					deux = true;
 					modulo = true;
 				} else if (-cons * cos.denom / cos.num == 0) {
-					frac1 = new Rationnel(1,2);
-					frac2 = new Rationnel(-1,2);
+					frac1 = new Rationnel(1, 2);
+					frac2 = new Rationnel(-1, 2);
 					pi = true;
 					deux = true;
 					modulo = true;
 				} else if (-cons * cos.denom / cos.num == 0.5) {
-					frac1 = new Rationnel(1,3);
-					frac2 = new Rationnel(-1,3);
+					frac1 = new Rationnel(1, 3);
+					frac2 = new Rationnel(-1, 3);
 					pi = true;
 					deux = true;
 					modulo = true;
@@ -150,13 +150,13 @@ public class MathSolveur {
 					deux = true;
 					modulo = true;
 				} else if (-cons * sin.denom / sin.num == 0.5) {
-					frac1 = new Rationnel(1,6);
-					frac2 = new Rationnel(5,6);
+					frac1 = new Rationnel(1, 6);
+					frac2 = new Rationnel(5, 6);
 					pi = true;
 					deux = true;
 					modulo = true;
 				} else if (-cons * sin.denom / sin.num == 1) {
-					frac1 = new Rationnel(1,2);
+					frac1 = new Rationnel(1, 2);
 					pi = true;
 					modulo = true;
 				} else if (cons < -1 || cons > 1) {
@@ -311,7 +311,7 @@ public class MathSolveur {
 		}
 		return sb.toString();
 	}
-	
+
 	private MathSolveur() {
 	}
 }
