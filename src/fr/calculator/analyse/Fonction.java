@@ -9,8 +9,7 @@ public class Fonction implements Terme {
 	 */
 	public NomFonction nom;
 	/**
-	 * Ce qui est passé en paramètre de la fonction. Par exemple, dans "cosinus(2x+3)", param vaut
-	 * Parenthese(2*x, 3).
+	 * Ce qui est passé en paramètre de la fonction. Par exemple, dans "cosinus(2x+3)", param vaut Parenthese(2*x, 3).
 	 */
 	public Terme param;
 
@@ -41,32 +40,39 @@ public class Fonction implements Terme {
 	}
 
 	public enum NomFonction {
-		EXPONENTIELLE, LOGARITHME_NEPERIEN, COSINUS, SINUS;
+		EXPONENTIELLE("exp"), LOGARITHME_NEPERIEN("ln"), COSINUS("cos"), SINUS("sin");
+
+		private final String str;
+
+		private NomFonction(String str) {
+			this.str = str;
+		}
 
 		static NomFonction get(String nom) {
 			switch (nom) {
-				case "exp":
-				case "e":
-				case "e^":
-					return EXPONENTIELLE;
-				case "ln":
-					return LOGARITHME_NEPERIEN;
-				case "cos":
-				case "cosinus":
-					return COSINUS;
-				case "sin":
-				case "sinus":
-					return SINUS;
-				case "log":
-					throw new MathException("Pour le logarithme néperien, utilisez ln. Les autres logarithmes ne sont pas supportés.");
-				default:
-					throw new MathException("Fonction inconnue : " + nom);
+			case "exp":
+			case "e":
+			case "e^":
+				return EXPONENTIELLE;
+			case "ln":
+				return LOGARITHME_NEPERIEN;
+			case "cos":
+			case "cosinus":
+				return COSINUS;
+			case "sin":
+			case "sinus":
+				return SINUS;
+			case "log":
+				throw new MathException(
+						"Pour le logarithme néperien, utilisez ln. Les autres logarithmes ne sont pas supportés.");
+			default:
+				throw new MathException("Fonction inconnue : " + nom);
 			}
 		}
 
 		@Override
 		public String toString() {
-			return name().toLowerCase();
+			return str;
 		}
 
 	}
