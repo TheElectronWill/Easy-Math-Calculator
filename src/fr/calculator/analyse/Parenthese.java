@@ -43,6 +43,9 @@ public class Parenthese implements Terme {
 				return termes.get(0).simplifier();
 			default:
 				termes = MathSimplifieur.simplifierTermes(termes);
+				if (termes.isEmpty()) {
+					return new Rationnel(0);
+				}
 				return termes.size() == 1 ? termes.get(0) : this;
 		}
 	}
