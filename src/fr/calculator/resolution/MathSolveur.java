@@ -33,7 +33,7 @@ public class MathSolveur {
 			exp.soustraire(droit.facteurFonctions.get(NomFonction.EXPONENTIELLE)); // Exponentielle réelle.
 		}
 		if (gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN) instanceof Rationnel) {
-			if ((((Rationnel) gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).num > 0 && ((Rationnel) gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).denom > 0) || ((((Rationnel) gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).num < 0 && ((Rationnel) gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).denom < 0))) {
+			if ((Rationnel) gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).decimal() > 0) {
 				cons += gauche.facteurFonctions.get(NomFonction.LOGARITHME_NEPERIEN).decimal() * Math.log(((Rationnel) gauche.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).decimal()); // Logarithme néperien constant.
 			} else {
 				throw new MathException("Le logarithme néperien d'un nombre négatif n'existe pas.");
@@ -42,7 +42,7 @@ public class MathSolveur {
 			log.ajouter(gauche.facteurFonctions.get(NomFonction.LOGARITHME_NEPERIEN)); // Logarithme néperien réel.
 		}
 		if (droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN) instanceof Rationnel) {
-			if ((((Rationnel) droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).num > 0 && ((Rationnel) droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).denom > 0) || (((Rationnel) droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).num < 0 && ((Rationnel) droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).denom < 0)) {
+			if ((Rationnel) droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).decimal() > 0) {
 				cons -= droit.facteurFonctions.get(NomFonction.LOGARITHME_NEPERIEN).decimal() * Math.log(((Rationnel) droit.paramFonctions.get(NomFonction.LOGARITHME_NEPERIEN)).decimal()); // Logarithmr néperien constant.
 			} else {
 				throw new MathException("Le logarithme néperien d'un nombre négatif n'existe pas.");
