@@ -1,16 +1,15 @@
 package fr.calculator;
 
+import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
+
 import fr.calculator.analyse.MathAnalyseur;
 import fr.calculator.resolution.ExpressionSimple;
 import fr.calculator.resolution.MathSimplifieur;
 import fr.calculator.resolution.MathSolveur;
-import javax.swing.JOptionPane;
-import javax.swing.SwingWorker;
 
 /**
- * Un <code>SwingWorker</code> qui effectue les calculs dans un autre Thread que l'EDT (Event Dispatch Thread,
- * le thread
- * dans lequel doit s'effectuer toute modification de composant graphique).
+ * Un <code>SwingWorker</code> qui effectue les calculs dans un autre Thread que l'EDT (Event Dispatch Thread, le thread dans lequel doit s'effectuer toute modification de composant graphique).
  * <p>
  * Un nouveau <code>Calculator</code> est créé à chaque fois qu'on clique sur le bouton "Calculer".
  * </p>
@@ -20,9 +19,7 @@ import javax.swing.SwingWorker;
 public class Calculateur extends SwingWorker<String, Void> {
 
 	/**
-	 * La fenêtre principale. Cette référence est nécessaire pour accéder aux composants graphiques qui sont
-	 * affectés
-	 * par le calcul, comme le JLabel contenant le résultat.
+	 * La fenêtre principale. Cette référence est nécessaire pour accéder aux composants graphiques qui sont affectés par le calcul, comme le JLabel contenant le résultat.
 	 */
 	private final Fenetre fenetre;
 
@@ -53,7 +50,7 @@ public class Calculateur extends SwingWorker<String, Void> {
 				} catch (MathException ex) {
 					throw ex;
 				} catch (Exception ex2) {
-					throw new MathException("Cette expression ne peut pas être simplifiée avec ce logiciel.", ex2);
+					throw new MathException("Cette expression ne peut pas être traitée par logiciel.", ex2);
 				}
 			}
 
