@@ -30,7 +30,7 @@ public class Division implements Terme {
 		if (a.equals(b)) {
 			return new Rationnel(1);
 		}
-		if (b instanceof Rationnel && ((Rationnel) b).num == ((Rationnel) b).denom) {//b vaut 1
+		if (b instanceof Rationnel && ((Rationnel) b).num == ((Rationnel) b).denom) {// b vaut 1
 			return a;
 		}
 		if (a instanceof Rationnel) {
@@ -41,10 +41,10 @@ public class Division implements Terme {
 			if (b instanceof Multiplication) {
 				Multiplication m = (Multiplication) b;
 				if (m.a instanceof Rationnel) {
-					return new Multiplication(new Division(a, m.a), m.b).simplifier();
+					return new Division(new Division(a, m.a), m.b).simplifier();
 				}
 				if (m.b instanceof Rationnel) {
-					return new Multiplication(new Division(a, m.b), m.a).simplifier();
+					return new Division(new Division(a, m.b), m.a).simplifier();
 				}
 			} else if (b instanceof Division) {
 				return new Multiplication(a, b.inverser()).simplifier();
