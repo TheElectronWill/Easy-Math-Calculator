@@ -39,6 +39,15 @@ public class Fonction implements Terme {
 		return nom + "(" + param + ")";
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Fonction) {
+			Fonction f = (Fonction) obj;
+			return nom == f.nom && param.equals(f.param);
+		}
+		return false;
+	}
+
 	public enum NomFonction {
 		EXPONENTIELLE("exp"), LOGARITHME_NEPERIEN("ln"), COSINUS("cos"), SINUS("sin");
 

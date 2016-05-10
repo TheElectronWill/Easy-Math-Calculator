@@ -40,17 +40,16 @@ public class Multiplication implements Terme {
 	}
 
 	/**
-	 * Simplifie cette multiplication. Les paramètres a et b sont présents uniquement pour pouvoir en changer
-	 * l'ordre,
-	 * c'est-à-dire pour pouvoir mettre b en premier et a en deuxième. Ils ne sont ni modifiés ni remplacés
-	 * par d'autres
-	 * termes.
+	 * Simplifie cette multiplication. Les paramètres a et b sont présents uniquement pour pouvoir en changer l'ordre, c'est-à-dire pour pouvoir mettre b en premier et a en deuxième. Ils ne sont ni
+	 * modifiés ni remplacés par d'autres termes.
 	 *
-	 * @param a le premier terme
-	 * @param b le deuxième terme
-	 * @param mayChangeOrder true si l'ordre de a et b peut être changé.
-	 * @return une simplification de cette multiplication, ou cette multiplication si elle ne peut pas être
-	 * simplifiée.
+	 * @param a
+	 *            le premier terme
+	 * @param b
+	 *            le deuxième terme
+	 * @param mayChangeOrder
+	 *            true si l'ordre de a et b peut être changé.
+	 * @return une simplification de cette multiplication, ou cette multiplication si elle ne peut pas être simplifiée.
 	 */
 	private Terme simplifier(final Terme a, final Terme b, final boolean mayChangeOrder) {
 		if (a instanceof Variable) {
@@ -77,10 +76,10 @@ public class Multiplication implements Terme {
 		}
 		if (a instanceof Fonction && b instanceof Fonction) {
 			Fonction fa = (Fonction) a, fb = (Fonction) b;
-			if (fa.param.equals(fb.param)) {
+			if (fa.equals(fb)) {
 				return new Puissance(fa, 2);
 			}
-			return this;//non simplifiable
+			return this;// non simplifiable
 		}
 		if (a instanceof Puissance) {
 			Terme pm = ((Puissance) a).multiplier(b);
@@ -88,7 +87,7 @@ public class Multiplication implements Terme {
 		}
 		if (a instanceof Rationnel) {
 			Rationnel q1 = (Rationnel) a;
-			if (q1.num == q1.denom) {//a vaut 1
+			if (q1.num == q1.denom) {// a vaut 1
 				return b;
 			}
 			if (b instanceof Rationnel) {
@@ -106,7 +105,7 @@ public class Multiplication implements Terme {
 					return new Multiplication(q1.multiplier(q2), m.a).simplifier();
 				}
 			} else if (b instanceof Division) {
-				Division d = (Division) b;//division c/d
+				Division d = (Division) b;// division c/d
 				if (d.a instanceof Rationnel) {// a/(c/d) = a/c * d
 					Rationnel q2 = (Rationnel) d.a;
 					return new Multiplication(q1.diviser(q2), d.b).simplifier();
@@ -122,7 +121,8 @@ public class Multiplication implements Terme {
 
 	@Override
 	public String toString() {
-		if (a instanceof Rationnel && b instanceof Rationnel && ((Rationnel) a).denom == 1 && ((Rationnel) b).denom == 1) {
+		if (a instanceof Rationnel && b instanceof Rationnel && ((Rationnel) a).denom == 1
+				&& ((Rationnel) b).denom == 1) {
 			return a + "*" + b;
 		}
 		return "(" + a + ")*(" + b + ")";
