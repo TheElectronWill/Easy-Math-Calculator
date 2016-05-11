@@ -97,8 +97,8 @@ public class Fenetre extends JFrame {
 		boutonCalculer = new JButton("Calculer/Résoudre");
 		boutonCalculer.addActionListener(new CalculateButtonListener());
 		c.insets = new Insets(5, 5, 5, 15);
-		c.gridx = 3;
-		c.gridwidth = 2;
+		c.gridx = 2;
+		c.gridwidth = 3;
 		panel.add(boutonCalculer, c);
 
 		resultat = new JTextArea("Aucun résultat à afficher pour l'instant.");
